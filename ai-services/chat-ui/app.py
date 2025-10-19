@@ -8,9 +8,25 @@ import os
 from typing import List, Dict, Any
 import io
 
+# Import Talentys theme
+try:
+    from config.talentys_theme import get_company_info
+    COMPANY_INFO = get_company_info()
+except:
+    COMPANY_INFO = {
+        "name": "Talentys",
+        "tagline": "Data Engineering & Analytics Excellence",
+        "website": "https://talentys.eu",
+        "email": "support@talentys.eu",
+        "logo_local": "static/img/talentys-logo.png"
+    }
+
 # Configuration
 RAG_API_URL = os.getenv("RAG_API_URL", "http://rag-api:8002")
 TIMEOUT = 120.0
+
+# Get version from environment variable (set in docker-compose.yml)
+PLATFORM_VERSION = os.getenv("PLATFORM_VERSION", "v1.1.0")
 
 # Page configuration
 st.set_page_config(
@@ -23,6 +39,27 @@ st.set_page_config(
 # Custom CSS
 st.markdown("""
 <style>
+    /* Sidebar logo en haut */
+    [data-testid="stSidebarNav"] {
+        padding-top: 2rem;
+        background-image: url('static/img/talentys-logo.png');
+        background-repeat: no-repeat;
+        background-position: center 1rem;
+        background-size: 60px;
+    }
+    
+    .sidebar-logo {
+        text-align: center;
+        padding: 1rem 0 1.5rem 0;
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 1.5rem;
+    }
+    
+    .sidebar-logo img {
+        width: 80px;
+        height: auto;
+    }
+    
     .main-header {
         font-size: 2.5rem;
         font-weight: bold;
@@ -64,6 +101,12 @@ st.markdown("Ask questions about your data or upload documents to expand the kno
 
 # Sidebar
 with st.sidebar:
+    # Logo Talentys monochrome centré en haut de la sidebar
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.image("static/img/talentys-logo-mono.png", width=80)
+    st.markdown("---")
+    
     st.header("⚙️ Configuration")
     
     # Model selection
@@ -415,7 +458,7 @@ if prompt := st.chat_input("Ask a question about your data..."):
 st.divider()
 col1, col2, col3 = st.columns(3)
 with col1:
-    st.markdown("**📊 Data Platform v1.0 (AI-Ready)**")
+    st.markdown(f"**📊 Talentys Data Platform {PLATFORM_VERSION} (AI-Ready)**")
 with col2:
     st.markdown(f"**🤖 Model:** {selected_model}")
 with col3:

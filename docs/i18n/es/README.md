@@ -1,5 +1,14 @@
 ﻿# Plataforma de datos
 
+<p align="center">
+  <a href="https://talentys.eu" target="_blank">
+    <img src="../../assets/images/talentys/original.png" alt="Talentys Data" width="200"/>
+  </a>
+  <br/>
+  <em>Supported by <a href="https://talentys.eu">Talentys</a> | <a href="https://www.linkedin.com/company/talentysdata">LinkedIn</a> - Data Engineering & Analytics Excellence</em>
+</p>
+
+
 **Solución de lago de datos empresariales**
 
 **Idioma**: Francés (FR)  

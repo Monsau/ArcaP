@@ -1,5 +1,14 @@
 ﻿# Dataplatform
 
+<p align="center">
+  <a href="https://talentys.eu" target="_blank">
+    <img src="../../assets/images/talentys/original.png" alt="Talentys Data" width="200"/>
+  </a>
+  <br/>
+  <em>Supported by <a href="https://talentys.eu">Talentys</a> | <a href="https://www.linkedin.com/company/talentysdata">LinkedIn</a> - Data Engineering & Analytics Excellence</em>
+</p>
+
+
 **Enterprise data lakehouse-oplossing**
 
 **Taal**: Frans (FR)  
@@ -16,10 +25,10 @@ Dit platform biedt een complete oplossing voor moderne data-engineering, inclusi
 
 ```mermaid
 graph LR
-    A[Sources de données] --> B[Dremio]
+    A[Sources de donnÃ©es] --> B[Dremio]
     B --> C[dbt]
     C --> D[Superset]
-    D --> E[Insights métier]
+    D --> E[Insights mÃ©tier]
     
     style B fill:#f5f5f5,stroke:#333,stroke-width:2px
     style C fill:#e8e8e8,stroke:#333,stroke-width:2px
@@ -50,16 +59,16 @@ graph LR
 ### Faciliteit
 
 ```bash
-# Installer les dépendances
+# Installer les dÃ©pendances
 pip install -r requirements.txt
 
-# Démarrer les services
+# DÃ©marrer les services
 make up
 
-# Vérifier l'installation
+# VÃ©rifier l'installation
 make status
 
-# Exécuter les tests de qualité
+# ExÃ©cuter les tests de qualitÃ©
 make dbt-test
 ```
 
@@ -103,7 +112,7 @@ Zie de [architectuurdocumentatie](architectuur/) voor gedetailleerd systeemontwe
 - [Systeemontwerp](architectuur/)
 - [Gegevensstroom](architectuur/)
 - [Implementatiehandleiding](architectuur/)
-- [🎯 Visuele gids Dremio Ports] (architectuur/dremio-ports-visual.md) ⭐ NIEUW
+- [ðŸŽ¯ Visuele gids Dremio Ports] (architectuur/dremio-ports-visual.md) â­ NIEUW
 
 ---
 
@@ -115,10 +124,10 @@ Zie de [architectuurdocumentatie](architectuur/) voor gedetailleerd systeemontwe
 | Frans | NL | [docs/i18n/fr/](../fr/README.md) |
 | Spaans | ES | [docs/i18n/es/](../es/README.md) |
 | Portugees | PT | [docs/i18n/pt/](../pt/README.md) |
-| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
-| 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
-| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
-| Русский | VK | [docs/i18n/ru/](../ru/README.md) |
+| Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© | AR | [docs/i18n/ar/](../ar/README.md) |
+| ä¸­æ–‡ | CN | [docs/i18n/cn/](../cn/README.md) |
+| æ—¥æœ¬èªž | JP | [docs/i18n/jp/](../jp/README.md) |
+| Ð ÑƒÑÑÐºÐ¸Ð¹ | VK | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 

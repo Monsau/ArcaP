@@ -1,25 +1,34 @@
 ﻿# Datenplattform
 
-**Enterprise Data Lakehouse-Lösung**
+<p align="center">
+  <a href="https://talentys.eu" target="_blank">
+    <img src="../../assets/images/talentys/original.png" alt="Talentys Data" width="200"/>
+  </a>
+  <br/>
+  <em>Supported by <a href="https://talentys.eu">Talentys</a> | <a href="https://www.linkedin.com/company/talentysdata">LinkedIn</a> - Data Engineering & Analytics Excellence</em>
+</p>
 
-**Sprache**: Französisch (FR)  
+
+**Enterprise Data Lakehouse-LÃ¶sung**
+
+**Sprache**: FranzÃ¶sisch (FR)  
 **Version**: 3.3.1  
 **Letzte Aktualisierung**: 19. Oktober 2025
 
 ---
 
-## Übersicht
+## Ãœbersicht
 
-Professionelle Datenplattform, die Dremio, dbt und Apache Superset für Datentransformation, Qualitätssicherung und Business Intelligence auf Unternehmensniveau kombiniert.
+Professionelle Datenplattform, die Dremio, dbt und Apache Superset fÃ¼r Datentransformation, QualitÃ¤tssicherung und Business Intelligence auf Unternehmensniveau kombiniert.
 
-Diese Plattform bietet eine Komplettlösung für modernes Data Engineering, einschließlich automatisierter Datenpipelines, Qualitätstests und interaktiver Dashboards.
+Diese Plattform bietet eine KomplettlÃ¶sung fÃ¼r modernes Data Engineering, einschlieÃŸlich automatisierter Datenpipelines, QualitÃ¤tstests und interaktiver Dashboards.
 
 ```mermaid
 graph LR
-    A[Sources de données] --> B[Dremio]
+    A[Sources de donnÃ©es] --> B[Dremio]
     B --> C[dbt]
     C --> D[Superset]
-    D --> E[Insights métier]
+    D --> E[Insights mÃ©tier]
     
     style B fill:#f5f5f5,stroke:#333,stroke-width:2px
     style C fill:#e8e8e8,stroke:#333,stroke-width:2px
@@ -33,8 +42,8 @@ graph LR
 - Daten-Lakehouse-Architektur mit Dremio
 - Automatisierte Transformationen mit dbt
 - Business Intelligence mit Apache Superset
-- Umfassende Prüfung der Datenqualität
-- Echtzeitsynchronisierung über Arrow Flight
+- Umfassende PrÃ¼fung der DatenqualitÃ¤t
+- Echtzeitsynchronisierung Ã¼ber Arrow Flight
 
 ---
 
@@ -42,24 +51,24 @@ graph LR
 
 ### Voraussetzungen
 
-- Docker 20.10 oder höher
-- Docker Compose 2.0 oder höher
-- Python 3.11 oder höher
+- Docker 20.10 oder hÃ¶her
+- Docker Compose 2.0 oder hÃ¶her
+- Python 3.11 oder hÃ¶her
 - Mindestens 8 GB RAM
 
 ### Einrichtung
 
 ```bash
-# Installer les dépendances
+# Installer les dÃ©pendances
 pip install -r requirements.txt
 
-# Démarrer les services
+# DÃ©marrer les services
 make up
 
-# Vérifier l'installation
+# VÃ©rifier l'installation
 make status
 
-# Exécuter les tests de qualité
+# ExÃ©cuter les tests de qualitÃ©
 make dbt-test
 ```
 
@@ -78,7 +87,7 @@ make dbt-test
 | MinIO | 9000, 9001 | Objektspeicher (S3-kompatibel) |
 | Elasticsearch | 9200 | Such- und Analysemaschine |
 
-Ausführliche Informationen zum Systemdesign finden Sie in der [Architekturdokumentation](architecture/).
+AusfÃ¼hrliche Informationen zum Systemdesign finden Sie in der [Architekturdokumentation](architecture/).
 
 ---
 
@@ -89,7 +98,7 @@ Ausführliche Informationen zum Systemdesign finden Sie in der [Architekturdokum
 - [Konfiguration](erste Schritte/)
 - [Erste Schritte](getting-started/)
 
-### Benutzerhandbücher
+### BenutzerhandbÃ¼cher
 - [Datentechnik](Anleitungen/)
 - [Erstellung von Dashboards](guides/)
 - [API-Integration](guides/)
@@ -103,28 +112,28 @@ Ausführliche Informationen zum Systemdesign finden Sie in der [Architekturdokum
 - [Systemdesign](Architektur/)
 - [Datenfluss](architecture/)
 - [Bereitstellungsleitfaden](architecture/)
-- [🎯 Dremio Ports Visual Guide](architecture/dremio-ports-visual.md) ⭐ NEU
+- [ðŸŽ¯ Dremio Ports Visual Guide](architecture/dremio-ports-visual.md) â­ NEU
 
 ---
 
-## Verfügbare Sprachen
+## VerfÃ¼gbare Sprachen
 
 | Sprache | Code | Dokumentation |
 |--------|------|---------------|
 | Englisch | DE | [README.md](../../../README.md) |
-| Französisch | DE | [docs/i18n/fr/](../fr/README.md) |
+| FranzÃ¶sisch | DE | [docs/i18n/fr/](../fr/README.md) |
 | Spanisch | ES | [docs/i18n/es/](../es/README.md) |
 | Portugiesisch | PT | [docs/i18n/pt/](../pt/README.md) |
-| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
-| 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
-| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
-| Russisch | Großbritannien | [docs/i18n/ru/](../ru/README.md) |
+| Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© | AR | [docs/i18n/ar/](../ar/README.md) |
+| ä¸­æ–‡ | CN | [docs/i18n/cn/](../cn/README.md) |
+| æ—¥æœ¬èªž | JP | [docs/i18n/jp/](../jp/README.md) |
+| Russisch | GroÃŸbritannien | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 
-## Unterstützung
+## UnterstÃ¼tzung
 
-Für technische Unterstützung:
+FÃ¼r technische UnterstÃ¼tzung:
 - Dokumentation: [README main](../../../README.md)
 - Issue Tracker: GitHub-Probleme
 - Community-Forum: GitHub-Diskussionen
@@ -132,4 +141,4 @@ Für technische Unterstützung:
 
 ---
 
-**[Zurück zur Hauptdokumentation](../../../README.md)**
+**[ZurÃ¼ck zur Hauptdokumentation](../../../README.md)**

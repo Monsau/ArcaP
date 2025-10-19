@@ -175,6 +175,7 @@ services:
       - RAG_API_URL=http://rag-api:8002
       - STREAMLIT_SERVER_PORT=8501
       - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+      - PLATFORM_VERSION=v1.1.0
     depends_on:
       - rag-api
     networks:

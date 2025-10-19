@@ -1,5 +1,14 @@
 ﻿# Data platform
 
+<p align="center">
+  <a href="https://talentys.eu" target="_blank">
+    <img src="../../assets/images/talentys/original.png" alt="Talentys Data" width="200"/>
+  </a>
+  <br/>
+  <em>Supported by <a href="https://talentys.eu">Talentys</a> | <a href="https://www.linkedin.com/company/talentysdata">LinkedIn</a> - Data Engineering & Analytics Excellence</em>
+</p>
+
+
 **Enterprise data lakehouse solution**
 
 **Language**: French (FR)  
@@ -16,10 +25,10 @@ This platform provides a complete solution for modern data engineering, includin
 
 ```mermaid
 graph LR
-    A[Sources de données] --> B[Dremio]
+    A[Sources de donnÃ©es] --> B[Dremio]
     B --> C[dbt]
     C --> D[Superset]
-    D --> E[Insights métier]
+    D --> E[Insights mÃ©tier]
     
     style B fill:#f5f5f5,stroke:#333,stroke-width:2px
     style C fill:#e8e8e8,stroke:#333,stroke-width:2px
@@ -50,16 +59,16 @@ graph LR
 ### Facility
 
 ```bash
-# Installer les dépendances
+# Installer les dÃ©pendances
 pip install -r requirements.txt
 
-# Démarrer les services
+# DÃ©marrer les services
 make up
 
-# Vérifier l'installation
+# VÃ©rifier l'installation
 make status
 
-# Exécuter les tests de qualité
+# ExÃ©cuter les tests de qualitÃ©
 make dbt-test
 ```
 
@@ -103,7 +112,7 @@ See the [architecture documentation](architecture/) for detailed system design.
 - [System design](architecture/)
 - [Data flow](architecture/)
 - [Deployment guide](architecture/)
-- [🎯 Dremio Ports Visual Guide](architecture/dremio-ports-visual.md) ⭐ NEW
+- [ðŸŽ¯ Dremio Ports Visual Guide](architecture/dremio-ports-visual.md) â­ NEW
 
 ---
 
@@ -115,10 +124,10 @@ See the [architecture documentation](architecture/) for detailed system design.
 | French | EN | [docs/i18n/fr/](../fr/README.md) |
 | Spanish | ES | [docs/i18n/es/](../es/README.md) |
 | Portuguese | PT | [docs/i18n/pt/](../pt/README.md) |
-| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
-| 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
-| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
-| Русский | UK | [docs/i18n/ru/](../ru/README.md) |
+| Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© | AR | [docs/i18n/ar/](../ar/README.md) |
+| ä¸­æ–‡ | CN | [docs/i18n/cn/](../cn/README.md) |
+| æ—¥æœ¬èªž | JP | [docs/i18n/jp/](../jp/README.md) |
+| Ð ÑƒÑÑÐºÐ¸Ð¹ | UK | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 
@@ -128,7 +137,7 @@ For technical assistance:
 - Documentation: [README main](../../../README.md)
 - Issue Tracker: GitHub Issues
 - Community forum: GitHub Discussions
-- Email: support@example.com
+- Email: support@talentys.eu
 
 ---
 

@@ -19,7 +19,7 @@
 
 <p align="center">
   <a href="https://talentys.eu" target="_blank">
-    <img src="https://talentys.eu/logo.png" alt="Supported by Talentys Data" width="200"/>
+    <img src="assets/images/talentys/original.png" alt="Supported by Talentys Data" width="200"/>
   </a>
   <br/>
   <em>Supported by <a href="https://talentys.eu">Talentys</a> | <a href="https://www.linkedin.com/company/talentysdata">LinkedIn</a> - Data Engineering & Analytics Excellence</em>
@@ -504,6 +504,61 @@ data-platform-iso-opensource/
 │
 └── docker-compose.yml              # Infrastructure definition
 ```
+
+---
+
+## 🗺️ Roadmap
+
+Our vision for the future of Talentys Data Platform with **monthly releases**:
+
+### 📦 v1.2.0 - November 2025 (Next Release)
+**Focus: OpenMetadata Integration Phase 1**
+
+- 🔍 **OpenMetadata**: Complete metadata catalog, data lineage, data quality
+- 📝 **Auto-documentation**: LLM-generated dataset descriptions, PII detection
+
+### 📦 v1.2.1 - December 2025
+**Focus: OpenMetadata Phase 2 & Enhanced Chat UI**
+
+- 💬 **Enhanced Chat UI**: Persistent history, export capabilities, bookmarks, themes
+- � **OpenMetadata**: Smart tagging, column-level metadata
+
+### 📦 v1.3.x - January-March 2026
+**Focus: Security & Authentication**
+
+- 🔐 OAuth2/SSO, RBAC, API security (Jan)
+- 📊 Real-time analytics dashboard with alerting (Feb)
+- 🎨 UI/UX improvements, user management (Mar)
+
+### 📦 v1.4.x - April-June 2026
+**Focus: Advanced AI & ML**
+
+- 🤖 MLOps with MLflow, advanced RAG (Apr)
+- 🧠 Multi-model LLM support, prompt engineering (May)
+- 📊 Predictive analytics, automated insights (Jun)
+
+### 📦 v1.5.x - July-September 2026
+**Focus: Cloud Native & Kubernetes**
+
+- ☁️ Helm charts, Kubernetes operators (Jul)
+- 🌐 Multi-cloud support (AWS, Azure, GCP), hybrid cloud (Aug)
+- 🔄 GitOps with ArgoCD, OpenTelemetry observability (Sep)
+
+### 📦 v1.6.x - October-December 2026
+**Focus: Enterprise Features**
+
+- 🏢 Multi-tenancy, white-labeling (Oct)
+- 💼 Enterprise governance, audit logging, data masking (Nov)
+- 📱 Mobile app (iOS/Android), complete API (Dec)
+
+### 📦 v2.0.0 - 2027
+**Focus: Next-Generation Platform**
+
+- 🚀 AI-first platform with natural language to SQL
+- 🌊 Real-time streaming with Kafka/Flink
+- 🌍 Data Mesh architecture, global scale
+
+📄 **Full roadmap** (18 languages): [English](docs/i18n/en/ROADMAP.md) | [Français](docs/i18n/fr/ROADMAP.md) | [Español](docs/i18n/es/ROADMAP.md) | [All languages](docs/i18n/)
 
 ---
 

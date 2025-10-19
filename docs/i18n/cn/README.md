@@ -1,25 +1,34 @@
-﻿# 数据平台
+﻿# æ•°æ®å¹³å°
 
-**企业数据湖屋解决方案**
+<p align="center">
+  <a href="https://talentys.eu" target="_blank">
+    <img src="../../assets/images/talentys/original.png" alt="Talentys Data" width="200"/>
+  </a>
+  <br/>
+  <em>Supported by <a href="https://talentys.eu">Talentys</a> | <a href="https://www.linkedin.com/company/talentysdata">LinkedIn</a> - Data Engineering & Analytics Excellence</em>
+</p>
 
-**语言**：法语（FR）  
-**版本**：3.3.1  
-**最后更新**：2025 年 10 月 19 日
+
+**ä¼ä¸šæ•°æ®æ¹–å±‹è§£å†³æ–¹æ¡ˆ**
+
+**è¯­è¨€**ï¼šæ³•è¯­ï¼ˆFRï¼‰  
+**ç‰ˆæœ¬**ï¼š3.3.1  
+**æœ€åŽæ›´æ–°**ï¼š2025 å¹´ 10 æœˆ 19 æ—¥
 
 ---
 
-＃＃ 概述
+ï¼ƒï¼ƒ æ¦‚è¿°
 
-结合了 Dremio、dbt 和 Apache Superset 的专业数据平台，用于企业级数据转换、质量保证和商业智能。
+ç»“åˆäº† Dremioã€dbt å’Œ Apache Superset çš„ä¸“ä¸šæ•°æ®å¹³å°ï¼Œç”¨äºŽä¼ä¸šçº§æ•°æ®è½¬æ¢ã€è´¨é‡ä¿è¯å’Œå•†ä¸šæ™ºèƒ½ã€‚
 
-该平台为现代数据工程提供了完整的解决方案，包括自动化数据管道、质量测试和交互式仪表板。
+è¯¥å¹³å°ä¸ºçŽ°ä»£æ•°æ®å·¥ç¨‹æä¾›äº†å®Œæ•´çš„è§£å†³æ–¹æ¡ˆï¼ŒåŒ…æ‹¬è‡ªåŠ¨åŒ–æ•°æ®ç®¡é“ã€è´¨é‡æµ‹è¯•å’Œäº¤äº’å¼ä»ªè¡¨æ¿ã€‚
 
 ```mermaid
 graph LR
-    A[Sources de données] --> B[Dremio]
+    A[Sources de donnÃ©es] --> B[Dremio]
     B --> C[dbt]
     C --> D[Superset]
-    D --> E[Insights métier]
+    D --> E[Insights mÃ©tier]
     
     style B fill:#f5f5f5,stroke:#333,stroke-width:2px
     style C fill:#e8e8e8,stroke:#333,stroke-width:2px
@@ -28,108 +37,108 @@ graph LR
 
 ---
 
-## 主要特点
+## ä¸»è¦ç‰¹ç‚¹
 
-- 与 Dremio 合作的数据湖屋架构
-- 使用 dbt 自动转换
-- 使用 Apache Superset 的商业智能
-- 全面的数据质量测试
-- 通过 Arrow Flight 实时同步
+- ä¸Ž Dremio åˆä½œçš„æ•°æ®æ¹–å±‹æž¶æž„
+- ä½¿ç”¨ dbt è‡ªåŠ¨è½¬æ¢
+- ä½¿ç”¨ Apache Superset çš„å•†ä¸šæ™ºèƒ½
+- å…¨é¢çš„æ•°æ®è´¨é‡æµ‹è¯•
+- é€šè¿‡ Arrow Flight å®žæ—¶åŒæ­¥
 
 ---
 
-## 快速入门指南
+## å¿«é€Ÿå…¥é—¨æŒ‡å—
 
-### 先决条件
+### å…ˆå†³æ¡ä»¶
 
-- Docker 20.10 或更高版本
-- Docker Compose 2.0 或更高版本
-- Python 3.11 或更高版本
-- 至少 8 GB RAM
+- Docker 20.10 æˆ–æ›´é«˜ç‰ˆæœ¬
+- Docker Compose 2.0 æˆ–æ›´é«˜ç‰ˆæœ¬
+- Python 3.11 æˆ–æ›´é«˜ç‰ˆæœ¬
+- è‡³å°‘ 8 GB RAM
 
-＃＃＃ 设施
+ï¼ƒï¼ƒï¼ƒ è®¾æ–½
 
 ```bash
-# Installer les dépendances
+# Installer les dÃ©pendances
 pip install -r requirements.txt
 
-# Démarrer les services
+# DÃ©marrer les services
 make up
 
-# Vérifier l'installation
+# VÃ©rifier l'installation
 make status
 
-# Exécuter les tests de qualité
+# ExÃ©cuter les tests de qualitÃ©
 make dbt-test
 ```
 
 ---
 
-＃＃ 建筑学
+ï¼ƒï¼ƒ å»ºç­‘å­¦
 
-### 系统组件
+### ç³»ç»Ÿç»„ä»¶
 
-|组件|港口|描述 |
+|ç»„ä»¶|æ¸¯å£|æè¿° |
 |----------------|------|-------------|
-|德雷米奥 | 9047, 31010, 32010 |数据湖屋平台|
-|数据库技术 | - |数据转换工具|
-|超级组 | 8088 |商业智能平台|
-| PostgreSQL | 5432 |交易数据库|
-|迷你IO | 9000、9001 |对象存储（S3 兼容）|
-|弹性搜索 | 9200 | 9200搜索与分析引擎|
+|å¾·é›·ç±³å¥¥ | 9047, 31010, 32010 |æ•°æ®æ¹–å±‹å¹³å°|
+|æ•°æ®åº“æŠ€æœ¯ | - |æ•°æ®è½¬æ¢å·¥å…·|
+|è¶…çº§ç»„ | 8088 |å•†ä¸šæ™ºèƒ½å¹³å°|
+| PostgreSQL | 5432 |äº¤æ˜“æ•°æ®åº“|
+|è¿·ä½ IO | 9000ã€9001 |å¯¹è±¡å­˜å‚¨ï¼ˆS3 å…¼å®¹ï¼‰|
+|å¼¹æ€§æœç´¢ | 9200 | 9200æœç´¢ä¸Žåˆ†æžå¼•æ“Ž|
 
-详细的系统设计请参见[架构文档](architecture/)。
-
----
-
-## 文档
-
-### 启动
-- [安装指南](入门/)
-- [配置]（入门/）
-- [入门](入门/)
-
-### 用户指南
-- [数据工程](指南/)
-- [仪表板的创建]（指南/）
-- [API集成](指南/)
-
-### API 文档
-- [REST API 参考](api/)
-- [身份验证](api/)
-- [代码示例](api/)
-
-### 架构文档
-- [系统设计](架构/)
-- [数据流](架构/)
-- [部署指南](架构/)
-- [🎯Dremio Ports 视觉指南](architecture/dremio-ports-visual.md) ⭐ 新
+è¯¦ç»†çš„ç³»ç»Ÿè®¾è®¡è¯·å‚è§[æž¶æž„æ–‡æ¡£](architecture/)ã€‚
 
 ---
 
-## 可用语言
+## æ–‡æ¡£
 
-|语言 |代码|文档 |
+### å¯åŠ¨
+- [å®‰è£…æŒ‡å—](å…¥é—¨/)
+- [é…ç½®]ï¼ˆå…¥é—¨/ï¼‰
+- [å…¥é—¨](å…¥é—¨/)
+
+### ç”¨æˆ·æŒ‡å—
+- [æ•°æ®å·¥ç¨‹](æŒ‡å—/)
+- [ä»ªè¡¨æ¿çš„åˆ›å»º]ï¼ˆæŒ‡å—/ï¼‰
+- [APIé›†æˆ](æŒ‡å—/)
+
+### API æ–‡æ¡£
+- [REST API å‚è€ƒ](api/)
+- [èº«ä»½éªŒè¯](api/)
+- [ä»£ç ç¤ºä¾‹](api/)
+
+### æž¶æž„æ–‡æ¡£
+- [ç³»ç»Ÿè®¾è®¡](æž¶æž„/)
+- [æ•°æ®æµ](æž¶æž„/)
+- [éƒ¨ç½²æŒ‡å—](æž¶æž„/)
+- [ðŸŽ¯Dremio Ports è§†è§‰æŒ‡å—](architecture/dremio-ports-visual.md) â­ æ–°
+
+---
+
+## å¯ç”¨è¯­è¨€
+
+|è¯­è¨€ |ä»£ç |æ–‡æ¡£ |
 |--------|------|----------------|
-|英语 | CN | [README.md](../../../README.md) |
-|法语 | CN | [docs/i18n/fr/](../fr/README.md) |
-|西班牙语 |英语 | [文档/i18n/es/](../es/README.md) |
-|葡萄牙语 | PT | [文档/i18n/pt/](../pt/README.md) |
-|迪拜 |增强现实 | [文档/i18n/ar/](../ar/README.md) |
-| 中文 |中文 | [docs/i18n/cn/](../cn/README.md) |
-| 日本语 |日本 | [docs/i18n/jp/](../jp/README.md) |
-| Русский | 俄罗斯英国 | [docs/i18n/ru/](../ru/README.md) |
+|è‹±è¯­ | CN | [README.md](../../../README.md) |
+|æ³•è¯­ | CN | [docs/i18n/fr/](../fr/README.md) |
+|è¥¿ç­ç‰™è¯­ |è‹±è¯­ | [æ–‡æ¡£/i18n/es/](../es/README.md) |
+|è‘¡è„ç‰™è¯­ | PT | [æ–‡æ¡£/i18n/pt/](../pt/README.md) |
+|è¿ªæ‹œ |å¢žå¼ºçŽ°å®ž | [æ–‡æ¡£/i18n/ar/](../ar/README.md) |
+| ä¸­æ–‡ |ä¸­æ–‡ | [docs/i18n/cn/](../cn/README.md) |
+| æ—¥æœ¬è¯­ |æ—¥æœ¬ | [docs/i18n/jp/](../jp/README.md) |
+| Ð ÑƒÑÑÐºÐ¸Ð¹ | ä¿„ç½—æ–¯è‹±å›½ | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 
-＃＃ 支持
+ï¼ƒï¼ƒ æ”¯æŒ
 
-如需技术援助：
-- 文档：[README main](../../../README.md)
-- 问题跟踪器：GitHub 问题
-- 社区论坛：GitHub 讨论
-- 电子邮件：support@example.com
+å¦‚éœ€æŠ€æœ¯æ´åŠ©ï¼š
+- æ–‡æ¡£ï¼š[README main](../../../README.md)
+- é—®é¢˜è·Ÿè¸ªå™¨ï¼šGitHub é—®é¢˜
+- ç¤¾åŒºè®ºå›ï¼šGitHub è®¨è®º
+- ç”µå­é‚®ä»¶ï¼šsupport@example.com
 
 ---
 
-**[返回主文档](../../../README.md)**
+**[è¿”å›žä¸»æ–‡æ¡£](../../../README.md)**

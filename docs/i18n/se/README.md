@@ -1,25 +1,34 @@
-# Dataplattform
+﻿# Dataplattform
 
-**Enterprise data lakehouse-lösning**
+<p align="center">
+  <a href="https://talentys.eu" target="_blank">
+    <img src="../../assets/images/talentys/original.png" alt="Talentys Data" width="200"/>
+  </a>
+  <br/>
+  <em>Supported by <a href="https://talentys.eu">Talentys</a> | <a href="https://www.linkedin.com/company/talentysdata">LinkedIn</a> - Data Engineering & Analytics Excellence</em>
+</p>
 
-**Språk**: Franska (FR)  
+
+**Enterprise data lakehouse-lÃ¶sning**
+
+**SprÃ¥k**: Franska (FR)  
 **Version**: 3.3.1  
 **Senast uppdaterad**: 19 oktober 2025
 
 ---
 
-## Översikt
+## Ã–versikt
 
-Professionell dataplattform som kombinerar Dremio, dbt och Apache Superset för datatransformation av företagsklass, kvalitetssäkring och business intelligence.
+Professionell dataplattform som kombinerar Dremio, dbt och Apache Superset fÃ¶r datatransformation av fÃ¶retagsklass, kvalitetssÃ¤kring och business intelligence.
 
-Denna plattform tillhandahåller en komplett lösning för modern datateknik, inklusive automatiserade datapipelines, kvalitetstester och interaktiva instrumentpaneler.
+Denna plattform tillhandahÃ¥ller en komplett lÃ¶sning fÃ¶r modern datateknik, inklusive automatiserade datapipelines, kvalitetstester och interaktiva instrumentpaneler.
 
 ```mermaid
 graph LR
-    A[Sources de données] --> B[Dremio]
+    A[Sources de donnÃ©es] --> B[Dremio]
     B --> C[dbt]
     C --> D[Superset]
-    D --> E[Insights métier]
+    D --> E[Insights mÃ©tier]
     
     style B fill:#f5f5f5,stroke:#333,stroke-width:2px
     style C fill:#e8e8e8,stroke:#333,stroke-width:2px
@@ -40,26 +49,26 @@ graph LR
 
 ## Snabbstartguide
 
-### Förutsättningar
+### FÃ¶rutsÃ¤ttningar
 
 - Docker 20.10 eller senare
-- Docker Compose 2.0 eller högre
-- Python 3.11 eller högre
+- Docker Compose 2.0 eller hÃ¶gre
+- Python 3.11 eller hÃ¶gre
 - Minst 8 GB RAM
 
-### Anläggning
+### AnlÃ¤ggning
 
 ```bash
-# Installer les dépendances
+# Installer les dÃ©pendances
 pip install -r requirements.txt
 
-# Démarrer les services
+# DÃ©marrer les services
 make up
 
-# Vérifier l'installation
+# VÃ©rifier l'installation
 make status
 
-# Exécuter les tests de qualité
+# ExÃ©cuter les tests de qualitÃ©
 make dbt-test
 ```
 
@@ -76,20 +85,20 @@ make dbt-test
 | Superset | 8088 | Business Intelligence-plattform |
 | PostgreSQL | 5432 | Transaktionsdatabas |
 | MinIO | 9000, 9001 | Objektlagring (S3-kompatibel) |
-| Elasticsearch | 9200 | Sök- och analysmotor |
+| Elasticsearch | 9200 | SÃ¶k- och analysmotor |
 
-Se [arkitekturdokumentationen](arkitektur/) för detaljerad systemdesign.
+Se [arkitekturdokumentationen](arkitektur/) fÃ¶r detaljerad systemdesign.
 
 ---
 
 ## Dokumentation
 
 ### Start
-- [Installationsguide](komma igång/)
-- [Konfiguration](komma igång/)
-- [Komma igång](komma igång/)
+- [Installationsguide](komma igÃ¥ng/)
+- [Konfiguration](komma igÃ¥ng/)
+- [Komma igÃ¥ng](komma igÃ¥ng/)
 
-### Användarguider
+### AnvÃ¤ndarguider
 - [Datateknik](guider/)
 - [Skapa instrumentpaneler](guider/)
 - [API-integration](guider/)
@@ -101,35 +110,35 @@ Se [arkitekturdokumentationen](arkitektur/) för detaljerad systemdesign.
 
 ### Arkitekturdokumentation
 - [Systemdesign](arkitektur/)
-- [Dataflöde](arkitektur/)
+- [DataflÃ¶de](arkitektur/)
 - [Deployment guide](arkitektur/)
-- [🎯 Dremio Ports Visual Guide](architecture/dremio-ports-visual.md) ⭐ NYTT
+- [ðŸŽ¯ Dremio Ports Visual Guide](architecture/dremio-ports-visual.md) â­ NYTT
 
 ---
 
-## Tillgängliga språk
+## TillgÃ¤ngliga sprÃ¥k
 
-| Språk | Kod | Dokumentation |
+| SprÃ¥k | Kod | Dokumentation |
 |--------|------|---------------|
 | engelska | SV | [README.md](../../../README.md) |
 | franska | SV | [docs/i18n/fr/](../fr/README.md) |
 | Spanska | ES | [docs/i18n/es/](../es/README.md) |
 | portugisiska | PT | [docs/i18n/pt/](../pt/README.md) |
-| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
-| 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
-| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
-| Русский | Storbritannien | [docs/i18n/ru/](../ru/README.md) |
+| Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© | AR | [docs/i18n/ar/](../ar/README.md) |
+| ä¸­æ–‡ | CN | [docs/i18n/cn/](../cn/README.md) |
+| æ—¥æœ¬èªž | JP | [docs/i18n/jp/](../jp/README.md) |
+| Ð ÑƒÑÑÐºÐ¸Ð¹ | Storbritannien | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 
 ## Support
 
-För teknisk hjälp:
+FÃ¶r teknisk hjÃ¤lp:
 - Dokumentation: [README main](../../../README.md)
 - Issue Tracker: GitHub-problem
 - Gemenskapsforum: GitHub-diskussioner
-- E-post: support@example.com
+- E-post: support@talentys.eu
 
 ---
 
-**[Återgå till huvuddokumentationen](../../../README.md)**
+**[Ã…tergÃ¥ till huvuddokumentationen](../../../README.md)**

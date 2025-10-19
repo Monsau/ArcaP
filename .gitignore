@@ -94,6 +94,11 @@ minio/data/
 postgres/data/
 dremio/data/
 
+# ===== OPENMETADATA =====
+openmetadata/
+!openmetadata/conf/
+!openmetadata/README.md
+
 # ===== REPORTS & TEMPORARY =====
 *_REPORT.json
 *_REPORT.md

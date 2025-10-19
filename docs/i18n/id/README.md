@@ -1,5 +1,14 @@
 ﻿# Platform data
 
+<p align="center">
+  <a href="https://talentys.eu" target="_blank">
+    <img src="../../assets/images/talentys/original.png" alt="Talentys Data" width="200"/>
+  </a>
+  <br/>
+  <em>Supported by <a href="https://talentys.eu">Talentys</a> | <a href="https://www.linkedin.com/company/talentysdata">LinkedIn</a> - Data Engineering & Analytics Excellence</em>
+</p>
+
+
 **Solusi data lakehouse perusahaan**
 
 **Bahasa**: Prancis (FR)  
@@ -14,7 +23,7 @@ Platform data profesional yang menggabungkan Dremio, dbt, dan Apache Superset un
 
 Platform ini memberikan solusi lengkap untuk rekayasa data modern, termasuk jalur data otomatis, pengujian kualitas, dan dasbor interaktif.
 
-§§§KODE_0§§§
+Â§Â§Â§KODE_0Â§Â§Â§
 
 ---
 
@@ -39,7 +48,7 @@ Platform ini memberikan solusi lengkap untuk rekayasa data modern, termasuk jalu
 
 ### Fasilitas
 
-§§§KODE_1§§§
+Â§Â§Â§KODE_1Â§Â§Â§
 
 ---
 
@@ -81,7 +90,7 @@ Lihat [dokumentasi arsitektur](arsitektur/) untuk desain sistem terperinci.
 - [Desain sistem](arsitektur/)
 - [Aliran data](arsitektur/)
 - [Panduan penerapan](arsitektur/)
-- [🎯 Panduan Visual Dremio Ports](arsitektur/dremio-ports-visual.md) ⭐ BARU
+- [ðŸŽ¯ Panduan Visual Dremio Ports](arsitektur/dremio-ports-visual.md) â­ BARU
 
 ---
 
@@ -93,10 +102,10 @@ Lihat [dokumentasi arsitektur](arsitektur/) untuk desain sistem terperinci.
 | Perancis | EN | [docs/i18n/fr/](../fr/README.md) |
 | Spanyol | ES | [docs/i18n/es/](../es/README.md) |
 | Portugis | PT | [docs/i18n/pt/](../pt/README.md) |
-| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
-| 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
-| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
-| Русский | Inggris | [docs/i18n/ru/](../ru/README.md) |
+| Ø§Ù„Ø¹Ø±Ø¨ÙŠØ© | AR | [docs/i18n/ar/](../ar/README.md) |
+| ä¸­æ–‡ | CN | [docs/i18n/cn/](../cn/README.md) |
+| æ—¥æœ¬èªž | JP | [docs/i18n/jp/](../jp/README.md) |
+| Ð ÑƒÑÑÐºÐ¸Ð¹ | Inggris | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 

@@ -98,7 +98,7 @@ Mot de passe: [mot de passe sécurisé]
 ```json
 {
   "companyName": "Votre Organisation",
-  "supportEmail": "support@example.com",
+  "supportEmail": "support@talentys.eu",
   "supportKey": "votre-clé-support-si-entreprise"
 }
 ```
