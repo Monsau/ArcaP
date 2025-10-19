@@ -1,119 +1,135 @@
-﻿# Dremio + dbt + OpenMetadata - 문서 (한국어)
+﻿# 데이터 플랫폼
 
-**버전**: 3.2.5  
-**최종 업데이트**: 2025년 10월 16일  
-**언어**: 한국어 🇰🇷
+**엔터프라이즈 데이터 레이크하우스 솔루션**
 
----
-
-## 📚 개요
-
-Dremio + dbt + OpenMetadata 데이터 플랫폼 한국어 문서에 오신 것을 환영합니다. 이 문서는 플랫폼의 설정, 구성 및 사용에 대한 포괄적인 가이드를 제공합니다.
+**언어**: 프랑스어(프랑스어)  
+**버전**: 3.3.1  
+**최종 업데이트**: 2025년 10월 19일
 
 ---
 
-## 🗺️ 문서 구조
+## 개요
 
-### 📐 아키텍처
+엔터프라이즈급 데이터 변환, 품질 보증 및 비즈니스 인텔리전스를 위해 Dremio, dbt 및 Apache Superset을 결합한 전문 데이터 플랫폼입니다.
 
-- **[Dremio 포트 - 시각적 가이드](./architecture/dremio-ports-visual.md)** ⭐ 새로운!
-  - 3개의 Dremio 포트(9047, 31010, 32010)에 대한 완전한 시각적 가이드
-  - PostgreSQL 프록시 상세 아키텍처
-  - 성능 비교 및 벤치마크
-  - 사용 사례 및 의사 결정 트리
-  - 연결 예제: psql, DBeaver, Python, Java, ODBC
-  - Docker Compose 구성
-  - 456 줄 | 8+ Mermaid 다이어그램 | 5개 코드 예제
+이 플랫폼은 자동화된 데이터 파이프라인, 품질 테스트 및 대화형 대시보드를 포함하여 최신 데이터 엔지니어링을 위한 완벽한 솔루션을 제공합니다.
 
----
-
-## 🌍 사용 가능한 언어
-
-이 문서는 여러 언어로 제공됩니다:
-
-- 🇫🇷 **[Français](../fr/README.md)** - 전체 문서 (22개 파일)
-- 🇬🇧 **[English](../../../README.md)** - 전체 문서 (19개 파일)
-- 🇪🇸 **[Español](../es/README.md)** - 시각적 가이드
-- 🇵🇹 **[Português](../pt/README.md)** - 시각적 가이드
-- 🇨🇳 **[中文](../cn/README.md)** - 시각적 가이드
-- 🇯🇵 **[日本語](../jp/README.md)** - 시각적 가이드
-- 🇷🇺 **[Русский](../ru/README.md)** - 시각적 가이드
-- 🇸🇦 **[العربية](../ar/README.md)** - 시각적 가이드
-- 🇩🇪 **[Deutsch](../de/README.md)** - 시각적 가이드
-- 🇰🇷 **[한국어](../ko/README.md)** - 시각적 가이드 ⭐ 현재 위치
-- 🇮🇳 **[हिन्दी](../hi/README.md)** - 시각적 가이드
-- 🇮🇩 **[Indonesia](../id/README.md)** - 시각적 가이드
-- 🇹🇷 **[Türkçe](../tr/README.md)** - 시각적 가이드
-- 🇻🇳 **[Tiếng Việt](../vi/README.md)** - 시각적 가이드
-- 🇮🇹 **[Italiano](../it/README.md)** - 시각적 가이드
-- 🇳🇱 **[Nederlands](../nl/README.md)** - 시각적 가이드
-- 🇵🇱 **[Polski](../pl/README.md)** - 시각적 가이드
-- 🇸🇪 **[Svenska](../se/README.md)** - 시각적 가이드
-
----
-
-## 🚀 빠른 시작
-
-### 사전 요구사항
-
-- Docker & Docker Compose
-- Python 3.11+
-- Git
-
-### 설치
-
-```bash
-# 저장소 복제
-git clone <repository-url>
-cd dremiodbt
-
-# Docker 서비스 시작
-docker-compose up -d
-
-# 웹 UI 열기
-# Dremio: http://localhost:9047
-# OpenMetadata: http://localhost:8585
+```mermaid
+graph LR
+    A[Sources de données] --> B[Dremio]
+    B --> C[dbt]
+    C --> D[Superset]
+    D --> E[Insights métier]
+    
+    style B fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style C fill:#e8e8e8,stroke:#333,stroke-width:2px
+    style D fill:#d8d8d8,stroke:#333,stroke-width:2px
 ```
 
-자세한 설치 지침은 [영문 문서](../en/getting-started/installation.md)를 참조하세요.
+---
+
+## 주요 기능
+
+- Dremio를 사용한 데이터 레이크하우스 아키텍처
+- dbt를 이용한 자동 변환
+- Apache Superset을 통한 비즈니스 인텔리전스
+- 종합적인 데이터 품질 테스트
+- Arrow Flight를 통한 실시간 동기화
 
 ---
 
-## 📖 주요 리소스
+## 빠른 시작 가이드
 
-### Dremio 포트 - 빠른 참조
+### 전제조건
 
-| 포트 | 프로토콜 | 사용 | 성능 |
-|------|-----------|------------|----------|
-| **9047** | REST API | 웹 UI, 관리 | ⭐⭐ 표준 |
-| **31010** | PostgreSQL Wire | BI 도구, 마이그레이션 | ⭐⭐⭐ 양호 |
-| **32010** | Arrow Flight | dbt, Superset, 고성능 | ⭐⭐⭐⭐⭐ 최대 |
+- 도커 20.10 이상
+- Docker Compose 2.0 이상
+- 파이썬 3.11 이상
+- 최소 8GB RAM
 
-**→ [전체 시각적 가이드](./architecture/dremio-ports-visual.md)**
+### 시설
 
----
+```bash
+# Installer les dépendances
+pip install -r requirements.txt
 
-## 🔗 외부 링크
+# Démarrer les services
+make up
 
-- **Dremio 문서**: https://docs.dremio.com/
-- **dbt 문서**: https://docs.getdbt.com/
-- **OpenMetadata 문서**: https://docs.open-metadata.org/
-- **Apache Arrow Flight**: https://arrow.apache.org/docs/format/Flight.html
+# Vérifier l'installation
+make status
 
----
-
-## 🤝 기여
-
-기여를 환영합니다! [기여 가이드라인](../en/CONTRIBUTING.md)을 참조하세요.
+# Exécuter les tests de qualité
+make dbt-test
+```
 
 ---
 
-## 📄 라이선스
+## 건축학
 
-이 프로젝트는 [MIT 라이선스](../../../LICENSE)에 따라 라이선스가 부여됩니다.
+### 시스템 구성요소
+
+| 구성요소 | 포트 | 설명 |
+|---------------|------|---------------|
+| 드레미오 | 9047, 31010, 32010 | 데이터 레이크하우스 플랫폼 |
+| DBT | - | 데이터 변환 도구 |
+| 슈퍼세트 | 8088 | 비즈니스 인텔리전스 플랫폼 |
+| 포스트그레SQL | 5432 | 트랜잭션 데이터베이스 |
+| 미니IO | 9000, 9001 | 객체 스토리지(S3 호환) |
+| 엘라스틱서치 | 9200 | 검색 및 분석 엔진 |
+
+자세한 시스템 설계는 [아키텍처 문서](architecture/)를 참조하세요.
 
 ---
 
-**버전**: 3.2.5  
-**상태**: ✅ 프로덕션 준비 완료  
-**최종 업데이트**: 2025년 10월 16일
+## 문서
+
+### 스타트업
+- [설치 가이드](시작하기/)
+- [구성](시작하기/)
+- [시작하기](시작하기/)
+
+### 사용자 가이드
+- [데이터 엔지니어링](안내/)
+- [대시보드 생성](guides/)
+- [API 통합](안내/)
+
+### API 문서
+- [REST API 참조](api/)
+- [인증](api/)
+- [코드 예시](api/)
+
+### 아키텍처 문서
+- [시스템 설계](아키텍처/)
+- [데이터 흐름](아키텍처/)
+- [배포 가이드](아키텍처/)
+- [🎯 Dremio 포트 비주얼 가이드](architecture/dremio-ports-visual.md) ⭐ NEW
+
+---
+
+## 사용 가능한 언어
+
+| 언어 | 코드 | 문서 |
+|---------|------|---------------|
+| 영어 | KO | [README.md](../../../README.md) |
+| 프랑스어 | KO | [docs/i18n/fr/](../fr/README.md) |
+| 스페인어 | ES | [문서/i18n/es/](../es/README.md) |
+| 포르투갈어 | 태평양 표준시 | [docs/i18n/pt/](../pt/README.md) |
+| 아랍어 | 아칸소 | [문서/i18n/ar/](../ar/README.md) |
+| 중국어 | 중국 | [문서/i18n/cn/](../cn/README.md) |
+| 일본어 | 일본 | [docs/i18n/jp/](../jp/README.md) |
+| 러시아어 | 영국 | [docs/i18n/ru/](../ru/README.md) |
+
+---
+
+## 지원하다
+
+기술 지원을 받으려면:
+- 문서: [README 메인](../../../README.md)
+- 이슈 트래커: GitHub 이슈
+- 커뮤니티 포럼: GitHub 토론
+- 이메일: support@example.com
+
+---
+
+**[기본 문서로 돌아가기](../../../README.md)**

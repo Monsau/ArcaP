@@ -1,119 +1,135 @@
-﻿# Dremio + dbt + OpenMetadata - Tài liệu (Tiếng Việt)
+﻿#Nền tảng dữ liệu
 
-**Phiên bản**: 3.2.5  
-**Cập nhật lần cuối**: 16 Tháng 10, 2025  
-**Ngôn ngữ**: Tiếng Việt 🇻🇳
+**Giải pháp kho dữ liệu doanh nghiệp**
 
----
-
-## 📚 Tổng quan
-
-Chào mừng đến với tài liệu tiếng Việt cho nền tảng dữ liệu Dremio + dbt + OpenMetadata. Tài liệu này cung cấp hướng dẫn toàn diện về cài đặt, cấu hình và sử dụng nền tảng.
+**Ngôn ngữ**: Tiếng Pháp (FR)  
+**Phiên bản**: 3.3.1  
+**Cập nhật lần cuối**: Ngày 19 tháng 10 năm 2025
 
 ---
 
-## 🗺️ Cấu trúc Tài liệu
+## Tổng quan
 
-### 📐 Kiến trúc
+Nền tảng dữ liệu chuyên nghiệp kết hợp Dremio, dbt và Apache Superset để chuyển đổi dữ liệu cấp doanh nghiệp, đảm bảo chất lượng và kinh doanh thông minh.
 
-- **[Dremio Ports - Hướng dẫn Trực quan](./architecture/dremio-ports-visual.md)** ⭐ MỚI!
-  - Hướng dẫn trực quan đầy đủ cho 3 cổng Dremio (9047, 31010, 32010)
-  - Kiến trúc chi tiết PostgreSQL Proxy
-  - So sánh hiệu suất và đánh giá
-  - Trường hợp sử dụng và sơ đồ quyết định
-  - Ví dụ kết nối: psql, DBeaver, Python, Java, ODBC
-  - Cấu hình Docker Compose
-  - 456 dòng | 8+ sơ đồ Mermaid | 5 ví dụ mã
+Nền tảng này cung cấp giải pháp hoàn chỉnh cho kỹ thuật dữ liệu hiện đại, bao gồm đường dẫn dữ liệu tự động, kiểm tra chất lượng và bảng điều khiển tương tác.
 
----
-
-## 🌍 Ngôn ngữ Có sẵn
-
-Tài liệu này có sẵn bằng nhiều ngôn ngữ:
-
-- 🇫🇷 **[Français](../fr/README.md)** - Tài liệu đầy đủ (22 tệp)
-- 🇬🇧 **[English](../../../README.md)** - Tài liệu đầy đủ (19 tệp)
-- 🇪🇸 **[Español](../es/README.md)** - Hướng dẫn trực quan
-- 🇵🇹 **[Português](../pt/README.md)** - Hướng dẫn trực quan
-- 🇨🇳 **[中文](../cn/README.md)** - Hướng dẫn trực quan
-- 🇯🇵 **[日本語](../jp/README.md)** - Hướng dẫn trực quan
-- 🇷🇺 **[Русский](../ru/README.md)** - Hướng dẫn trực quan
-- 🇸🇦 **[العربية](../ar/README.md)** - Hướng dẫn trực quan
-- 🇩🇪 **[Deutsch](../de/README.md)** - Hướng dẫn trực quan
-- 🇰🇷 **[한국어](../ko/README.md)** - Hướng dẫn trực quan
-- 🇮🇳 **[हिन्दी](../hi/README.md)** - Hướng dẫn trực quan
-- 🇮🇩 **[Indonesia](../id/README.md)** - Hướng dẫn trực quan
-- 🇹🇷 **[Türkçe](../tr/README.md)** - Hướng dẫn trực quan
-- 🇻🇳 **[Tiếng Việt](../vi/README.md)** - Hướng dẫn trực quan ⭐ BẠN Ở ĐÂY
-- 🇮🇹 **[Italiano](../it/README.md)** - Hướng dẫn trực quan
-- 🇳🇱 **[Nederlands](../nl/README.md)** - Hướng dẫn trực quan
-- 🇵🇱 **[Polski](../pl/README.md)** - Hướng dẫn trực quan
-- 🇸🇪 **[Svenska](../se/README.md)** - Hướng dẫn trực quan
-
----
-
-## 🚀 Bắt đầu Nhanh
-
-### Yêu cầu
-
-- Docker & Docker Compose
-- Python 3.11+
-- Git
-
-### Cài đặt
-
-```bash
-# Clone repository
-git clone <repository-url>
-cd dremiodbt
-
-# Khởi động các dịch vụ Docker
-docker-compose up -d
-
-# Mở Web UI
-# Dremio: http://localhost:9047
-# OpenMetadata: http://localhost:8585
+```mermaid
+graph LR
+    A[Sources de données] --> B[Dremio]
+    B --> C[dbt]
+    C --> D[Superset]
+    D --> E[Insights métier]
+    
+    style B fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style C fill:#e8e8e8,stroke:#333,stroke-width:2px
+    style D fill:#d8d8d8,stroke:#333,stroke-width:2px
 ```
 
-Để biết hướng dẫn cài đặt chi tiết, xem [tài liệu tiếng Anh](../en/getting-started/installation.md).
+---
+
+## Tính năng chính
+
+- Kiến trúc data lakehouse với Dremio
+- Chuyển đổi tự động với dbt
+- Kinh doanh thông minh với Apache Superset
+- Kiểm tra chất lượng dữ liệu toàn diện
+- Đồng bộ hóa thời gian thực thông qua Arrow Flight
 
 ---
 
-## 📖 Tài nguyên Chính
+## Hướng dẫn bắt đầu nhanh
 
-### Dremio Ports - Tham khảo Nhanh
+### Điều kiện tiên quyết
 
-| Cổng | Giao thức | Sử dụng | Hiệu suất |
-|------|-----------|------------|----------|
-| **9047** | REST API | Web UI, Quản trị | ⭐⭐ Tiêu chuẩn |
-| **31010** | PostgreSQL Wire | Công cụ BI, Di chuyển | ⭐⭐⭐ Tốt |
-| **32010** | Arrow Flight | dbt, Superset, Hiệu suất Cao | ⭐⭐⭐⭐⭐ Tối đa |
+- Docker 20.10 trở lên
+- Docker Compose 2.0 trở lên
+- Python 3.11 trở lên
+- RAM tối thiểu 8GB
 
-**→ [Hướng dẫn trực quan đầy đủ](./architecture/dremio-ports-visual.md)**
+### Cơ sở
 
----
+```bash
+# Installer les dépendances
+pip install -r requirements.txt
 
-## 🔗 Liên kết Ngoài
+# Démarrer les services
+make up
 
-- **Tài liệu Dremio**: https://docs.dremio.com/
-- **Tài liệu dbt**: https://docs.getdbt.com/
-- **Tài liệu OpenMetadata**: https://docs.open-metadata.org/
-- **Apache Arrow Flight**: https://arrow.apache.org/docs/format/Flight.html
+# Vérifier l'installation
+make status
 
----
-
-## 🤝 Đóng góp
-
-Đóng góp được hoan nghênh! Vui lòng xem [hướng dẫn đóng góp](../en/CONTRIBUTING.md) của chúng tôi.
+# Exécuter les tests de qualité
+make dbt-test
+```
 
 ---
 
-## 📄 Giấy phép
+## Ngành kiến ​​​​trúc
 
-Dự án này được cấp phép theo [Giấy phép MIT](../../../LICENSE).
+###Thành phần hệ thống
+
+| Thành phần | Cảng | Mô tả |
+|--------------|------|-------------|
+| Dremio | 9047, 31010, 32010 | Nền tảng hồ dữ liệu |
+| dbt | - | Công cụ chuyển đổi dữ liệu |
+| Siêu bộ | 8088 | Nền tảng thông minh kinh doanh |
+| PostgreSQL | 5432 | Cơ sở dữ liệu giao dịch |
+| MinIO | 9000, 9001 | Lưu trữ đối tượng (tương thích với S3) |
+| Elaticsearch | 9200 | Công cụ tìm kiếm và phân tích |
+
+Xem [tài liệu kiến ​​trúc](architecture/) để biết thiết kế hệ thống chi tiết.
 
 ---
 
-**Phiên bản**: 3.2.5  
-**Trạng thái**: ✅ Sẵn sàng Sản xuất  
-**Cập nhật lần cuối**: 16 Tháng 10, 2025
+## Tài liệu
+
+### Khởi động
+- [Hướng dẫn cài đặt](bắt đầu/)
+- [Cấu hình](bắt đầu/)
+- [Bắt đầu](bắt đầu/)
+
+### Hướng dẫn sử dụng
+- [Kỹ thuật dữ liệu](guides/)
+- [Tạo trang tổng quan](guides/)
+- [Tích hợp API](guides/)
+
+### Tài liệu API
+- [Tham khảo API REST](api/)
+- [Xác thực](api/)
+- [Ví dụ về mã](api/)
+
+### Tài liệu kiến ​​trúc
+- [Thiết kế hệ thống](architecture/)
+- [Luồng dữ liệu](architecture/)
+- [Hướng dẫn triển khai](architecture/)
+- [🎯 Hướng dẫn trực quan về cổng Dremio](architecture/dremio-ports-visual.md) ⭐ MỚI
+
+---
+
+## Ngôn ngữ có sẵn
+
+| Ngôn ngữ | Mã | Tài liệu |
+|--------|------|---------------|
+| Tiếng Anh | VN | [README.md](../../../README.md) |
+| Tiếng Pháp | VN | [docs/i18n/fr/](../fr/README.md) |
+| Tây Ban Nha | ES | [docs/i18n/es/](../es/README.md) |
+| Tiếng Bồ Đào Nha | PT | [docs/i18n/pt/](../pt/README.md) |
+| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
+| 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
+| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
+| Русский | Vương quốc Anh | [docs/i18n/ru/](../ru/README.md) |
+
+---
+
+## Ủng hộ
+
+Để được hỗ trợ kỹ thuật:
+- Tài liệu: [README main](../../../README.md)
+- Trình theo dõi sự cố: Sự cố GitHub
+- Diễn đàn cộng đồng: Thảo luận GitHub
+- Email: support@example.com
+
+---
+
+**[Quay lại tài liệu chính](../../../README.md)**

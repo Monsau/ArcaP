@@ -1,25 +1,25 @@
 ﻿# 数据平台
 
-**企业数据湖仓解决方案**
+**企业数据湖屋解决方案**
 
-**Language**: 中文 (CN)  
-**Version**: 3.2.5  
-**Last Updated**: 2025-10-15
+**语言**：法语（FR）  
+**版本**：3.3.1  
+**最后更新**：2025 年 10 月 19 日
 
 ---
 
-## 概述
+＃＃ 概述
 
-专业数据平台，结合Dremio、dbt和Apache Superset，提供企业级数据转换、质量保证和商业智能。
+结合了 Dremio、dbt 和 Apache Superset 的专业数据平台，用于企业级数据转换、质量保证和商业智能。
 
-该平台为现代数据工程提供全面解决方案，包括自动化数据管道、质量测试和交互式仪表板。
+该平台为现代数据工程提供了完整的解决方案，包括自动化数据管道、质量测试和交互式仪表板。
 
 ```mermaid
 graph LR
-    A[Data Sources] --> B[Dremio]
+    A[Sources de données] --> B[Dremio]
     B --> C[dbt]
     C --> D[Superset]
-    D --> E[Business Insights]
+    D --> E[Insights métier]
     
     style B fill:#f5f5f5,stroke:#333,stroke-width:2px
     style C fill:#e8e8e8,stroke:#333,stroke-width:2px
@@ -28,109 +28,107 @@ graph LR
 
 ---
 
-## 主要功能
+## 主要特点
 
-- 基于Dremio的数据湖仓架构
-- 使用dbt进行自动化转换
-- 使用Apache Superset进行商业智能
+- 与 Dremio 合作的数据湖屋架构
+- 使用 dbt 自动转换
+- 使用 Apache Superset 的商业智能
 - 全面的数据质量测试
-- 通过Arrow Flight进行实时同步
+- 通过 Arrow Flight 实时同步
 
 ---
 
 ## 快速入门指南
 
-### 前提条件
+### 先决条件
 
-- Docker 20.10或更高版本
-- Docker Compose 2.0或更高版本
-- Python 3.11或更高版本
-- 最低8 GB内存
+- Docker 20.10 或更高版本
+- Docker Compose 2.0 或更高版本
+- Python 3.11 或更高版本
+- 至少 8 GB RAM
 
-### 安装
+＃＃＃ 设施
 
 ```bash
-# Install dependencies
+# Installer les dépendances
 pip install -r requirements.txt
 
-# Start services
+# Démarrer les services
 make up
 
-# Verify installation
+# Vérifier l'installation
 make status
 
-# Run quality tests
+# Exécuter les tests de qualité
 make dbt-test
 ```
 
 ---
 
-## 架构
+＃＃ 建筑学
 
 ### 系统组件
 
-| 组件 | 端口 | 描述 |
-|-----------|------|-------------|
-| Dremio | 9047, 31010, 32010 | 数据湖仓平台 |
-| dbt | - | 数据转换工具 |
-| Superset | 8088 | Business intelligence platform |
-| PostgreSQL | 5432 | Transactional database |
-| MinIO | 9000, 9001 | Object storage (S3-compatible) |
-| Elasticsearch | 9200 | Search and analytics engine |
+|组件|港口|描述 |
+|----------------|------|-------------|
+|德雷米奥 | 9047, 31010, 32010 |数据湖屋平台|
+|数据库技术 | - |数据转换工具|
+|超级组 | 8088 |商业智能平台|
+| PostgreSQL | 5432 |交易数据库|
+|迷你IO | 9000、9001 |对象存储（S3 兼容）|
+|弹性搜索 | 9200 | 9200搜索与分析引擎|
 
-### 📚 架构文档
-
-- 📘 [架构文档](architecture/) - 详细的系统设计
-- 🎯 [Dremio 端口可视化指南](architecture/dremio-ports-visual.md) ⭐ **新增** - Dremio 三个端口的完整可视化指南
+详细的系统设计请参见[架构文档](architecture/)。
 
 ---
 
 ## 文档
 
-### 入门
-- [Installation Guide](getting-started/)
-- [Configuration](getting-started/)
-- [First Steps](getting-started/)
+### 启动
+- [安装指南](入门/)
+- [配置]（入门/）
+- [入门](入门/)
 
 ### 用户指南
-- [Data Engineering](guides/)
-- [Dashboard Creation](guides/)
-- [API Integration](guides/)
+- [数据工程](指南/)
+- [仪表板的创建]（指南/）
+- [API集成](指南/)
 
-### API文档
-- [REST API Reference](api/)
-- [Authentication](api/)
-- [Code Examples](api/)
+### API 文档
+- [REST API 参考](api/)
+- [身份验证](api/)
+- [代码示例](api/)
 
 ### 架构文档
-- [System Design](architecture/)
-- [Data Flow](architecture/)
-- [Deployment Guide](architecture/)
+- [系统设计](架构/)
+- [数据流](架构/)
+- [部署指南](架构/)
+- [🎯Dremio Ports 视觉指南](architecture/dremio-ports-visual.md) ⭐ 新
 
 ---
 
 ## 可用语言
 
-| Language | Code | Documentation |
-|----------|------|---------------|
-| English | EN | [README.md](../../../README.md) |
-| Français | FR | [docs/i18n/fr/](../fr/README.md) |
-| Español | ES | [docs/i18n/es/](../es/README.md) |
-| Português | PT | [docs/i18n/pt/](../pt/README.md) |
-| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
-| 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
-| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
-| Русский | RU | [docs/i18n/ru/](../ru/README.md) |
+|语言 |代码|文档 |
+|--------|------|----------------|
+|英语 | CN | [README.md](../../../README.md) |
+|法语 | CN | [docs/i18n/fr/](../fr/README.md) |
+|西班牙语 |英语 | [文档/i18n/es/](../es/README.md) |
+|葡萄牙语 | PT | [文档/i18n/pt/](../pt/README.md) |
+|迪拜 |增强现实 | [文档/i18n/ar/](../ar/README.md) |
+| 中文 |中文 | [docs/i18n/cn/](../cn/README.md) |
+| 日本语 |日本 | [docs/i18n/jp/](../jp/README.md) |
+| Русский | 俄罗斯英国 | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 
-## 支持
+＃＃ 支持
 
-For technical assistance:
-- Documentation: [Main README](../../../README.md)
-- Issue Tracking: GitHub Issues
-- Community Forum: GitHub Discussions
-- Email: support@example.com
+如需技术援助：
+- 文档：[README main](../../../README.md)
+- 问题跟踪器：GitHub 问题
+- 社区论坛：GitHub 讨论
+- 电子邮件：support@example.com
 
 ---
 

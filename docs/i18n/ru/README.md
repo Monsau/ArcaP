@@ -1,25 +1,25 @@
 ﻿# Платформа данных
 
-**Корпоративное решение для хранилища данных**
+**Решение для хранения корпоративных данных**
 
-**Language**: Русский (RU)  
-**Version**: 3.2.5  
-**Last Updated**: 2025-10-15
+**Язык**: французский (FR)  
+**Версия**: 3.3.1  
+**Последнее обновление**: 19 октября 2025 г.
 
 ---
 
 ## Обзор
 
-Профессиональная платформа данных, объединяющая Dremio, dbt и Apache Superset для корпоративного преобразования данных, обеспечения качества и бизнес-аналитики.
+Профессиональная платформа данных, объединяющая Dremio, dbt и Apache Superset для преобразования данных корпоративного уровня, обеспечения качества и бизнес-аналитики.
 
-Эта платформа предоставляет комплексное решение для современной инженерии данных, включая автоматизированные конвейеры данных, тестирование качества и интерактивные панели мониторинга.
+Эта платформа предоставляет комплексное решение для современной обработки данных, включая автоматизированные конвейеры данных, тестирование качества и интерактивные информационные панели.
 
 ```mermaid
 graph LR
-    A[Data Sources] --> B[Dremio]
+    A[Sources de données] --> B[Dremio]
     B --> C[dbt]
     C --> D[Superset]
-    D --> E[Business Insights]
+    D --> E[Insights métier]
     
     style B fill:#f5f5f5,stroke:#333,stroke-width:2px
     style C fill:#e8e8e8,stroke:#333,stroke-width:2px
@@ -28,38 +28,38 @@ graph LR
 
 ---
 
-## Основные функции
+## Ключевые особенности
 
-- Архитектура хранилища данных с Dremio
-- Автоматизированные преобразования с dbt
+- Архитектура дома на озере данных с помощью Dremio
+- Автоматизированные преобразования с помощью dbt
 - Бизнес-аналитика с Apache Superset
 - Комплексное тестирование качества данных
 - Синхронизация в реальном времени через Arrow Flight
 
 ---
 
-## Руководство по быстрому старту
+## Краткое руководство
 
-### Предварительные требования
+### Предварительные условия
 
-- Docker 20.10 или выше
+- Докер 20.10 или выше
 - Docker Compose 2.0 или выше
 - Python 3.11 или выше
 - Минимум 8 ГБ оперативной памяти
 
-### Установка
+### Средство
 
 ```bash
-# Install dependencies
+# Installer les dépendances
 pip install -r requirements.txt
 
-# Start services
+# Démarrer les services
 make up
 
-# Verify installation
+# Vérifier l'installation
 make status
 
-# Run quality tests
+# Exécuter les tests de qualité
 make dbt-test
 ```
 
@@ -70,67 +70,65 @@ make dbt-test
 ### Компоненты системы
 
 | Компонент | Порт | Описание |
-|-----------|------|-------------|
-| Dremio | 9047, 31010, 32010 | Платформа озера данных |
-| dbt | - | Инструмент преобразования данных |
-| Superset | 8088 | Business intelligence platform |
-| PostgreSQL | 5432 | Transactional database |
-| MinIO | 9000, 9001 | Object storage (S3-compatible) |
-| Elasticsearch | 9200 | Search and analytics engine |
+|---------------|------|-------------|
+| Дремио | 9047, 31010, 32010 | Платформа Lakehouse для данных |
+| дбт | - | Инструмент преобразования данных |
+| Суперсет | 8088 | Платформа бизнес-аналитики |
+| PostgreSQL | 5432 | Транзакционная база данных |
+| МинИО | 9000, 9001 | Объектное хранилище (совместимо с S3) |
+| Эластичный поиск | 9200 | Поисковая и аналитическая система |
 
-### 📚 Документация по архитектуре
-
-- 📘 [Документация по архитектуре](architecture/) - Подробный дизайн системы
-- 🎯 [Визуальное руководство по портам Dremio](architecture/dremio-ports-visual.md) ⭐ **НОВОЕ** - Полное визуальное руководство по 3 портам Dremio
+Подробную информацию о проектировании системы см. в [документации по архитектуре](architecture/).
 
 ---
 
 ## Документация
 
-### Начало работы
-- [Installation Guide](getting-started/)
-- [Configuration](getting-started/)
-- [First Steps](getting-started/)
+### Запускать
+- [Руководство по установке](начало работы/)
+- [Конфигурация](начало работы/)
+- [Начало работы](начало работы/)
 
 ### Руководства пользователя
-- [Data Engineering](guides/)
-- [Dashboard Creation](guides/)
-- [API Integration](guides/)
+- [Инженерия данных](руководства/)
+- [Создание дашбордов](гайды/)
+- [Интеграция API](руководства/)
 
-### Документация API
-- [REST API Reference](api/)
-- [Authentication](api/)
-- [Code Examples](api/)
+### Документация по API
+- [Справочник по REST API](api/)
+- [Аутентификация](api/)
+- [Примеры кода](api/)
 
-### Документация архитектуры
-- [System Design](architecture/)
-- [Data Flow](architecture/)
-- [Deployment Guide](architecture/)
+### Архитектурная документация
+- [Проектирование системы](архитектура/)
+- [Поток данных](архитектура/)
+- [Руководство по развертыванию](архитектура/)
+- [🎯 Визуальное руководство по портам Dremio](architecture/dremio-ports-visual.md) ⭐ НОВИНКА
 
 ---
 
 ## Доступные языки
 
-| Language | Code | Documentation |
-|----------|------|---------------|
-| English | EN | [README.md](../../../README.md) |
-| Français | FR | [docs/i18n/fr/](../fr/README.md) |
-| Español | ES | [docs/i18n/es/](../es/README.md) |
-| Português | PT | [docs/i18n/pt/](../pt/README.md) |
-| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
-| 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
-| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
-| Русский | RU | [docs/i18n/ru/](../ru/README.md) |
+| Язык | Код | Документация |
+|--------|------|---------------|
+| английский | RU | [README.md](../../../README.md) |
+| французский | RU | [docs/i18n/fr/](../fr/README.md) |
+| испанский | ЭС | [docs/i18n/es/](../es/README.md) |
+| Португальский | ПТ | [docs/i18n/pt/](../pt/README.md) |
+| عربية | АР | [docs/i18n/ar/](../ar/README.md) |
+| 中文 | Китай | [docs/i18n/cn/](../cn/README.md) |
+| 日本語 | Япония | [docs/i18n/jp/](../jp/README.md) |
+| Русский | Великобритания | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 
-## Поддержка
+## Поддерживать
 
-For technical assistance:
-- Documentation: [Main README](../../../README.md)
-- Issue Tracking: GitHub Issues
-- Community Forum: GitHub Discussions
-- Email: support@example.com
+Для технической помощи:
+- Документация: [README main](../../../README.md)
+- Отслеживание проблем: проблемы GitHub
+- Форум сообщества: обсуждения на GitHub.
+- Электронная почта: support@example.com.
 
 ---
 

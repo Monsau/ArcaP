@@ -1,25 +1,25 @@
-﻿# Plataforma de Datos
+﻿# Plataforma de datos
 
-**Solución de Lakehouse de Datos Empresarial**
+**Solución de lago de datos empresariales**
 
-**Language**: Español (ES)  
-**Version**: 3.2.5  
-**Last Updated**: 2025-10-15
+**Idioma**: Francés (FR)  
+**Versión**: 3.3.1  
+**Última actualización**: 19 de octubre de 2025
 
 ---
 
 ## Descripción general
 
-Plataforma de datos profesional que combina Dremio, dbt y Apache Superset para transformación de datos, garantía de calidad e inteligencia empresarial de nivel empresarial.
+Plataforma de datos profesional que combina Dremio, dbt y Apache Superset para transformación de datos de nivel empresarial, control de calidad e inteligencia empresarial.
 
-Esta plataforma proporciona una solución integral para la ingeniería de datos moderna, con pipelines de datos automatizados, pruebas de calidad y paneles interactivos.
+Esta plataforma proporciona una solución completa para la ingeniería de datos moderna, que incluye canalizaciones de datos automatizadas, pruebas de calidad y paneles interactivos.
 
 ```mermaid
 graph LR
-    A[Data Sources] --> B[Dremio]
+    A[Sources de données] --> B[Dremio]
     B --> C[dbt]
     C --> D[Superset]
-    D --> E[Business Insights]
+    D --> E[Insights métier]
     
     style B fill:#f5f5f5,stroke:#333,stroke-width:2px
     style C fill:#e8e8e8,stroke:#333,stroke-width:2px
@@ -28,12 +28,12 @@ graph LR
 
 ---
 
-## Características principales
+## Características clave
 
-- Arquitectura de lakehouse de datos con Dremio
-- Transformaciones automatizadas con dbt
-- Inteligencia empresarial con Apache Superset
-- Pruebas completas de calidad de datos
+- Arquitectura de la casa del lago de datos con Dremio
+- Transformaciones automatizadas con dbt.
+- Inteligencia de negocios con Apache Superset
+- Pruebas integrales de calidad de datos.
 - Sincronización en tiempo real a través de Arrow Flight
 
 ---
@@ -50,16 +50,16 @@ graph LR
 ### Instalación
 
 ```bash
-# Install dependencies
+# Installer les dépendances
 pip install -r requirements.txt
 
-# Start services
+# Démarrer les services
 make up
 
-# Verify installation
+# Vérifier l'installation
 make status
 
-# Run quality tests
+# Exécuter les tests de qualité
 make dbt-test
 ```
 
@@ -70,67 +70,65 @@ make dbt-test
 ### Componentes del sistema
 
 | Componente | Puerto | Descripción |
-|-----------|------|-------------|
-| Dremio | 9047, 31010, 32010 | Plataforma de lakehouse de datos |
+|---------------|------|-------------|
+| Dremio | 9047, 31010, 32010 | Plataforma de datos del lago |
 | dbt | - | Herramienta de transformación de datos |
-| Superset | 8088 | Business intelligence platform |
-| PostgreSQL | 5432 | Transactional database |
-| MinIO | 9000, 9001 | Object storage (S3-compatible) |
-| Elasticsearch | 9200 | Search and analytics engine |
+| Superconjunto | 8088 | Plataforma de Inteligencia Empresarial |
+| PostgreSQL | 5432 | Base de datos transaccional |
+| MinIO | 9000, 9001 | Almacenamiento de objetos (compatible con S3) |
+| Búsqueda elástica | 9200 | Motor de búsqueda y análisis |
 
-### 📚 Documentación de Arquitectura
-
-- 📘 [Documentación de Arquitectura](architecture/) - Diseño detallado del sistema
-- 🎯 [Guía Visual de Puertos Dremio](architecture/dremio-ports-visual.md) ⭐ **NUEVO** - Guía visual completa de los 3 puertos de Dremio
+Consulte la [documentación de arquitectura](arquitectura/) para obtener un diseño detallado del sistema.
 
 ---
 
 ## Documentación
 
-### Primeros pasos
-- [Installation Guide](getting-started/)
-- [Configuration](getting-started/)
-- [First Steps](getting-started/)
+### Puesta en marcha
+- [Guía de instalación](introducción/)
+- [Configuración](primeros pasos/)
+- [Primeros pasos](primeros pasos/)
 
 ### Guías de usuario
-- [Data Engineering](guides/)
-- [Dashboard Creation](guides/)
-- [API Integration](guides/)
+- [Ingeniería de datos](guías/)
+- [Creación de cuadros de mando](guías/)
+- [Integración API](guías/)
 
 ### Documentación API
-- [REST API Reference](api/)
-- [Authentication](api/)
-- [Code Examples](api/)
+- [Referencia de API REST](api/)
+- [Autenticación](api/)
+- [Ejemplos de código](api/)
 
 ### Documentación de arquitectura
-- [System Design](architecture/)
-- [Data Flow](architecture/)
-- [Deployment Guide](architecture/)
+- [Diseño del sistema](arquitectura/)
+- [Flujo de datos](arquitectura/)
+- [Guía de implementación](arquitectura/)
+- [🎯 Guía visual de puertos de Dremio] (arquitectura/dremio-ports-visual.md) ⭐ NUEVO
 
 ---
 
 ## Idiomas disponibles
 
-| Language | Code | Documentation |
-|----------|------|---------------|
-| English | EN | [README.md](../../../README.md) |
-| Français | FR | [docs/i18n/fr/](../fr/README.md) |
+| Idioma | Código | Documentación |
+|--------|------|-----------------------|
+| Inglés | ES | [README.md](../../../README.md) |
+| francés | ES | [docs/i18n/fr/](../fr/README.md) |
 | Español | ES | [docs/i18n/es/](../es/README.md) |
-| Português | PT | [docs/i18n/pt/](../pt/README.md) |
-| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
+| portugués | PT | [docs/i18n/pt/](../pt/README.md) |
+| العربية | RA | [docs/i18n/ar/](../ar/README.md) |
 | 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
-| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
-| Русский | RU | [docs/i18n/ru/](../ru/README.md) |
+| 日本語 | Japón | [docs/i18n/jp/](../jp/README.md) |
+| ruso | Reino Unido | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 
-## Soporte
+## Apoyo
 
-For technical assistance:
-- Documentation: [Main README](../../../README.md)
-- Issue Tracking: GitHub Issues
-- Community Forum: GitHub Discussions
-- Email: support@example.com
+Para asistencia técnica:
+- Documentación: [README principal](../../../README.md)
+- Seguimiento de problemas: problemas de GitHub
+- Foro de la comunidad: Discusiones de GitHub
+- Correo electrónico: soporte@ejemplo.com
 
 ---
 

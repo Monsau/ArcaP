@@ -1,119 +1,135 @@
-﻿# Dremio + dbt + OpenMetadata - Dokumentation (Svenska)
+# Dataplattform
 
-**Version**: 3.2.5  
-**Senast uppdaterad**: 16 oktober 2025  
-**Språk**: Svenska 🇸🇪
+**Enterprise data lakehouse-lösning**
 
----
-
-## 📚 Översikt
-
-Välkommen till den svenska dokumentationen för Dremio + dbt + OpenMetadata dataplattformen. Denna dokumentation tillhandahåller omfattande guider för installation, konfiguration och användning av plattformen.
+**Språk**: Franska (FR)  
+**Version**: 3.3.1  
+**Senast uppdaterad**: 19 oktober 2025
 
 ---
 
-## 🗺️ Dokumentationsstruktur
+## Översikt
 
-### 📐 Arkitektur
+Professionell dataplattform som kombinerar Dremio, dbt och Apache Superset för datatransformation av företagsklass, kvalitetssäkring och business intelligence.
 
-- **[Dremio Portar - Visuell Guide](./architecture/dremio-ports-visual.md)** ⭐ NYTT!
-  - Komplett visuell guide för de 3 Dremio-portarna (9047, 31010, 32010)
-  - Detaljerad PostgreSQL Proxy arkitektur
-  - Prestandajämförelser och riktmärken
-  - Användningsfall och beslutsträd
-  - Anslutningsexempel: psql, DBeaver, Python, Java, ODBC
-  - Docker Compose konfiguration
-  - 456 rader | 8+ Mermaid diagram | 5 kodexempel
+Denna plattform tillhandahåller en komplett lösning för modern datateknik, inklusive automatiserade datapipelines, kvalitetstester och interaktiva instrumentpaneler.
 
----
-
-## 🌍 Tillgängliga Språk
-
-Denna dokumentation finns tillgänglig på flera språk:
-
-- 🇫🇷 **[Français](../fr/README.md)** - Fullständig dokumentation (22 filer)
-- 🇬🇧 **[English](../../../README.md)** - Fullständig dokumentation (19 filer)
-- 🇪🇸 **[Español](../es/README.md)** - Visuella guider
-- 🇵🇹 **[Português](../pt/README.md)** - Visuella guider
-- 🇨🇳 **[中文](../cn/README.md)** - Visuella guider
-- 🇯🇵 **[日本語](../jp/README.md)** - Visuella guider
-- 🇷🇺 **[Русский](../ru/README.md)** - Visuella guider
-- 🇸🇦 **[العربية](../ar/README.md)** - Visuella guider
-- 🇩🇪 **[Deutsch](../de/README.md)** - Visuella guider
-- 🇰🇷 **[한국어](../ko/README.md)** - Visuella guider
-- 🇮🇳 **[हिन्दी](../hi/README.md)** - Visuella guider
-- 🇮🇩 **[Indonesia](../id/README.md)** - Visuella guider
-- 🇹🇷 **[Türkçe](../tr/README.md)** - Visuella guider
-- 🇻🇳 **[Tiếng Việt](../vi/README.md)** - Visuella guider
-- 🇮🇹 **[Italiano](../it/README.md)** - Visuella guider
-- 🇳🇱 **[Nederlands](../nl/README.md)** - Visuella guider
-- 🇵🇱 **[Polski](../pl/README.md)** - Visuella guider
-- 🇸🇪 **[Svenska](../se/README.md)** - Visuella guider ⭐ DU ÄR HÄR
+```mermaid
+graph LR
+    A[Sources de données] --> B[Dremio]
+    B --> C[dbt]
+    C --> D[Superset]
+    D --> E[Insights métier]
+    
+    style B fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style C fill:#e8e8e8,stroke:#333,stroke-width:2px
+    style D fill:#d8d8d8,stroke:#333,stroke-width:2px
+```
 
 ---
 
-## 🚀 Snabbstart
+## Nyckelfunktioner
+
+- Data lakehouse-arkitektur med Dremio
+- Automatiserade transformationer med dbt
+- Business Intelligence med Apache Superset
+- Omfattande datakvalitetstestning
+- Synkronisering i realtid via Arrow Flight
+
+---
+
+## Snabbstartguide
 
 ### Förutsättningar
 
-- Docker & Docker Compose
-- Python 3.11+
-- Git
+- Docker 20.10 eller senare
+- Docker Compose 2.0 eller högre
+- Python 3.11 eller högre
+- Minst 8 GB RAM
 
-### Installation
+### Anläggning
 
 ```bash
-# Klona repository
-git clone <repository-url>
-cd dremiodbt
+# Installer les dépendances
+pip install -r requirements.txt
 
-# Starta Docker-tjänster
-docker-compose up -d
+# Démarrer les services
+make up
 
-# Öppna Webb-UI
-# Dremio: http://localhost:9047
-# OpenMetadata: http://localhost:8585
+# Vérifier l'installation
+make status
+
+# Exécuter les tests de qualité
+make dbt-test
 ```
 
-För detaljerade installationsinstruktioner, se [engelsk dokumentation](../en/getting-started/installation.md).
+---
+
+## Arkitektur
+
+### Systemkomponenter
+
+| Komponent | Hamn | Beskrivning |
+|---------------|------|-------------|
+| Dremio | 9047, 31010, 32010 | Data Lakehouse-plattform |
+| dbt | - | Datatransformationsverktyg |
+| Superset | 8088 | Business Intelligence-plattform |
+| PostgreSQL | 5432 | Transaktionsdatabas |
+| MinIO | 9000, 9001 | Objektlagring (S3-kompatibel) |
+| Elasticsearch | 9200 | Sök- och analysmotor |
+
+Se [arkitekturdokumentationen](arkitektur/) för detaljerad systemdesign.
 
 ---
 
-## 📖 Viktiga Resurser
+## Dokumentation
 
-### Dremio Portar - Snabbreferens
+### Start
+- [Installationsguide](komma igång/)
+- [Konfiguration](komma igång/)
+- [Komma igång](komma igång/)
 
-| Port | Protokoll | Användning | Prestanda |
-|------|-----------|------------|----------|
-| **9047** | REST API | Webb-UI, Admin | ⭐⭐ Standard |
-| **31010** | PostgreSQL Wire | BI-verktyg, Migration | ⭐⭐⭐ Bra |
-| **32010** | Arrow Flight | dbt, Superset, Hög Prestanda | ⭐⭐⭐⭐⭐ Maximal |
+### Användarguider
+- [Datateknik](guider/)
+- [Skapa instrumentpaneler](guider/)
+- [API-integration](guider/)
 
-**→ [Fullständig visuell guide](./architecture/dremio-ports-visual.md)**
+### API-dokumentation
+- [REST API-referens](api/)
+- [Autentisering](api/)
+- [Kodexempel](api/)
 
----
-
-## 🔗 Externa Länkar
-
-- **Dremio Dokumentation**: https://docs.dremio.com/
-- **dbt Dokumentation**: https://docs.getdbt.com/
-- **OpenMetadata Dokumentation**: https://docs.open-metadata.org/
-- **Apache Arrow Flight**: https://arrow.apache.org/docs/format/Flight.html
-
----
-
-## 🤝 Bidra
-
-Bidrag välkomnas! Se våra [bidragsriktlinjer](../en/CONTRIBUTING.md).
+### Arkitekturdokumentation
+- [Systemdesign](arkitektur/)
+- [Dataflöde](arkitektur/)
+- [Deployment guide](arkitektur/)
+- [🎯 Dremio Ports Visual Guide](architecture/dremio-ports-visual.md) ⭐ NYTT
 
 ---
 
-## 📄 Licens
+## Tillgängliga språk
 
-Detta projekt är licensierat under [MIT-licensen](../../../LICENSE).
+| Språk | Kod | Dokumentation |
+|--------|------|---------------|
+| engelska | SV | [README.md](../../../README.md) |
+| franska | SV | [docs/i18n/fr/](../fr/README.md) |
+| Spanska | ES | [docs/i18n/es/](../es/README.md) |
+| portugisiska | PT | [docs/i18n/pt/](../pt/README.md) |
+| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
+| 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
+| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
+| Русский | Storbritannien | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 
-**Version**: 3.2.5  
-**Status**: ✅ Produktionsklar  
-**Senast uppdaterad**: 16 oktober 2025
+## Support
+
+För teknisk hjälp:
+- Dokumentation: [README main](../../../README.md)
+- Issue Tracker: GitHub-problem
+- Gemenskapsforum: GitHub-diskussioner
+- E-post: support@example.com
+
+---
+
+**[Återgå till huvuddokumentationen](../../../README.md)**

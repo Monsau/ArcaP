@@ -1,119 +1,135 @@
-﻿# Dremio + dbt + OpenMetadata - Documentatie (Nederlands)
+﻿# Dataplatform
 
-**Versie**: 3.2.5  
-**Laatste update**: 16 oktober 2025  
-**Taal**: Nederlands 🇳🇱
+**Enterprise data lakehouse-oplossing**
 
----
-
-## 📚 Overzicht
-
-Welkom bij de Nederlandse documentatie voor het Dremio + dbt + OpenMetadata dataplatform. Deze documentatie biedt uitgebreide handleidingen voor installatie, configuratie en gebruik van het platform.
+**Taal**: Frans (FR)  
+**Versie**: 3.3.1  
+**Laatst bijgewerkt**: 19 oktober 2025
 
 ---
 
-## 🗺️ Documentatiestructuur
+## Overzicht
 
-### 📐 Architectuur
+Professioneel dataplatform dat Dremio, dbt en Apache Superset combineert voor datatransformatie, kwaliteitsborging en business intelligence op bedrijfsniveau.
 
-- **[Dremio Poorten - Visuele Gids](./architecture/dremio-ports-visual.md)** ⭐ NIEUW!
-  - Volledige visuele gids voor de 3 Dremio-poorten (9047, 31010, 32010)
-  - Gedetailleerde PostgreSQL Proxy architectuur
-  - Prestatievergelijkingen en benchmarks
-  - Gebruikscases en beslissingsboom
-  - Verbindingsvoorbeelden: psql, DBeaver, Python, Java, ODBC
-  - Docker Compose configuratie
-  - 456 regels | 8+ Mermaid diagrammen | 5 codevoorbeelden
+Dit platform biedt een complete oplossing voor moderne data-engineering, inclusief geautomatiseerde datapipelines, kwaliteitstesten en interactieve dashboards.
 
----
-
-## 🌍 Beschikbare Talen
-
-Deze documentatie is beschikbaar in meerdere talen:
-
-- 🇫🇷 **[Français](../fr/README.md)** - Volledige documentatie (22 bestanden)
-- 🇬🇧 **[English](../../../README.md)** - Volledige documentatie (19 bestanden)
-- 🇪🇸 **[Español](../es/README.md)** - Visuele gidsen
-- 🇵🇹 **[Português](../pt/README.md)** - Visuele gidsen
-- 🇨🇳 **[中文](../cn/README.md)** - Visuele gidsen
-- 🇯🇵 **[日本語](../jp/README.md)** - Visuele gidsen
-- 🇷🇺 **[Русский](../ru/README.md)** - Visuele gidsen
-- 🇸🇦 **[العربية](../ar/README.md)** - Visuele gidsen
-- 🇩🇪 **[Deutsch](../de/README.md)** - Visuele gidsen
-- 🇰🇷 **[한국어](../ko/README.md)** - Visuele gidsen
-- 🇮🇳 **[हिन्दी](../hi/README.md)** - Visuele gidsen
-- 🇮🇩 **[Indonesia](../id/README.md)** - Visuele gidsen
-- 🇹🇷 **[Türkçe](../tr/README.md)** - Visuele gidsen
-- 🇻🇳 **[Tiếng Việt](../vi/README.md)** - Visuele gidsen
-- 🇮🇹 **[Italiano](../it/README.md)** - Visuele gidsen
-- 🇳🇱 **[Nederlands](../nl/README.md)** - Visuele gidsen ⭐ JE BENT HIER
-- 🇵🇱 **[Polski](../pl/README.md)** - Visuele gidsen
-- 🇸🇪 **[Svenska](../se/README.md)** - Visuele gidsen
+```mermaid
+graph LR
+    A[Sources de données] --> B[Dremio]
+    B --> C[dbt]
+    C --> D[Superset]
+    D --> E[Insights métier]
+    
+    style B fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style C fill:#e8e8e8,stroke:#333,stroke-width:2px
+    style D fill:#d8d8d8,stroke:#333,stroke-width:2px
+```
 
 ---
 
-## 🚀 Snel Starten
+## Belangrijkste kenmerken
+
+- Gegevens lakehouse-architectuur met Dremio
+- Geautomatiseerde transformaties met dbt
+- Bedrijfsinformatie met Apache Superset
+- Uitgebreide tests van de gegevenskwaliteit
+- Realtime synchronisatie via Arrow Flight
+
+---
+
+## Snelstartgids
 
 ### Vereisten
 
-- Docker & Docker Compose
-- Python 3.11+
-- Git
+- Docker 20.10 of hoger
+- Docker Compose 2.0 of hoger
+- Python 3.11 of hoger
+- Minimaal 8 GB RAM
 
-### Installatie
+### Faciliteit
 
 ```bash
-# Clone de repository
-git clone <repository-url>
-cd dremiodbt
+# Installer les dépendances
+pip install -r requirements.txt
 
-# Start Docker services
-docker-compose up -d
+# Démarrer les services
+make up
 
-# Open Web UI
-# Dremio: http://localhost:9047
-# OpenMetadata: http://localhost:8585
+# Vérifier l'installation
+make status
+
+# Exécuter les tests de qualité
+make dbt-test
 ```
 
-Voor gedetailleerde installatie-instructies, zie de [Engelse documentatie](../en/getting-started/installation.md).
+---
+
+## Architectuur
+
+### Systeemcomponenten
+
+| Onderdeel | Haven | Beschrijving |
+|---------------|------|------------|
+| Dremio | 9047, 31010, 32010 | Data lakehouse-platform |
+| dbt | - | Hulpmiddel voor gegevenstransformatie |
+| Superset | 8088 | Business Intelligence-platform |
+| PostgreSQL | 5432 | Transactionele database |
+| MiniIO | 9000, 9001 | Objectopslag (compatibel met S3) |
+| Elastisch zoeken | 9200 | Zoek- en analysemotor |
+
+Zie de [architectuurdocumentatie](architectuur/) voor gedetailleerd systeemontwerp.
 
 ---
 
-## 📖 Belangrijke Bronnen
+## Documentatie
 
-### Dremio Poorten - Snelle Referentie
+### Opstarten
+- [Installatiehandleiding](aan de slag/)
+- [Configuratie](aan de slag/)
+- [Aan de slag](aan de slag/)
 
-| Poort | Protocol | Gebruik | Prestaties |
-|------|-----------|------------|----------|
-| **9047** | REST API | Web UI, Admin | ⭐⭐ Standaard |
-| **31010** | PostgreSQL Wire | BI Tools, Migratie | ⭐⭐⭐ Goed |
-| **32010** | Arrow Flight | dbt, Superset, Hoge Prestaties | ⭐⭐⭐⭐⭐ Maximaal |
+### Gebruikershandleidingen
+- [Data-engineering](gidsen/)
+- [Creatie van dashboards](gidsen/)
+- [API-integratie](gidsen/)
 
-**→ [Volledige visuele gids](./architecture/dremio-ports-visual.md)**
+### API-documentatie
+- [REST API-referentie](api/)
+- [Authenticatie](api/)
+- [Codevoorbeelden](api/)
 
----
-
-## 🔗 Externe Links
-
-- **Dremio Documentatie**: https://docs.dremio.com/
-- **dbt Documentatie**: https://docs.getdbt.com/
-- **OpenMetadata Documentatie**: https://docs.open-metadata.org/
-- **Apache Arrow Flight**: https://arrow.apache.org/docs/format/Flight.html
-
----
-
-## 🤝 Bijdragen
-
-Bijdragen zijn welkom! Zie onze [bijdrage richtlijnen](../en/CONTRIBUTING.md).
+### Architectuurdocumentatie
+- [Systeemontwerp](architectuur/)
+- [Gegevensstroom](architectuur/)
+- [Implementatiehandleiding](architectuur/)
+- [🎯 Visuele gids Dremio Ports] (architectuur/dremio-ports-visual.md) ⭐ NIEUW
 
 ---
 
-## 📄 Licentie
+## Beschikbare talen
 
-Dit project is gelicentieerd onder de [MIT Licentie](../../../LICENSE).
+| Taal | Code | Documentatie |
+|--------|------|---------------|
+| Engels | NL | [LEESMIJ.md](../../../README.md) |
+| Frans | NL | [docs/i18n/fr/](../fr/README.md) |
+| Spaans | ES | [docs/i18n/es/](../es/README.md) |
+| Portugees | PT | [docs/i18n/pt/](../pt/README.md) |
+| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
+| 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
+| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
+| Русский | VK | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 
-**Versie**: 3.2.5  
-**Status**: ✅ Klaar voor Productie  
-**Laatste update**: 16 oktober 2025
+## Steun
+
+Voor technische assistentie:
+- Documentatie: [README main](../../../README.md)
+- Issue Tracker: GitHub-problemen
+- Communityforum: GitHub-discussies
+- E-mail: support@example.com
+
+---
+
+**[Terug naar de hoofddocumentatie](../../../README.md)**

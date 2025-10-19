@@ -1,25 +1,25 @@
-﻿# منصة البيانات
+﻿#منصة البيانات
 
-**حل مستودع البيانات للمؤسسات**
+**حل مستودع بيانات المؤسسة**
 
-**Language**: العربية (AR)  
-**Version**: 3.2.5  
-**Last Updated**: 2025-10-15
+**اللغة**: الفرنسية (الفرنسية)  
+**الإصدار**: 3.3.1  
+**آخر تحديث**: 19 أكتوبر 2025
 
 ---
 
-## نظرة عامة
+## ملخص
 
-منصة بيانات احترافية تجمع بين Dremio و dbt و Apache Superset لتحويل البيانات وضمان الجودة وذكاء الأعمال على مستوى المؤسسات.
+منصة بيانات احترافية تجمع بين Dremio وdbt وApache Superset لتحويل البيانات على مستوى المؤسسات وضمان الجودة وذكاء الأعمال.
 
-توفر هذه المنصة حلاً شاملاً لهندسة البيانات الحديثة، بما في ذلك خطوط أنابيب البيانات الآلية واختبارات الجودة ولوحات المعلومات التفاعلية.
+توفر هذه المنصة حلاً كاملاً لهندسة البيانات الحديثة، بما في ذلك خطوط البيانات الآلية واختبار الجودة ولوحات المعلومات التفاعلية.
 
 ```mermaid
 graph LR
-    A[Data Sources] --> B[Dremio]
+    A[Sources de données] --> B[Dremio]
     B --> C[dbt]
     C --> D[Superset]
-    D --> E[Business Insights]
+    D --> E[Insights métier]
     
     style B fill:#f5f5f5,stroke:#333,stroke-width:2px
     style C fill:#e8e8e8,stroke:#333,stroke-width:2px
@@ -30,11 +30,11 @@ graph LR
 
 ## الميزات الرئيسية
 
-- بنية مستودع البيانات مع Dremio
-- التحويلات الآلية مع dbt
+- تصميم مبنى بحيرة البيانات باستخدام Dremio
+- التحولات الآلية مع dbt
 - ذكاء الأعمال مع Apache Superset
-- اختبارات شاملة لجودة البيانات
-- المزامنة في الوقت الفعلي عبر Arrow Flight
+- اختبار شامل لجودة البيانات
+- المزامنة في الوقت الحقيقي عبر رحلة السهم
 
 ---
 
@@ -42,96 +42,94 @@ graph LR
 
 ### المتطلبات الأساسية
 
-- Docker 20.10 أو أعلى
+- دوكر 20.10 أو أعلى
 - Docker Compose 2.0 أو أعلى
-- Python 3.11 أو أعلى
-- الحد الأدنى 8 جيجابايت من الذاكرة
+- بايثون 3.11 أو أعلى
+- ذاكرة وصول عشوائي (RAM) لا تقل عن 8 جيجابايت
 
-### التثبيت
+### منشأة
 
 ```bash
-# Install dependencies
+# Installer les dépendances
 pip install -r requirements.txt
 
-# Start services
+# Démarrer les services
 make up
 
-# Verify installation
+# Vérifier l'installation
 make status
 
-# Run quality tests
+# Exécuter les tests de qualité
 make dbt-test
 ```
 
 ---
 
-## البنية المعمارية
+## بنيان
 
 ### مكونات النظام
 
-| المكون | المنفذ | الوصف |
-|-----------|------|-------------|
-| Dremio | 9047, 31010, 32010 | منصة بحيرة البيانات |
-| dbt | - | أداة تحويل البيانات |
-| Superset | 8088 | Business intelligence platform |
-| PostgreSQL | 5432 | Transactional database |
-| MinIO | 9000, 9001 | Object storage (S3-compatible) |
-| Elasticsearch | 9200 | Search and analytics engine |
+| مكون | ميناء | الوصف |
+|---------------|------|-------------|
+| دريميو | 9047, 31010, 32010 | منصة بحيرة البيانات |
+| دي بي تي | - | أداة تحويل البيانات |
+| سوبرسيت | 8088 | منصة ذكاء الأعمال |
+| بوستجرس كيو ال | 5432 | قاعدة بيانات المعاملات |
+| مينيو | 9000، 9001 | تخزين الكائنات (متوافق مع S3) |
+| البحث المرن | 9200 | محرك بحث وتحليل |
 
-### 📚 وثائق البنية المعمارية
-
-- 📘 [وثائق البنية المعمارية](architecture/) - تصميم النظام التفصيلي
-- 🎯 [الدليل المرئي لمنافذ Dremio](architecture/dremio-ports-visual.md) ⭐ **جديد** - دليل مرئي كامل لمنافذ Dremio الثلاثة
+راجع [وثائق الهندسة المعمارية](الهندسة المعمارية/) للحصول على تصميم مفصل للنظام.
 
 ---
 
 ## التوثيق
 
-### البدء
-- [Installation Guide](getting-started/)
-- [Configuration](getting-started/)
-- [First Steps](getting-started/)
+### بدء
+- [دليل التثبيت](البدء/)
+- [التكوين](البدء/)
+- [البدء](البدء/)
 
 ### أدلة المستخدم
-- [Data Engineering](guides/)
-- [Dashboard Creation](guides/)
-- [API Integration](guides/)
+- [هندسة البيانات](أدلة/)
+- [إنشاء لوحات المعلومات](guides/)
+- [تكامل واجهة برمجة التطبيقات](أدلة/)
 
-### توثيق API
-- [REST API Reference](api/)
-- [Authentication](api/)
-- [Code Examples](api/)
+### وثائق واجهة برمجة التطبيقات
+- [مرجع REST API](api/)
+- [المصادقة](واجهة برمجة التطبيقات/)
+- [أمثلة التعليمات البرمجية](api/)
 
-### توثيق البنية المعمارية
-- [System Design](architecture/)
-- [Data Flow](architecture/)
-- [Deployment Guide](architecture/)
+### وثائق الهندسة المعمارية
+- [تصميم النظام](الهندسة المعمارية/)
+- [تدفق البيانات](الهندسة المعمارية/)
+- [دليل النشر](الهندسة المعمارية/)
+- [🎯 الدليل المرئي لمنافذ Dremio](architecture/dremio-ports-visual.md) ⭐ جديد
 
 ---
 
 ## اللغات المتاحة
 
-| Language | Code | Documentation |
-|----------|------|---------------|
-| English | EN | [README.md](../../../README.md) |
-| Français | FR | [docs/i18n/fr/](../fr/README.md) |
-| Español | ES | [docs/i18n/es/](../es/README.md) |
-| Português | PT | [docs/i18n/pt/](../pt/README.md) |
-| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
-| 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
-| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
-| Русский | RU | [docs/i18n/ru/](../ru/README.md) |
+| اللغة | الكود | التوثيق |
+|--------|------|---------------|
+| الإنجليزية | إن | [README.md](../../../README.md) |
+| الفرنسية | إن | [docs/i18n/fr/](../fr/README.md) |
+| الاسبانية | واس | [docs/i18n/es/](../es/README.md) |
+| البرتغالية | حزب العمال | [docs/i18n/pt/](../pt/README.md) |
+| العربية | ع | [docs/i18n/ar/](../ar/README.md) |
+| 中文 | سي ان | [docs/i18n/cn/](../cn/README.md) |
+| 日本語 | جي بي | [docs/i18n/jp/](../jp/README.md) |
+| Русский | المملكة المتحدة | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 
-## الدعم
+## يدعم
 
-For technical assistance:
-- Documentation: [Main README](../../../README.md)
-- Issue Tracking: GitHub Issues
-- Community Forum: GitHub Discussions
-- Email: support@example.com
+للمساعدة الفنية:
+- التوثيق: [README main](../../../README.md)
+- تعقب المشكلات: مشكلات GitHub
+- منتدى المجتمع: مناقشات جيثب
+- البريد الإلكتروني: support@example.com
 
 ---
 
-**[العودة إلى التوثيق الرئيسي](../../../README.md)**
+**[العودة إلى الوثائق الرئيسية](../../../README.md)**

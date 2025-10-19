@@ -1,119 +1,135 @@
-﻿# Dremio + dbt + OpenMetadata - Documentazione (Italiano)
+﻿# Piattaforma dati
 
-**Versione**: 3.2.5  
-**Ultimo aggiornamento**: 16 ottobre 2025  
-**Lingua**: Italiano 🇮🇹
+**Soluzione Lakehouse per dati aziendali**
 
----
-
-## 📚 Panoramica
-
-Benvenuti nella documentazione italiana per la piattaforma dati Dremio + dbt + OpenMetadata. Questa documentazione fornisce guide complete per l'installazione, la configurazione e l'utilizzo della piattaforma.
+**Lingua**: francese (FR)  
+**Versione**: 3.3.1  
+**Ultimo aggiornamento**: 19 ottobre 2025
 
 ---
 
-## 🗺️ Struttura della Documentazione
+## Panoramica
 
-### 📐 Architettura
+Piattaforma dati professionale che combina Dremio, dbt e Apache Superset per trasformazione dei dati, garanzia di qualità e business intelligence di livello aziendale.
 
-- **[Dremio Ports - Guida Visiva](./architecture/dremio-ports-visual.md)** ⭐ NUOVO!
-  - Guida visiva completa per le 3 porte Dremio (9047, 31010, 32010)
-  - Architettura dettagliata PostgreSQL Proxy
-  - Confronti prestazioni e benchmark
-  - Casi d'uso e albero decisionale
-  - Esempi di connessione: psql, DBeaver, Python, Java, ODBC
-  - Configurazione Docker Compose
-  - 456 righe | 8+ diagrammi Mermaid | 5 esempi di codice
+Questa piattaforma fornisce una soluzione completa per la moderna ingegneria dei dati, comprese pipeline di dati automatizzate, test di qualità e dashboard interattivi.
 
----
-
-## 🌍 Lingue Disponibili
-
-Questa documentazione è disponibile in più lingue:
-
-- 🇫🇷 **[Français](../fr/README.md)** - Documentazione completa (22 file)
-- 🇬🇧 **[English](../../../README.md)** - Documentazione completa (19 file)
-- 🇪🇸 **[Español](../es/README.md)** - Guide visive
-- 🇵🇹 **[Português](../pt/README.md)** - Guide visive
-- 🇨🇳 **[中文](../cn/README.md)** - Guide visive
-- 🇯🇵 **[日本語](../jp/README.md)** - Guide visive
-- 🇷🇺 **[Русский](../ru/README.md)** - Guide visive
-- 🇸🇦 **[العربية](../ar/README.md)** - Guide visive
-- 🇩🇪 **[Deutsch](../de/README.md)** - Guide visive
-- 🇰🇷 **[한국어](../ko/README.md)** - Guide visive
-- 🇮🇳 **[हिन्दी](../hi/README.md)** - Guide visive
-- 🇮🇩 **[Indonesia](../id/README.md)** - Guide visive
-- 🇹🇷 **[Türkçe](../tr/README.md)** - Guide visive
-- 🇻🇳 **[Tiếng Việt](../vi/README.md)** - Guide visive
-- 🇮🇹 **[Italiano](../it/README.md)** - Guide visive ⭐ SEI QUI
-- 🇳🇱 **[Nederlands](../nl/README.md)** - Guide visive
-- 🇵🇱 **[Polski](../pl/README.md)** - Guide visive
-- 🇸🇪 **[Svenska](../se/README.md)** - Guide visive
+```mermaid
+graph LR
+    A[Sources de données] --> B[Dremio]
+    B --> C[dbt]
+    C --> D[Superset]
+    D --> E[Insights métier]
+    
+    style B fill:#f5f5f5,stroke:#333,stroke-width:2px
+    style C fill:#e8e8e8,stroke:#333,stroke-width:2px
+    style D fill:#d8d8d8,stroke:#333,stroke-width:2px
+```
 
 ---
 
-## 🚀 Avvio Rapido
+## Caratteristiche principali
+
+- Architettura di case sul lago di dati con Dremio
+- Trasformazioni automatizzate con dbt
+- Business intelligence con Apache Superset
+- Test completi sulla qualità dei dati
+- Sincronizzazione in tempo reale tramite Arrow Flight
+
+---
+
+## Guida rapida
 
 ### Prerequisiti
 
-- Docker & Docker Compose
-- Python 3.11+
-- Git
+-Docker 20.10 o successiva
+- Docker Compose 2.0 o successiva
+-Python 3.11 o successiva
+- Minimo 8 GB di RAM
 
-### Installazione
+### Facilità
 
 ```bash
-# Clona il repository
-git clone <repository-url>
-cd dremiodbt
+# Installer les dépendances
+pip install -r requirements.txt
 
-# Avvia i servizi Docker
-docker-compose up -d
+# Démarrer les services
+make up
 
-# Apri Web UI
-# Dremio: http://localhost:9047
-# OpenMetadata: http://localhost:8585
+# Vérifier l'installation
+make status
+
+# Exécuter les tests de qualité
+make dbt-test
 ```
 
-Per istruzioni dettagliate sull'installazione, consulta la [documentazione inglese](../en/getting-started/installation.md).
+---
+
+## Architettura
+
+### Componenti del sistema
+
+| Componente | Porto | Descrizione |
+|------|------|-----|
+| Dremio | 9047, 31010, 32010| Piattaforma dati Lakehouse |
+| db | - | Strumento di trasformazione dei dati |
+| Superinsieme | 8088| Piattaforma di business intelligence |
+| PostgreSQL | 5432| Database transazionale |
+| MiniIO | 9000, 9001| Archiviazione oggetti (compatibile S3) |
+| Ricerca elastica | 9200| Motore di ricerca e analisi |
+
+Consulta la [documentazione dell'architettura](architettura/) per la progettazione dettagliata del sistema.
 
 ---
 
-## 📖 Risorse Principali
+## Documentazione
 
-### Dremio Ports - Riferimento Rapido
+### Avvio
+- [Guida all'installazione](per iniziare/)
+- [Configurazione](per iniziare/)
+- [Per iniziare](per iniziare/)
 
-| Porta | Protocollo | Uso | Prestazioni |
-|------|-----------|------------|----------|
-| **9047** | REST API | Web UI, Admin | ⭐⭐ Standard |
-| **31010** | PostgreSQL Wire | Strumenti BI, Migrazione | ⭐⭐⭐ Buone |
-| **32010** | Arrow Flight | dbt, Superset, Alte Prestazioni | ⭐⭐⭐⭐⭐ Massime |
+### Guide per l'utente
+- [Ingegneria dei dati](guide/)
+- [Creazione di dashboard](guide/)
+- [Integrazione API](guide/)
 
-**→ [Guida visiva completa](./architecture/dremio-ports-visual.md)**
+### Documentazione API
+- [Riferimento API REST](api/)
+- [Autenticazione](api/)
+- [Esempi di codice](api/)
 
----
-
-## 🔗 Link Esterni
-
-- **Documentazione Dremio**: https://docs.dremio.com/
-- **Documentazione dbt**: https://docs.getdbt.com/
-- **Documentazione OpenMetadata**: https://docs.open-metadata.org/
-- **Apache Arrow Flight**: https://arrow.apache.org/docs/format/Flight.html
-
----
-
-## 🤝 Contribuire
-
-I contributi sono benvenuti! Si prega di consultare le nostre [linee guida per contribuire](../en/CONTRIBUTING.md).
+### Documentazione sull'architettura
+- [Progettazione del sistema](architettura/)
+- [Flusso di dati](architettura/)
+- [Guida alla distribuzione](architettura/)
+- [🎯 Guida visiva di Dremio Ports](architecture/dremio-ports-visual.md) ⭐ NOVITÀ
 
 ---
 
-## 📄 Licenza
+## Lingue disponibili
 
-Questo progetto è concesso in licenza con [Licenza MIT](../../../LICENSE).
+| Lingua | Codice | Documentazione |
+|--------|------|-------|
+| Inglese | IT | [README.md](../../../README.md) |
+| francese | IT | [docs/i18n/fr/](../fr/README.md) |
+| spagnolo | ES | [docs/i18n/es/](../es/README.md) |
+| Portoghese | P.T. | [docs/i18n/pt/](../pt/README.md) |
+| العربية | AR | [docs/i18n/ar/](../ar/README.md) |
+| 中文 | CN | [docs/i18n/cn/](../cn/README.md) |
+| 日本語 | JP | [docs/i18n/jp/](../jp/README.md) |
+| Russo | Regno Unito | [docs/i18n/ru/](../ru/README.md) |
 
 ---
 
-**Versione**: 3.2.5  
-**Stato**: ✅ Pronto per la Produzione  
-**Ultimo aggiornamento**: 16 ottobre 2025
+## Supporto
+
+Per assistenza tecnica:
+- Documentazione: [README principale](../../../README.md)
+- Tracker dei problemi: problemi di GitHub
+- Forum della community: discussioni su GitHub
+- E-mail: support@example.com
+
+---
+
+**[Torna alla documentazione principale](../../../README.md)**

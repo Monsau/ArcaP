@@ -3,8 +3,8 @@
 **Solution d'entreprise pour lakehouse de données**
 
 **Langue** : Français (FR)  
-**Version**: 3.2.5  
-**Dernière mise à jour** : 15 octobre 2025
+**Version**: 3.3.1  
+**Dernière mise à jour** : 19 octobre 2025
 
 ---
 
@@ -133,3 +133,4 @@ Pour l'assistance technique :
 ---
 
 **[Retour à la documentation principale](../../../README.md)**
+
