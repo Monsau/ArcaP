@@ -1,7 +1,7 @@
-# 🚀 DATA PLATFORM v1.0 - CURRENT STATUS
+# 🚀 DATA PLATFORM v1.0 (AI-Ready) - CURRENT STATUS
 
 **Date**: October 16, 2025 - 20:45  
-**Status**: ✅ **ALL SERVICES STARTED**
+**Status**: ✅ **ALL SERVICES STARTED** (21 services: 15 data platform + 6 AI)
 
 ---
 
@@ -12,44 +12,53 @@
 Use **orchestrate_platform.py** for one-command deployment:
 
 ```bash
-# Windows PowerShell
+# Windows PowerShell - Full deployment (Data Platform + AI)
 $env:PYTHONIOENCODING="utf-8"
 python -u orchestrate_platform.py
 
-# Linux/Mac
+# Linux/Mac - Full deployment
 python orchestrate_platform.py
+
+# Skip AI services (Data Platform only)
+python orchestrate_platform.py --skip-ai
 ```
 
 **This script automatically:**
 1. ✅ Checks prerequisites (Docker, Docker Compose, Python)
 2. ✅ Starts all Docker services
-3. ✅ Launches Airbyte for data integration
-4. ✅ Configures dbt environment and runs models
-5. ✅ Synchronizes Dremio data to PostgreSQL
-6. ✅ Creates Superset dashboards
-7. ✅ Generates Open Data HTML dashboard
+3. ✅ **Deploys AI services (Ollama LLM + Milvus + RAG API + Chat UI)**
+4. ✅ Launches Airbyte for data integration
+5. ✅ Configures dbt environment and runs models
+6. ✅ Synchronizes Dremio data to PostgreSQL
+7. ✅ Creates Superset dashboards
+8. ✅ Generates Open Data HTML dashboard
+9. ✅ **Sets up local LLM (Llama 3.1) and downloads models**
 
 **Output:**
 - Real-time progress with emojis (ℹ️ ✅ ❌ ⚠️)
 - Step-by-step execution status
 - Final deployment summary
-- Service URLs and credentials
+- Service URLs and credentials (including AI services)
 
 **Options:**
 ```bash
 python orchestrate_platform.py --help              # Show all options
 python orchestrate_platform.py --skip-infrastructure  # Skip Docker start
+python orchestrate_platform.py --skip-ai           # Skip AI services deployment
 python orchestrate_platform.py --workspace /path    # Custom workspace
 ```
 
 ### Manual Launch
 
 ```bash
-# Start main services
-docker-compose up -d
+# Start full stack (Data Platform + AI Services)
+docker-compose -f docker-compose.yml -f docker-compose-airbyte-stable.yml -f docker-compose-ai.yml up -d
 
-# Start with Airbyte
+# Start data platform only (no AI)
 docker-compose -f docker-compose.yml -f docker-compose-airbyte-stable.yml up -d
+
+# Start main services only
+docker-compose up -d
 ```
 
 ---
@@ -130,6 +139,63 @@ docker-compose -f docker-compose.yml -f docker-compose-airbyte-stable.yml up -d
 **OpenMetadata Credentials:**
 - Username: `admin`
 - Password: `admin`
+
+### 6. AI Services (NEW)
+
+| Service | Port | URL | Status |
+|---------|------|-----|--------|
+| **AI Chat UI** | 8501 | http://localhost:8501 | ✅ Running |
+| Ollama (Local LLM) | 11434 | http://localhost:11434 | ✅ Running |
+| RAG API | 8002 | http://localhost:8002 | ✅ Running |
+| RAG API Docs | 8002 | http://localhost:8002/docs | ✅ Running |
+| Milvus Vector DB (gRPC) | 19530 | `grpc://localhost:19530` | ✅ Running |
+| Milvus Metrics | 9091 | http://localhost:9091 | ✅ Running |
+| Embedding Service | 8001 | http://localhost:8001 | ✅ Running |
+| Data Ingestion Service | - | - | ✅ Running |
+
+**AI Capabilities:**
+- 🤖 **Local LLM**: Llama 3.1 (8B parameters) running fully on-premise
+- 🧠 **Vector Database**: Milvus with 384-dimensional embeddings (all-MiniLM-L6-v2)
+- 📚 **RAG System**: Retrieval Augmented Generation for context-aware answers
+- 💬 **Natural Language Queries**: Ask questions about your data in plain English
+- 🔄 **Auto-Ingestion**: Scheduled data updates from PostgreSQL/Dremio (hourly/daily/weekly)
+- 🔒 **100% Private**: No cloud APIs, no data leaves your infrastructure
+
+**Quick Start - AI Services:**
+
+1. **Access Chat UI**: http://localhost:8501
+2. **Ingest Data** (via sidebar):
+   - PostgreSQL table: `customers` (text column: `description`)
+   - Or use API: `curl -X POST http://localhost:8002/ingest/postgres -d '{"table": "customers", "text_column": "description"}'`
+3. **Ask Questions**:
+   - "What are our top products?"
+   - "Show me customer trends"
+   - "Generate SQL for sales analysis"
+
+**Available LLM Models:**
+- ✅ **llama3.1** (default) - 5GB, best quality
+- ⬇️ **mistral** - `docker exec ollama ollama pull mistral` (fast, coding)
+- ⬇️ **phi3** - `docker exec ollama ollama pull phi3` (lightweight, 2GB)
+
+**Health Checks:**
+```bash
+# RAG API status
+curl http://localhost:8002/health
+
+# Embedding service status
+curl http://localhost:8001/health
+
+# List available LLM models
+docker exec ollama ollama list
+
+# Milvus metrics
+curl http://localhost:9091/metrics
+```
+
+**Troubleshooting:**
+- If Ollama fails to start: `docker restart ollama && docker logs -f ollama`
+- If no search results: Ingest data first via Chat UI or API
+- For GPU acceleration: Uncomment GPU config in `docker-compose-ai.yml`
 
 ---
 
