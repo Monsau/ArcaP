@@ -36,7 +36,7 @@ AI Services:
 - RAG API: http://localhost:8002
 - Embedding Service: http://localhost:8001
 - LLM: Llama 3.1 (via Ollama on port 11434)
-- Vector Database: Milvus (port 19530)
+- Vector Database: Qdrant (port 6333)
 '@
 
 $body = @{

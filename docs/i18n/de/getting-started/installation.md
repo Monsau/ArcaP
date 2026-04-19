@@ -282,7 +282,7 @@ pip list
 **Wichtige installierte Pakete:**
 - `pyarrow>=21.0.0` – Arrow Flight-Kunde
 - `pandas>=2.3.0` - Datenmanipulation
-- `dbt-core>=1.10.0` - Datentransformation
+- `dbt-core>=1.12.4` - Datentransformation
 - `sqlalchemy>=2.0.0` - Datenbankkonnektivität
 - `pyyaml>=6.0.0` - Konfigurationsverwaltung
 

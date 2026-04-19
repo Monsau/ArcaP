@@ -8,17 +8,17 @@ import os
 from typing import List, Dict, Any
 import io
 
-# Import Talentys theme
+# Import ArcaP theme
 try:
     from config.talentys_theme import get_company_info
     COMPANY_INFO = get_company_info()
 except:
     COMPANY_INFO = {
-        "name": "Talentys",
-        "tagline": "Data Engineering & Analytics Excellence",
-        "website": "https://talentys.eu",
-        "email": "support@talentys.eu",
-        "logo_local": "static/img/talentys-logo.png"
+        "name": "ArcaP",
+        "tagline": "Open Data Platform",
+        "website": "https://github.com/Monsau/ArcaP",
+        "email": "contact@arcap.io",
+        "logo_local": "static/img/arcap-logo.svg"
     }
 
 # Configuration
@@ -42,7 +42,7 @@ st.markdown("""
     /* Sidebar logo en haut */
     [data-testid="stSidebarNav"] {
         padding-top: 2rem;
-        background-image: url('static/img/talentys-logo.png');
+        background-image: url('static/img/arcap-logo.svg');
         background-repeat: no-repeat;
         background-position: center 1rem;
         background-size: 60px;
@@ -101,10 +101,10 @@ st.markdown("Ask questions about your data or upload documents to expand the kno
 
 # Sidebar
 with st.sidebar:
-    # Logo Talentys monochrome centré en haut de la sidebar
+    # ArcaP logo en haut de la sidebar
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.image("static/img/talentys-logo-mono.png", width=80)
+        st.image("static/img/arcap-logo.svg", width=80)
     st.markdown("---")
     
     st.header("⚙️ Configuration")

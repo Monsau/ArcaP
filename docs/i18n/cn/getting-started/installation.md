@@ -282,7 +282,7 @@ pip list
 **关键安装包：**
 - `pyarrow>=21.0.0` - Arrow Flight 客户
 - `pandas>=2.3.0` - 数据操作
-- `dbt-core>=1.10.0` - 数据转换
+- `dbt-core>=1.12.4` - 数据转换
 - `sqlalchemy>=2.0.0` - 数据库连接
 - `pyyaml>=6.0.0` - 配置管理
 

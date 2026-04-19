@@ -226,7 +226,7 @@
   - airbyte-*
   - superset
   - ollama
-  - milvus-*
+  - qdrant
   - rag-api
   - chat-ui
   - dbt-docs

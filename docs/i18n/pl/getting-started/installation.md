@@ -118,7 +118,7 @@ Ten przewodnik zawiera instrukcje krok po kroku dotyczące instalacji i konfigur
 **Kluczowe zainstalowane pakiety:**
 - `pyarrow>=21.0.0` - Klient lotu Arrow
 - `pandas>=2.3.0` - Manipulacja danymi
-- `dbt-core>=1.10.0` - Transformacja danych
+- `dbt-core>=1.12.4` - Transformacja danych
 - `sqlalchemy>=2.0.0` - Łączność z bazą danych
 - `pyyaml>=6.0.0` - Zarządzanie konfiguracją
 

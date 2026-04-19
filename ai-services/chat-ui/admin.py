@@ -44,9 +44,9 @@ def render_login_page():
     st.markdown("""
     <div class="login-container">
         <div class="login-header">
-            <img src="https://talentys.eu/logo.png" alt="Talentys Logo">
+            <img src="static/img/arcap-logo.svg" alt="ArcaP Logo">
             <h1>🎨 Admin Console</h1>
-            <p>Talentys AI Agent Management</p>
+            <p>ArcaP AI Agent Management</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -106,7 +106,7 @@ def render_dashboard():
     st.markdown(f"""
     <div class="main-header">
         <h1>
-            <img src="{company_info['logo_url']}" class="talentys-logo" alt="Talentys">
+            <img src="{company_info['logo_url']}" class="arcap-logo" alt="ArcaP">
             🎨 AI Agent Admin Console
         </h1>
         <p>Customize your AI agent with company branding and manage settings</p>
@@ -205,13 +205,13 @@ def render_theme_customization():
     with col1:
         logo_url = st.text_input(
             "Logo URL",
-            value="https://talentys.eu/logo.png",
+            value="static/img/arcap-logo.svg",
             help="Direct URL to your company logo"
         )
         
         company_name = st.text_input(
             "Company Name",
-            value="Talentys",
+            value="ArcaP",
             help="Your company name"
         )
         
@@ -407,7 +407,7 @@ else:
     with st.sidebar:
         st.markdown(f"""
         <div class="sidebar-logo">
-            <img src="https://talentys.eu/logo.png" alt="Talentys">
+            <img src="static/img/arcap-logo.svg" alt="ArcaP">
         </div>
         """, unsafe_allow_html=True)
         
@@ -455,10 +455,10 @@ else:
     # Footer
     st.markdown("""
     <div class="talentys-footer">
-        <p>&copy; 2025 Talentys - Data Engineering & Analytics Excellence</p>
+        <p>&copy; 2026 ArcaP — Open Data Platform</p>
         <p>
-            <a href="https://talentys.eu" target="_blank">Website</a> | 
-            <a href="mailto:support@talentys.eu">Support</a>
+            <a href="https://github.com/Monsau/ArcaP" target="_blank">GitHub</a> | 
+            <a href="mailto:contact@arcap.io">Support</a>
         </p>
     </div>
     """, unsafe_allow_html=True)

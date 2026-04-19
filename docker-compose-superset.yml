@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   superset-redis:
-    image: redis:7.2-alpine
+    image: redis:7.4-alpine
     container_name: superset-redis
     restart: unless-stopped
     volumes:
@@ -24,7 +24,7 @@ services:
       - superset-network
 
   superset:
-    image: apache/superset:3.0.0
+    image: apache/superset:4.1.2
     container_name: superset
     restart: unless-stopped
     depends_on:

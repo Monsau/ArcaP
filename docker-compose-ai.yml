@@ -35,59 +35,19 @@ services:
       - ai-network
     restart: unless-stopped
 
-  # Milvus Standalone - Vector database
-  milvus-etcd:
-    image: quay.io/coreos/etcd:v3.5.5
-    container_name: milvus-etcd
-    environment:
-      - ETCD_AUTO_COMPACTION_MODE=revision
-      - ETCD_AUTO_COMPACTION_RETENTION=1000
-      - ETCD_QUOTA_BACKEND_BYTES=4294967296
-      - ETCD_SNAPSHOT_COUNT=50000
-    volumes:
-      - ./ai-services/milvus/etcd:/etcd
-    command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
-    networks:
-      - ai-network
-    restart: unless-stopped
-
-  milvus-minio:
-    image: minio/minio:RELEASE.2023-03-20T20-16-18Z
-    container_name: milvus-minio
-    environment:
-      MINIO_ACCESS_KEY: minioadmin
-      MINIO_SECRET_KEY: minioadmin
-    volumes:
-      - ./ai-services/milvus/minio:/minio_data
-    command: minio server /minio_data
-    networks:
-      - ai-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
-    restart: unless-stopped
-
-  milvus:
-    image: milvusdb/milvus:v2.3.3
-    container_name: milvus
-    command: ["milvus", "run", "standalone"]
-    environment:
-      ETCD_ENDPOINTS: milvus-etcd:2379
-      MINIO_ADDRESS: milvus-minio:9000
-    volumes:
-      - ./ai-services/milvus/data:/var/lib/milvus
+  # Qdrant - Vector database
+  qdrant:
+    image: qdrant/qdrant:v1.17.1
+    container_name: qdrant
     ports:
-      - "19530:19530"  # gRPC
-      - "9091:9091"    # Metrics
-    depends_on:
-      - milvus-etcd
-      - milvus-minio
+      - "6333:6333"   # HTTP / REST API + Web UI
+      - "6334:6334"   # gRPC
+    volumes:
+      - ./ai-services/qdrant/storage:/qdrant/storage
     networks:
       - ai-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      test: ["CMD", "curl", "-f", "http://localhost:6333/healthz"]
       interval: 30s
       timeout: 20s
       retries: 3
@@ -132,12 +92,21 @@ services:
       - LLM_TEMPERATURE=0.7
       - LLM_MAX_TOKENS=2048
       
-      # Vector Database Configuration
-      - MILVUS_HOST=milvus
-      - MILVUS_PORT=19530
-      - COLLECTION_NAME=knowledge_base
+      # Vector Database Configuration (Qdrant)
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - COLLECTION_NAME=data_platform_knowledge
       - EMBEDDING_DIM=384
       - TOP_K=5
+      # Governance collections
+      - GOV_COLLECTION=om_knowledge
+      - OP_COLLECTION=data_platform_knowledge
+      - GOV_MODE_DEFAULT=governance-first
+      - GOV_MIN_SCORE=0.35
+      # OpenMetadata (Governance SoT) - set OM_HOST to openmetadata-server when OMD stack is running
+      - OM_HOST=openmetadata-server
+      - OM_PORT=8585
+      - OM_API_TOKEN=
       
       # Embedding Service Configuration
       - EMBEDDING_SERVICE_URL=http://embedding-service:8001
@@ -150,7 +119,7 @@ services:
       - MINIO_SECURE=false
     depends_on:
       - ollama
-      - milvus
+      - qdrant
       - embedding-service
       - minio-ai-service
     networks:
@@ -185,3 +154,8 @@ services:
 networks:
   ai-network:
     driver: bridge
+  # Uncomment and run with: docker network create openmetadata_net
+  # to allow rag-api to reach OpenMetadata when both stacks are running.
+  # openmetadata_net:
+  #   external: true
+  #   name: openmetadata_net

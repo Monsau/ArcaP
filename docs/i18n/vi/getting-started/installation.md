@@ -282,7 +282,7 @@ pip list
 **Các gói cài đặt chính:**
 - `pyarrow>=21.0.0` - Khách hàng của Arrow Flight
 - `pandas>=2.3.0` - Thao tác dữ liệu
-- `dbt-core>=1.10.0` - Chuyển đổi dữ liệu
+- `dbt-core>=1.12.4` - Chuyển đổi dữ liệu
 - `sqlalchemy>=2.0.0` - Kết nối cơ sở dữ liệu
 - `pyyaml>=6.0.0` - Quản lý cấu hình
 

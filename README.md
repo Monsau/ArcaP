@@ -1,16 +1,8 @@
-# 🚀 Data Platform - ISO Opensource
+# ArcaP — Open Data Platform
 
-**Enterprise Data Lakehouse So**AI Capabilities (NEW):**
-- 🤖 Local LLM server with Ollama (Llama 3.1, Mistral, Phi)
-- 🧠 Vector database with Milvus for semantic search
-- 📚 RAG (Retrieval Augmented Generation) system
-- 💬 Interactive Chat UI for querying data with natural language
-- 📄 **Document upload support (PDF, Word, Excel, CSV, JSON, TXT, Markdown)**
-- 📦 **Automatic S3/MinIO storage for all uploaded documents**
-- 🔄 Automatic data ingestion from PostgreSQL/Dremio to vector DB
-- 🔒 100% on-premise - no cloud dependencies, complete data privacy
+A self-hosted data lakehouse with integrated AI capabilities: local LLM inference, RAG-based data querying, and metadata governance via OpenMetadata.
 
-[![Version](https://img.shields.io/badge/version-3.3.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-4.0.0-blue.svg)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/Python-3.11+-green.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-18%20languages-success.svg)](docs/i18n/)
@@ -18,11 +10,9 @@
 **Created by:** [Mustapha Fonsau](https://www.linkedin.com/in/mustapha-fonsau/) | [GitHub](https://github.com/Monsau)
 
 <p align="center">
-  <a href="https://talentys.eu" target="_blank">
-    <img src="assets/images/talentys/original.png" alt="Supported by Talentys Data" width="200"/>
-  </a>
+  <img src="assets/arcap-logo-dark.svg" alt="ArcaP — Open Data Platform" width="220"/>
   <br/>
-  <em>Supported by <a href="https://talentys.eu">Talentys</a> | <a href="https://www.linkedin.com/company/talentysdata">LinkedIn</a> - Data Engineering & Analytics Excellence</em>
+  <em>Open Data Platform · <a href="https://github.com/Monsau/ArcaP">github.com/Monsau/ArcaP</a> · <a href="https://www.linkedin.com/in/mustapha-fonsau/">LinkedIn</a></em>
 </p>
 
 > 📖 **Main documentation in English.** Translations available in 17 additional languages below.
@@ -37,52 +27,54 @@
 
 ## Overview
 
-**AI-Ready** professional data platform combining **Airbyte**, **Dremio**, **dbt**, **Apache Superset**, and **Local LLM (Ollama)** for enterprise-grade data integration, transformation, quality assurance, business intelligence, and **AI-powered insights**. Built with multilingual support for global teams.
+Self-hosted data lakehouse combining ingestion, transformation, BI, and a local AI stack under one Docker Compose setup. All computation stays on-premise — no cloud APIs, no usage costs.
 
 ```mermaid
 graph TB
-    A[Data Sources] --> B[Airbyte ETL]
+    A[Data Sources] --> B[Airbyte]
     B --> C[Dremio Lakehouse]
     C --> D[dbt Transformations]
-    D --> E[Apache Superset]
+    D --> E[Superset BI]
     E --> F[Business Insights]
-    
-    C --> G[Vector DB<br/>Milvus]
-    D --> G
-    G --> H[RAG System]
-    I[Local LLM<br/>Ollama] --> H
-    H --> J[AI Chat UI]
-    J --> K[AI-Powered<br/>Insights]
-    
+
+    C --> G[OpenMetadata]
+    G --> H[Qdrant Vector DB]
+    D --> H
+    H --> I[RAG System]
+    J[Ollama LLM] --> I
+    I --> K[AI Chat UI]
+
     style B fill:#615EFF,color:#fff,stroke:#333,stroke-width:2px
     style C fill:#f5f5f5,stroke:#333,stroke-width:2px
     style D fill:#e8e8e8,stroke:#333,stroke-width:2px
     style E fill:#d8d8d8,stroke:#333,stroke-width:2px
-    style G fill:#FF6B6B,color:#fff,stroke:#333,stroke-width:2px
-    style I fill:#4ECDC4,color:#fff,stroke:#333,stroke-width:2px
-    style H fill:#95E1D3,stroke:#333,stroke-width:2px
-    style J fill:#AA96DA,color:#fff,stroke:#333,stroke-width:2px
+    style G fill:#00C4CC,color:#fff,stroke:#333,stroke-width:2px
+    style H fill:#6C63FF,color:#fff,stroke:#333,stroke-width:2px
+    style J fill:#4ECDC4,color:#fff,stroke:#333,stroke-width:2px
+    style I fill:#95E1D3,stroke:#333,stroke-width:2px
+    style K fill:#AA96DA,color:#fff,stroke:#333,stroke-width:2px
 ```
 
 ### Key Features
 
 **Data Platform:**
-- Data integration with Airbyte 1.8.0 (300+ connectors)
-- Data lakehouse architecture with Dremio 26.0
-- Automated transformations with dbt 1.10+
-- Business intelligence with Apache Superset 3.0
-- Comprehensive data quality testing (21 automated tests)
-- Real-time synchronization via Arrow Flight
-- Multilingual documentation (18 languages)
+- Airbyte 2.0.0 for data ingestion (300+ connectors)
+- Dremio 26.0 data lakehouse with Apache Polaris Iceberg catalog
+- dbt 1.10+ for SQL transformations and lineage
+- Apache Superset 4.1.2 for dashboards and BI
+- 21 automated data quality tests
+- Arrow Flight for real-time Dremio ↔ PostgreSQL sync
+- Documentation in 18 languages
 
-**AI Capabilities (NEW):**
-- 🤖 Local LLM server with Ollama (Llama 3.1, Mistral, Phi)
-- 🧠 Vector database with Milvus for semantic search
-- 📚 RAG (Retrieval Augmented Generation) system
-- 💬 Interactive Chat UI for querying data with natural language
-- � **Document upload support (PDF, Word, Excel, CSV, JSON, TXT, Markdown)**
-- �🔄 Automatic data ingestion from PostgreSQL/Dremio to vector DB
-- 🔒 100% on-premise - no cloud dependencies, complete data privacy
+**AI and Governance:**
+- Local LLM inference via Ollama (Llama 3.1, Mistral, Phi3)
+- Vector search with Qdrant v1.17.1 (cosine similarity, 384-dim embeddings)
+- OpenMetadata 1.12.4 as governance Source of Truth
+- Governance-first RAG: metadata catalog queried before operational data
+- Document ingestion: PDF, Word, Excel, CSV, JSON, TXT, Markdown
+- Documents archived to MinIO before vector processing
+- Scheduled ingestion from PostgreSQL and Dremio
+- Fully on-premise — no cloud API calls, no usage fees
 
 ---
 
@@ -116,20 +108,20 @@ python orchestrate_platform.py --skip-infrastructure
 ```
 
 **What it does:**
-- ✅ Validates prerequisites
-- ✅ Starts all Docker services
-- ✅ Deploys AI services (Ollama LLM, Milvus Vector DB, RAG API)
-- ✅ Configures Airbyte, Dremio, dbt
-- ✅ Runs data transformations
-- ✅ Creates Superset dashboards
-- ✅ Provides deployment summary with service URLs
+- Validates prerequisites (Docker, Docker Compose, Python 3.11+)
+- Starts all Docker services
+- Deploys the AI stack (Ollama, Qdrant, RAG API, Embedding Service, Chat UI)
+- Configures Airbyte, Dremio, dbt
+- Runs dbt transformations and quality tests
+- Creates Superset dashboards
+- Prints a deployment summary with all service URLs
 
 ### Manual Installation
 
 ```bash
 # Clone repository
-git clone https://github.com/Monsau/data-platform-iso-opensource.git
-cd data-platform-iso-opensource
+git clone https://github.com/Monsau/ArcaP.git
+cd ArcaP
 
 # Install dependencies
 pip install -r requirements.txt
@@ -162,16 +154,17 @@ make dbt-test
 | MinIO Console | http://localhost:9001 | minioadmin / minioadmin123 |
 | PostgreSQL | localhost:5432 | postgres / postgres123 |
 
-**AI Services (NEW):**
+**AI Services:**
 
 | Service | URL | Description |
 |---------|-----|-------------|
-| **AI Chat UI** | http://localhost:8501 | Chat with your data using natural language |
+| **AI Chat UI** | http://localhost:8501 | Natural language interface for data queries |
 | RAG API | http://localhost:8002 | REST API for AI queries |
 | RAG API Docs | http://localhost:8002/docs | Interactive API documentation |
-| Ollama LLM | http://localhost:11434 | Local LLM server |
-| Milvus Vector DB | localhost:19530 | Vector database for embeddings |
+| Qdrant UI | http://localhost:6333/dashboard | Vector database UI |
+| Ollama LLM | http://localhost:11434 | Local LLM server (Llama 3.1) |
 | Embedding Service | http://localhost:8001 | Text-to-vector conversion |
+| **OpenMetadata** | http://localhost:8585 | Metadata governance catalog |
 
 ---
 
@@ -183,25 +176,26 @@ make dbt-test
 
 | Component | Version | Port | Description |
 |-----------|---------|------|-------------|
-| **Airbyte** | 1.8.0 | 8000, 8001 | Data integration platform (300+ connectors) |
-| **Dremio** | 26.0 | 9047, 32010 | Data lakehouse platform |
-| **dbt** | 1.10+ | - | Data transformation tool |
-| **Superset** | 3.0.0 | 8088 | Business intelligence platform |
-| **PostgreSQL** | 15 | 5432 | Transactional database |
-| **MinIO** | Latest | 9000, 9001 | S3-compatible object storage |
-| **Elasticsearch** | 7.17.0 | 9200 | Search and analytics engine |
-| **MySQL** | 8.0 | 3307 | OpenMetadata database |
+| **Airbyte** | 2.0.0 | 8000 | Data integration platform (300+ connectors) |
+| **Dremio** | 26.0 | 9047, 32010 | Data lakehouse engine |
+| **dbt** | 1.10+ | — | SQL transformations and data lineage |
+| **Superset** | 4.1.2 | 8088 | Business intelligence and dashboards |
+| **PostgreSQL** | 16 | 5432 | Transactional database |
+| **MinIO** | latest | 9000, 9001 | S3-compatible object storage |
+| **Elasticsearch** | 8.11.4 | 9200 | Search engine (used by OpenMetadata) |
+| **MySQL** | 8.4 | 3307 | OpenMetadata backend database |
+| **Airflow** | 3.0.0 | 8080 | Workflow orchestration |
 
-#### AI Services (NEW)
+#### AI Services
 
 | Component | Version | Port | Description |
 |-----------|---------|------|-------------|
-| **Ollama** | Latest | 11434 | Local LLM server (Llama 3.1 - 8B parameters) |
-| **Milvus** | 2.3.3 | 19530 | Vector database for semantic search |
-| **RAG API** | 1.0 | 8002 | RAG orchestration & query API (FastAPI) |
-| **Embedding Service** | 1.0 | 8001 | Text-to-vector conversion (all-MiniLM-L6-v2) |
-| **AI Chat UI** | 1.0 | 8501 | Natural language query interface (Streamlit) |
-| **Data Ingestion** | 1.0 | - | Scheduled data loading service |
+| **Ollama** | latest | 11434 | Local LLM server (Llama 3.1, Mistral, Phi3) |
+| **Qdrant** | 1.17.1 | 6333, 6334 | Vector database (REST + gRPC) |
+| **OpenMetadata** | 1.12.4 | 8585 | Metadata governance catalog |
+| **RAG API** | — | 8002 | FastAPI RAG orchestration service |
+| **Embedding Service** | — | 8001 | all-MiniLM-L6-v2 text embeddings |
+| **AI Chat UI** | — | 8501 | Streamlit natural language query interface |
 
 ### Architecture Diagrams
 
@@ -210,6 +204,91 @@ make dbt-test
 - [Airbyte Workflow](docs/diagrams/airbyte-workflow.mmd)
 - [Deployment](docs/diagrams/deployment.mmd)
 - [User Journey](docs/diagrams/user-journey.mmd)
+
+---
+
+## Metadata Governance — OpenMetadata
+
+OpenMetadata 1.12.4 is the governance backbone of ArcaP. It sits between the data lakehouse and the AI layer: it catalogues every asset produced in the platform, builds end-to-end lineage, and feeds the RAG system with structured knowledge.
+
+### Role in the Platform
+
+```
+Airbyte ──▶ Dremio ──▶ dbt ──▶ Superset
+               │          │
+               ▼          ▼
+           OpenMetadata (catalog + lineage)
+               │
+               ▼
+        Qdrant om_knowledge collection
+               │
+               ▼
+         RAG System (governance-first)
+```
+
+The RAG pipeline queries `om_knowledge` **before** `data_platform_knowledge`. Every answer from the AI Chat UI is grounded in the governed metadata catalog — table descriptions, column definitions, data quality results, and ownership — not raw data alone.
+
+### Configured Connectors
+
+| Connector | Ingestion | Capabilities |
+|-----------|-----------|--------------|
+| **Dremio** | Scheduled daily at 02:00 | Tables, views, VDS lineage, column profiling |
+| **dbt** | After each `dbt run` | Model lineage, test results, exposures |
+| **PostgreSQL** | Scheduled daily | Tables, column stats, data quality |
+| **Airflow** | Pipeline events | DAG lineage, task-level traceability |
+
+### What Gets Catalogued
+
+- **Tables & Views** — every Dremio space, PostgreSQL schema, and dbt model
+- **Column-level Lineage** — traces a BI metric back to its raw source across Airbyte → Dremio → dbt → Superset
+- **Data Quality Results** — dbt test outcomes surfaced as quality badges in the catalog
+- **Ownership & Tags** — data stewards assigned per domain; PII / sensitive columns tagged automatically
+- **Business Glossary** — shared term definitions linked to physical columns
+- **Descriptions** — auto-populated from dbt `description` fields and enriched collaboratively
+
+### Access
+
+| Interface | URL | Credentials |
+|-----------|-----|-------------|
+| **Catalog UI** | http://localhost:8585 | admin / admin |
+| **REST API** | http://localhost:8585/api/v1 | JWT Bearer token |
+| **Swagger** | http://localhost:8585/swagger-ui | — |
+| **Health** | http://localhost:8585/api/v1/health | — |
+
+### Backend Services
+
+OpenMetadata requires two backing services that run alongside it:
+
+| Service | Port | Purpose |
+|---------|------|---------|
+| MySQL 8.4 | 3307 | Metadata storage |
+| Elasticsearch 8.11.4 | 9200 | Full-text search index |
+
+### Governance-First RAG
+
+The AI ingestion pipeline runs on a schedule and feeds OpenMetadata context into Qdrant:
+
+```bash
+# Trigger a manual metadata sync to Qdrant
+python scripts/auto-sync-dremio-openmetadata.py
+```
+
+The `om_knowledge` Qdrant collection stores:
+- Table and column descriptions from the catalog
+- Data lineage summaries
+- Data quality test results
+- Business glossary definitions
+- Dataset ownership and stewardship metadata
+
+Answers produced by the AI Chat UI always cite which catalog entries contributed context.
+
+### Full Documentation
+
+- [OpenMetadata Setup Guide](openmetadata/README.md)
+- [Integration Plan](openmetadata/INTEGRATION_PLAN.md)
+- [Deployment Summary](openmetadata/DEPLOYMENT_SUMMARY.md)
+- [Verification Checklist](openmetadata/VERIFICATION_CHECKLIST.md)
+- [GenAI Integration](openmetadata/OMD_GENAI_INTEGRATION.md)
 
 ---
 
@@ -297,7 +376,7 @@ The platform includes a complete **AI/LLM stack** for natural language data quer
 ```
 User Question → Chat UI → RAG API → Query Embedding
                                   ↓
-                          Vector Search (Milvus)
+                          Vector Search (Qdrant)
                                   ↓
                           Retrieve Context Documents
                                   ↓
@@ -316,7 +395,7 @@ User Question → Chat UI → RAG API → Query Embedding
 | **RAG API** | http://localhost:8002 | REST API for AI queries |
 | **RAG API Docs** | http://localhost:8002/docs | Interactive API documentation |
 | **Ollama LLM** | http://localhost:11434 | Local LLM server (Llama 3.1) |
-| **Milvus Vector DB** | localhost:19530 | Semantic search database |
+| **Qdrant Vector DB** | localhost:6333 | Semantic search database |
 | **Embedding Service** | http://localhost:8001 | Text-to-vector conversion |
 
 ### Programmatic Access
@@ -372,14 +451,13 @@ docker exec ollama ollama list
 
 ### AI Features
 
-- ✅ **100% Local**: No cloud APIs, no data leaves your infrastructure
-- ✅ **Private**: All processing done on-premise
-- ✅ **No API Costs**: No OpenAI/Anthropic bills
-- ✅ **Semantic Search**: Vector database (Milvus) with 384-dim embeddings
-- ✅ **RAG System**: Retrieval Augmented Generation for context-aware answers
-- ✅ **Multiple Models**: Llama 3.1, Mistral, Phi3, CodeLlama
-- ✅ **Auto-Ingestion**: Scheduled data updates from PostgreSQL/Dremio
-- ✅ **Source Attribution**: See which documents the answer came from
+- All computation is local: no cloud API calls, no data leaves your infrastructure
+- Qdrant vector DB with cosine similarity search across 384-dim embeddings
+- Dual-collection RAG: `om_knowledge` (OpenMetadata governance) and `data_platform_knowledge` (operational)
+- Governance-first mode: metadata context prioritized over raw data context
+- Supported models: Llama 3.1, Mistral, Phi3, CodeLlama
+- Scheduled ingestion from PostgreSQL tables and Dremio spaces
+- Source attribution in every answer: shows which documents contributed to the response
 
 ### Comprehensive Guide
 
@@ -507,61 +585,6 @@ data-platform-iso-opensource/
 
 ---
 
-## 🗺️ Roadmap
-
-Our vision for the future of Talentys Data Platform with **monthly releases**:
-
-### 📦 v1.2.0 - November 2025 (Next Release)
-**Focus: OpenMetadata Integration Phase 1**
-
-- 🔍 **OpenMetadata**: Complete metadata catalog, data lineage, data quality
-- 📝 **Auto-documentation**: LLM-generated dataset descriptions, PII detection
-
-### 📦 v1.2.1 - December 2025
-**Focus: OpenMetadata Phase 2 & Enhanced Chat UI**
-
-- 💬 **Enhanced Chat UI**: Persistent history, export capabilities, bookmarks, themes
-- � **OpenMetadata**: Smart tagging, column-level metadata
-
-### 📦 v1.3.x - January-March 2026
-**Focus: Security & Authentication**
-
-- 🔐 OAuth2/SSO, RBAC, API security (Jan)
-- 📊 Real-time analytics dashboard with alerting (Feb)
-- 🎨 UI/UX improvements, user management (Mar)
-
-### 📦 v1.4.x - April-June 2026
-**Focus: Advanced AI & ML**
-
-- 🤖 MLOps with MLflow, advanced RAG (Apr)
-- 🧠 Multi-model LLM support, prompt engineering (May)
-- 📊 Predictive analytics, automated insights (Jun)
-
-### 📦 v1.5.x - July-September 2026
-**Focus: Cloud Native & Kubernetes**
-
-- ☁️ Helm charts, Kubernetes operators (Jul)
-- 🌐 Multi-cloud support (AWS, Azure, GCP), hybrid cloud (Aug)
-- 🔄 GitOps with ArgoCD, OpenTelemetry observability (Sep)
-
-### 📦 v1.6.x - October-December 2026
-**Focus: Enterprise Features**
-
-- 🏢 Multi-tenancy, white-labeling (Oct)
-- 💼 Enterprise governance, audit logging, data masking (Nov)
-- 📱 Mobile app (iOS/Android), complete API (Dec)
-
-### 📦 v2.0.0 - 2027
-**Focus: Next-Generation Platform**
-
-- 🚀 AI-first platform with natural language to SQL
-- 🌊 Real-time streaming with Kafka/Flink
-- 🌍 Data Mesh architecture, global scale
-
-📄 **Full roadmap** (18 languages): [English](docs/i18n/en/ROADMAP.md) | [Français](docs/i18n/fr/ROADMAP.md) | [Español](docs/i18n/es/ROADMAP.md) | [All languages](docs/i18n/)
-
----
-
 ## Contributing
 
 We welcome contributions from the community. Please see:
@@ -604,7 +627,7 @@ Built with enterprise-grade open-source technologies:
 **AI Services:**
 - [Ollama](https://ollama.ai/) - Local LLM server
 - [Llama 3.1](https://ai.meta.com/llama/) - Meta's open-source LLM (8B parameters)
-- [Milvus](https://milvus.io/) - Vector database for semantic search
+- [Qdrant](https://qdrant.tech/) - Vector database for semantic search
 - [sentence-transformers](https://www.sbert.net/) - Text embedding models
 - [FastAPI](https://fastapi.tiangolo.com/) - Modern web framework for APIs
 - [Streamlit](https://streamlit.io/) - App framework for ML/AI projects

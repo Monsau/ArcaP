@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>ArcaP Logo Preview</title>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; }
+    .row { display: flex; align-items: center; gap: 40px; padding: 48px 60px; }
+    .dark  { background: #0f172a; }
+    .light { background: #f8fafc; border-top: 1px solid #e2e8f0; }
+    .label { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    .dark  .label { color: #64748b; }
+    .light .label { color: #94a3b8; }
+    .family { display: flex; flex-direction: column; gap: 32px; }
+    .family-row { display: flex; align-items: center; gap: 32px; }
+    h2 { font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+         padding: 10px 24px; margin: 0; background: #1e293b; color: #475569; }
+  </style>
+</head>
+<body>
+
+  <h2>ArcaP — OSS Data Platform · Logo family preview</h2>
+
+  <!-- Dark background -->
+  <div class="row dark">
+    <div>
+      <div class="label" style="margin-bottom:14px">Dark bg — primary</div>
+      <img src="arcap-logo.svg" height="56" alt="ArcaP logo">
+    </div>
+    <div>
+      <div class="label" style="margin-bottom:14px">2× scale</div>
+      <img src="arcap-logo.svg" height="112" alt="ArcaP logo 2x">
+    </div>
+  </div>
+
+  <!-- Alongside the Arca family -->
+  <div class="row dark" style="flex-direction:column;align-items:flex-start;gap:20px">
+    <div class="label">Arca suite — family consistency</div>
+    <div class="family-row">
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+        <img src="arcaq-logo.svg" height="40" alt="ArcaQ">
+        <span class="label" style="color:#475569">ArcaQ · AI</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+        <img src="arcax-logo.svg" height="40" alt="ArcaX">
+        <span class="label" style="color:#475569">ArcaX · MCP</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+        <img src="arcap-logo.svg" height="40" alt="ArcaP">
+        <span class="label" style="color:#22d3ee">ArcaP · OSS Platform</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Light background -->
+  <div class="row light">
+    <div>
+      <div class="label" style="margin-bottom:14px">Light bg variant</div>
+      <img src="arcap-logo-dark.svg" height="56" alt="ArcaP logo light">
+    </div>
+    <div>
+      <div class="label" style="margin-bottom:14px">2× scale</div>
+      <img src="arcap-logo-dark.svg" height="112" alt="ArcaP logo light 2x">
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-# 🚀 OpenMetadata 1.10.1 - Guide de Démarrage Rapide
+# 🚀 OpenMetadata 1.12.4 - Guide de Démarrage Rapide
 
 ## 📋 Prérequis
 
@@ -381,6 +381,6 @@ Avant de déployer en production :
 
 ---
 
-**Version**: OpenMetadata 1.10.1  
+**Version**: OpenMetadata 1.12.4  
 **Date**: Octobre 2025  
 **Statut**: ✅ Production Ready

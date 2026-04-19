@@ -1,0 +1,105 @@
+# RAG API — FastAPI governance-first retrieval service
+# Port: 8002
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rag-api-config
+  namespace: arcap
+data:
+  # Qdrant
+  QDRANT_HOST: "qdrant"
+  QDRANT_PORT: "6333"
+  # Collections
+  GOV_COLLECTION: "om_knowledge"
+  OP_COLLECTION: "data_platform_knowledge"
+  # Governance-first retrieval
+  GOV_MODE_DEFAULT: "governance-first"
+  GOV_MIN_SCORE: "0.6"
+  GOV_FRESHNESS_DAYS: "30"
+  # Ollama
+  OLLAMA_HOST: "ollama"
+  OLLAMA_PORT: "11434"
+  OLLAMA_MODEL: "llama3.1"
+  # Embedding
+  EMBEDDING_HOST: "embedding-service"
+  EMBEDDING_PORT: "8001"
+  # OpenMetadata
+  OM_HOST: "openmetadata"
+  OM_PORT: "8585"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rag-api-secrets
+  namespace: arcap
+type: Opaque
+stringData:
+  OM_API_TOKEN: "change-me"   # OpenMetadata JWT token
+  MINIO_ACCESS_KEY: "minioadmin"
+  MINIO_SECRET_KEY: "minioadmin"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-api
+  namespace: arcap
+  labels:
+    app: rag-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rag-api
+  template:
+    metadata:
+      labels:
+        app: rag-api
+    spec:
+      containers:
+        - name: rag-api
+          image: arcap/rag-api:latest    # build from ai-services/rag-api/
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8002
+          envFrom:
+            - configMapRef:
+                name: rag-api-config
+            - secretRef:
+                name: rag-api-secrets
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
+              cpu: "2"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8002
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8002
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-api
+  namespace: arcap
+  labels:
+    app: rag-api
+spec:
+  selector:
+    app: rag-api
+  ports:
+    - name: http
+      port: 8002
+      targetPort: 8002
+  type: ClusterIP

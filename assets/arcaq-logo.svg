@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50">
+  <defs>
+    <linearGradient id="qGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Arc symbol integrated with A -->
+  <path d="M8 40 L22 10 L36 40 L30 40 L22 22 L14 40 Z" fill="#f8fafc"/>
+  <path d="M14 32 L22 16 L30 32" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- r -->
+  <path d="M44 24 L44 40 M44 30 Q44 24 52 24" fill="none" stroke="#f8fafc" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- c -->
+  <path d="M72 32 Q72 24 64 24 Q56 24 56 32 Q56 40 64 40 Q72 40 72 32" fill="none" stroke="#f8fafc" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- a -->
+  <path d="M90 40 L90 30 Q90 24 82 24 Q74 24 74 30 L74 32 Q74 36 82 36 L90 36 M90 40 Q90 40 82 40 Q74 40 74 36" fill="none" stroke="#f8fafc" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Q - The distinctive element -->
+  <circle cx="120" cy="30" r="16" fill="none" stroke="url(#qGradient)" stroke-width="6"/>
+  <path d="M130 38 L142 50" stroke="url(#qGradient)" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- Sovereignty shield hint inside Q -->
+  <path d="M120 22 L120 34 Q120 38 120 38" fill="none" stroke="url(#qGradient)" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+</svg>

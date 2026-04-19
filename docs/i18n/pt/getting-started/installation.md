@@ -118,7 +118,7 @@ Este guia fornece instruções passo a passo para instalar e configurar a plataf
 **Principais pacotes instalados:**
 - `pyarrow>=21.0.0` - Cliente Arrow Flight
 - `pandas>=2.3.0` - Manipulação de dados
-- `dbt-core>=1.10.0` - Transformação de dados
+- `dbt-core>=1.12.4` - Transformação de dados
 - `sqlalchemy>=2.0.0` - Conectividade de banco de dados
 - `pyyaml>=6.0.0` - Gerenciamento de configuração
 

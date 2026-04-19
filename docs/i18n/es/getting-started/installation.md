@@ -282,7 +282,7 @@ pip list
 **Paquetes clave instalados:**
 - `pyarrow>=21.0.0` - Cliente de Arrow Flight
 - `pandas>=2.3.0` - Manipulación de datos
-- `dbt-core>=1.10.0` - Transformación de datos
+- `dbt-core>=1.12.4` - Transformación de datos
 - `sqlalchemy>=2.0.0` - Conectividad de base de datos
 - `pyyaml>=6.0.0` - Gestión de configuración
 

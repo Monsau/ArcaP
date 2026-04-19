@@ -282,7 +282,7 @@ pip list
 **Belangrijkste geïnstalleerde pakketten:**
 - `pyarrow>=21.0.0` - Arrow Flight-klant
 - `pandas>=2.3.0` - Gegevensmanipulatie
-- `dbt-core>=1.10.0` - Gegevenstransformatie
+- `dbt-core>=1.12.4` - Gegevenstransformatie
 - `sqlalchemy>=2.0.0` - Databaseconnectiviteit
 - `pyyaml>=6.0.0` - Configuratiebeheer
 

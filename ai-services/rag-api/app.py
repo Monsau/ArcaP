@@ -9,7 +9,8 @@ from fastapi.responses import Response
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
 import httpx
-from pymilvus import connections, Collection, CollectionSchema, FieldSchema, DataType, utility
+from qdrant_client import QdrantClient
+from qdrant_client.models import Distance, VectorParams, PointStruct
 import psycopg2
 import os
 import json
@@ -55,11 +56,21 @@ async def startup_event():
 # Configuration
 EMBEDDING_SERVICE_URL = os.getenv("EMBEDDING_SERVICE_URL", "http://embedding-service:8001")
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://ollama:11434")
-MILVUS_HOST = os.getenv("MILVUS_HOST", "milvus")
-MILVUS_PORT = int(os.getenv("MILVUS_PORT", "19530"))
-COLLECTION_NAME = "data_platform_knowledge"
+# Qdrant configuration
+QDRANT_HOST = os.getenv("QDRANT_HOST", "qdrant")
+QDRANT_PORT = int(os.getenv("QDRANT_PORT", "6333"))
+COLLECTION_NAME = os.getenv("COLLECTION_NAME", "data_platform_knowledge")
 EMBEDDING_DIM = 384
 MAX_TEXT_LENGTH = 65535
+
+# Governance / OpenMetadata configuration
+OM_HOST = os.getenv("OM_HOST", "openmetadata-server")
+OM_PORT = int(os.getenv("OM_PORT", "8585"))
+OM_API_TOKEN = os.getenv("OM_API_TOKEN", "")
+GOV_COLLECTION = os.getenv("GOV_COLLECTION", "om_knowledge")
+OP_COLLECTION = os.getenv("OP_COLLECTION", "data_platform_knowledge")
+GOV_MODE_DEFAULT = os.getenv("GOV_MODE_DEFAULT", "governance-first")
+GOV_MIN_SCORE = float(os.getenv("GOV_MIN_SCORE", "0.35"))
 
 # PostgreSQL configuration
 DB_CONFIG = {
@@ -336,40 +347,29 @@ def chunk_text(text: str, chunk_size: int = 1000, overlap: int = 200) -> List[st
     return chunks
 
 # ============================================
-# MILVUS OPERATIONS
+# QDRANT OPERATIONS
 # ============================================
 
-def create_milvus_collection():
-    """Create Milvus collection if not exists"""
+def get_qdrant_client() -> QdrantClient:
+    """Return a connected Qdrant client"""
+    return QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
+
+
+def ensure_qdrant_collection(collection_name: str = None) -> QdrantClient:
+    """Create Qdrant collection if it does not exist and return the client"""
+    if collection_name is None:
+        collection_name = OP_COLLECTION
     try:
-        connections.connect(host=MILVUS_HOST, port=MILVUS_PORT)
-        
-        if utility.has_collection(COLLECTION_NAME):
-            return Collection(COLLECTION_NAME)
-        
-        # Define schema
-        fields = [
-            FieldSchema(name="id", dtype=DataType.INT64, is_primary=True, auto_id=True),
-            FieldSchema(name="embedding", dtype=DataType.FLOAT_VECTOR, dim=EMBEDDING_DIM),
-            FieldSchema(name="text", dtype=DataType.VARCHAR, max_length=MAX_TEXT_LENGTH),
-            FieldSchema(name="metadata", dtype=DataType.JSON),
-            FieldSchema(name="source", dtype=DataType.VARCHAR, max_length=1000)
-        ]
-        
-        schema = CollectionSchema(fields=fields, description="Data platform knowledge base")
-        collection = Collection(name=COLLECTION_NAME, schema=schema)
-        
-        # Create index
-        index_params = {
-            "index_type": "IVF_FLAT",
-            "metric_type": "L2",
-            "params": {"nlist": 1024}
-        }
-        collection.create_index(field_name="embedding", index_params=index_params)
-        
-        return collection
+        client = get_qdrant_client()
+        existing = [c.name for c in client.get_collections().collections]
+        if collection_name not in existing:
+            client.create_collection(
+                collection_name=collection_name,
+                vectors_config=VectorParams(size=EMBEDDING_DIM, distance=Distance.COSINE),
+            )
+        return client
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to create Milvus collection: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to connect to Qdrant: {str(e)}")
 
 def get_embeddings(texts: List[str]) -> List[List[float]]:
     """Get embeddings from embedding service"""
@@ -404,33 +404,30 @@ def query_ollama(prompt: str, model: str = "llama3.1", temperature: float = 0.7)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to query Ollama: {str(e)}")
 
-def ingest_data(texts: List[str], metadatas: Optional[List[Dict]] = None, source: str = "manual") -> int:
-    """Ingest data into Milvus"""
+def ingest_data(texts: List[str], metadatas: Optional[List[Dict]] = None, source: str = "manual", collection_name: str = None) -> int:
+    """Ingest data into Qdrant"""
     if not texts:
         return 0
-    
-    # Prepare metadata
+
+    if collection_name is None:
+        collection_name = OP_COLLECTION
+
     if metadatas is None:
         metadatas = [{}] * len(texts)
-    
-    # Get embeddings
+
     embeddings = get_embeddings(texts)
-    
-    # Insert into Milvus
-    collection = create_milvus_collection()
-    collection.load()
-    
-    data = [
-        embeddings,
-        texts,
-        metadatas,
-        [source] * len(texts)
-    ]
-    
-    collection.insert(data)
-    collection.flush()
-    
-    return len(texts)
+    client = ensure_qdrant_collection(collection_name)
+
+    points = []
+    for i, (text, embedding, metadata) in enumerate(zip(texts, embeddings, metadatas)):
+        # Deterministic integer ID to allow idempotent upserts
+        content_hash = hashlib.sha256(f"{source}:{i}:{text[:100]}".encode()).hexdigest()
+        point_id = int(content_hash[:16], 16) % (2 ** 63)
+        payload = {"text": text[:MAX_TEXT_LENGTH], "source": source, **metadata}
+        points.append(PointStruct(id=point_id, vector=embedding, payload=payload))
+
+    client.upsert(collection_name=collection_name, points=points)
+    return len(points)
 
 # ============================================
 # API ENDPOINTS
@@ -468,34 +465,29 @@ def query_rag(request: QueryRequest):
         query_embeddings = get_embeddings([request.question])
         query_embedding = query_embeddings[0]
         
-        # Search Milvus
-        collection = create_milvus_collection()
-        collection.load()
-        
-        search_params = {"metric_type": "L2", "params": {"nprobe": 10}}
-        results = collection.search(
-            data=[query_embedding],
-            anns_field="embedding",
-            param=search_params,
+        # Search Qdrant
+        client = ensure_qdrant_collection(OP_COLLECTION)
+        results = client.search(
+            collection_name=OP_COLLECTION,
+            query_vector=query_embedding,
             limit=request.top_k,
-            output_fields=["text", "metadata", "source"]
+            with_payload=True,
         )
-        
+
         # Extract sources
         sources = []
         context_parts = []
-        
-        for hits in results:
-            for hit in hits:
-                # Access Milvus Hit entity fields using dictionary .get() on entity object
-                entity = hit.entity
-                sources.append({
-                    "text": entity.get("text"),
-                    "score": float(hit.distance),
-                    "metadata": entity.get("metadata") or {},
-                    "source": entity.get("source")
-                })
-                context_parts.append(entity.get("text"))
+
+        for hit in results:
+            payload = hit.payload or {}
+            text = payload.get("text", "")
+            sources.append({
+                "text": text,
+                "score": float(hit.score),
+                "metadata": {k: v for k, v in payload.items() if k not in ("text", "source")},
+                "source": payload.get("source", ""),
+            })
+            context_parts.append(text)
         
         # Build prompt
         context = "\n\n".join(context_parts)

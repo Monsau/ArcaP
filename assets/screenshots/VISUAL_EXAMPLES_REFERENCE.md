@@ -280,7 +280,7 @@ This document provides textual descriptions of what each screenshot should conta
   * postgres, minio, dremio
   * airbyte-server, airbyte-worker
   * superset
-  * ollama, milvus-standalone, milvus-etcd, milvus-minio
+  * ollama, qdrant
   * rag-api, chat-ui
   * dbt-docs
   * elasticsearch

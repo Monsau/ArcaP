@@ -22,7 +22,7 @@ python orchestrate_platform.py --skip-ai
 - ✅ Checks prerequisites (Docker, Docker Compose, Python)
 - ✅ Starts all Docker services (Dremio, PostgreSQL, MinIO, Elasticsearch)
 - ✅ Launches Airbyte for data integration
-- ✅ **Deploys AI services (Ollama LLM + Milvus + RAG API + Chat UI)**
+  - **Deploys AI services (Ollama LLM + Qdrant + RAG API + Chat UI)**
 - ✅ Configures dbt environment
 - ✅ Runs dbt models and tests
 - ✅ Synchronizes Dremio data to PostgreSQL
@@ -83,7 +83,7 @@ docker-compose up -d
 | RAG API | http://localhost:8002 | 🔌 REST API for AI queries |
 | RAG API Docs | http://localhost:8002/docs | 📖 Interactive API documentation |
 | Ollama LLM | http://localhost:11434 | 🤖 Local language model server (Llama 3.1) |
-| Milvus Vector DB | localhost:19530 | 🧠 Semantic search database (gRPC) |
+| Qdrant Vector DB | http://localhost:6333 | Vector database (REST API + dashboard) |
 | Embedding Service | http://localhost:8001 | 🔢 Text-to-vector conversion service |
 
 ---
@@ -120,7 +120,7 @@ Before asking questions, you need to ingest data into the vector database.
 4. **Files are automatically processed:**
    - Text extracted based on file type
    - Split into chunks for better context
-   - Converted to vectors and stored in Milvus
+   - Converted to vectors and stored in Qdrant
    - Ready for querying immediately!
 
 **Example Use Cases:**
@@ -292,7 +292,7 @@ docker logs ollama
 **Issue: "No data found in vector database"**
 - Make sure you've ingested data first (see Step 2 above)
 - Check RAG API logs: `docker logs rag-api`
-- Verify Milvus is running: `docker ps | grep milvus`
+- Verify Qdrant is running: `docker ps | grep qdrant`
 
 **Issue: "Slow LLM responses"**
 - Consider using a smaller model (phi3 instead of llama3.1)
@@ -310,8 +310,8 @@ curl http://localhost:8001/health
 # Ollama models list
 docker exec ollama ollama list
 
-# Milvus statistics
-curl http://localhost:9091/metrics
+# Qdrant collections
+curl http://localhost:6333/collections
 ```
 
 ---

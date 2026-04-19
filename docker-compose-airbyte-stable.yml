@@ -14,7 +14,7 @@ services:
   
   # Airbyte Bootloader - Initialize database
   airbyte-bootloader:
-    image: airbyte/bootloader:1.8.0
+    image: airbyte/bootloader:2.0.0
     container_name: airbyte-bootloader
     environment:
       - DATABASE_URL=jdbc:postgresql://dremio-postgres:5432/airbyte
@@ -26,7 +26,7 @@ services:
 
   # Airbyte Server - Backend API
   airbyte-server:
-    image: airbyte/server:1.8.0
+    image: airbyte/server:2.0.0
     container_name: airbyte-server
     hostname: airbyte-server
     ports:
@@ -75,7 +75,7 @@ services:
 
   # Airbyte Worker - Execute sync jobs
   airbyte-worker:
-    image: airbyte/worker:1.8.0
+    image: airbyte/worker:2.0.0
     container_name: airbyte-worker
     hostname: airbyte-worker
     environment:
@@ -105,7 +105,7 @@ services:
 
   # Airbyte Cron - Scheduled tasks
   airbyte-cron:
-    image: airbyte/cron:1.8.0
+    image: airbyte/cron:2.0.0
     container_name: airbyte-cron
     hostname: airbyte-cron
     environment:
@@ -127,7 +127,7 @@ services:
 
   # Airbyte Connector Builder Server
   airbyte-connector-builder-server:
-    image: airbyte/connector-builder-server:1.8.0
+    image: airbyte/connector-builder-server:2.0.0
     container_name: airbyte-connector-builder-server
     hostname: airbyte-connector-builder-server
     ports:

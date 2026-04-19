@@ -1,0 +1,67 @@
+# Chat UI — Streamlit AI chat interface
+# Port: 8501
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-ui
+  namespace: arcap
+  labels:
+    app: chat-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chat-ui
+  template:
+    metadata:
+      labels:
+        app: chat-ui
+    spec:
+      containers:
+        - name: chat-ui
+          image: arcap/chat-ui:latest    # build from ai-services/chat-ui/
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8501
+          env:
+            - name: RAG_API_URL
+              value: "http://rag-api:8002"
+            - name: OLLAMA_URL
+              value: "http://ollama:11434"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+          livenessProbe:
+            httpGet:
+              path: /_stcore/health
+              port: 8501
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /_stcore/health
+              port: 8501
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chat-ui
+  namespace: arcap
+  labels:
+    app: chat-ui
+spec:
+  selector:
+    app: chat-ui
+  ports:
+    - name: http
+      port: 8501
+      targetPort: 8501
+  type: ClusterIP

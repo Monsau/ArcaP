@@ -282,7 +282,7 @@ pip list
 **Anahtar yüklü paketler:**
 - `pyarrow>=21.0.0` - Arrow Flight Müşterisi
 - `pandas>=2.3.0` - Veri manipülasyonu
-- `dbt-core>=1.10.0` - Veri dönüşümü
+- `dbt-core>=1.12.4` - Veri dönüşümü
 - `sqlalchemy>=2.0.0` - Veritabanı bağlantısı
 - `pyyaml>=6.0.0` - Yapılandırma yönetimi
 

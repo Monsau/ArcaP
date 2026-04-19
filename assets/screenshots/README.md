@@ -209,7 +209,7 @@ These screenshots are used in:
 
 ### 🤖 AI Capabilities
 - ✅ Local LLM (Ollama + Llama 3.1)
-- ✅ Vector database (Milvus)
+- ✅ Vector database (Qdrant)
 - ✅ RAG system
 - ✅ Document upload (multi-format)
 - ✅ Database ingestion

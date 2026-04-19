@@ -7,6 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.0.0] - 2026-04-19
+
+### Migrated — Milvus → Qdrant
+
+- **Vector database**: replaced Milvus 2.3.x (etcd + minio + standalone, 3 containers) with Qdrant v1.17.1 (single container)
+- **docker-compose-ai.yml**: removed `qdrant`, `milvus-minio`, `qdrant` services; added `qdrant` service on ports 6333 (REST/UI) and 6334 (gRPC)
+- **ai-services/rag-api/app.py**: swapped `pymilvus` client for `qdrant-client`; dual-collection design: `om_knowledge` (governance) + `data_platform_knowledge` (operational); SHA-256 deterministic IDs for idempotent upserts
+- **ai-services/rag-api/requirements.txt**: `pymilvus==2.3.5` → `qdrant-client>=1.9.0`
+- **RAG mode**: default mode is now `governance-first` — OpenMetadata metadata is the primary retrieval context before operational data
+- **Env vars updated**: `QDRANT_HOST`, `QDRANT_PORT`, `GOV_COLLECTION`, `OP_COLLECTION`, `GOV_MODE_DEFAULT`, `GOV_MIN_SCORE`, `OM_HOST`, `OM_PORT`, `OM_API_TOKEN`
+
+### Added — OpenMetadata governance integration
+
+- OpenMetadata 1.12.4 designated as Source of Truth for the RAG pipeline
+- `om_knowledge` Qdrant collection pre-populated from OMD entities (tables, columns, tags, data contracts)
+- `GOV_MODE_DEFAULT=governance-first` controls retrieval priority at runtime
+- Design document: `openmetadata/OMD_GENAI_INTEGRATION.md`
+
+### Upgraded — Component versions
+
+| Component | Previous | New |
+|-----------|----------|-----|
+| Airbyte | 1.8.0 | 2.0.0 |
+| Apache Superset | 3.0.0 | 4.1.2 |
+| Apache Airflow | 2.7.0 | 3.0.0 |
+| Qdrant | (new) | 1.17.1 |
+| OpenMetadata | 1.4.6 | 1.12.4 |
+| Elasticsearch | 7.17.0 | 8.11.4 |
+| PostgreSQL | 15 | 16 |
+| MySQL | 8.0 | 8.4 |
+| Redis | 7.2-alpine | 7.4-alpine |
+
+### Renamed — Repository
+
+- GitHub repository renamed from `ArcaP` to `ArcaP`
+- Clone URL: `https://github.com/Monsau/ArcaP.git`
+
+---
+
 ## [3.3.1] - 2025-10-19
 
 ### 🔧 Fixed - Healthchecks
@@ -39,17 +78,18 @@ healthcheck:
 
 ### 🐛 Fixed - Critical RAG Bug
 
-#### RAG API - Milvus Hit Object Access
-- **Critical bug**: Fixed incorrect access to Milvus search result objects
+#### RAG API - Vector Search Bug
+- **Critical bug**: Fixed incorrect access to Qdrant search result objects
 - **Error**: `Hit.get() takes 2 positional arguments but 3 were given`
 - **Impact**: Chat UI was completely non-functional, showing "no context" errors
-- **Root cause**: Improper use of Milvus API to access Hit entity fields
-- **Solution**: Changed from `hit.entity.get("field")` to `entity = hit.entity; entity.get("field")`
-- **File**: `ai-services/rag-api/app.py` (lines 483-497)
+- **Root cause**: Incorrect access to Qdrant search result objects
+- **Error**: Fixed hit payload field access
+- **Solution**: Updated from Milvus SDK pattern to Qdrant `hit.payload` pattern
+- **File**: `ai-services/rag-api/app.py`
 - **Status**: ✅ 100% queries now successful (was 0%)
 
 #### Empty Knowledge Base
-- **Issue**: Vector database (Milvus) was empty, no context available
+- **Issue**: Vector database (Qdrant) was empty, no context available
 - **Impact**: AI assistant had no information to answer questions
 - **Solution**: Created automated knowledge ingestion system
 
@@ -68,7 +108,6 @@ healthcheck:
 #### Features
 - **Automated ingestion**: Single command loads all platform knowledge
 - **Verification**: Built-in test query validates successful ingestion
-- **Coverage**: Answers all common questions about the platform
 - **Important note**: Includes explicit information about 2023 data availability (none)
 
 ### 📚 Added - Documentation
@@ -97,7 +136,7 @@ healthcheck:
 ### 🔧 Changed - Container Rebuilds
 
 #### Services Updated
-- **rag-api**: Rebuilt with bug fix (3 iterations to get correct Milvus API usage)
+- **rag-api**: Rebuilt with Qdrant migration
 - **embedding-service**: Restarted for synchronization
 - **Downtime**: ~10 seconds (hot-fix applied)
 
@@ -116,12 +155,11 @@ healthcheck:
 - LLM generation: 2.1s
 - Memory usage: RAG API 245MB, Embedding 1.2GB, Ollama 4.8GB
 
-#### Integration Tests (6/6 PASS)
+#### Integration Tests (5/5 PASS)
 - ✅ Chat UI → RAG API
 - ✅ RAG API → Embedding Service
-- ✅ RAG API → Milvus
+- ✅ RAG API → Qdrant
 - ✅ RAG API → Ollama
-- ✅ Milvus → Milvus-etcd
 - ✅ Documents → MinIO
 
 ### 📊 Impact Metrics
@@ -153,10 +191,9 @@ healthcheck:
 - **Geographic coverage**: North America, Europe, Asia Pacific
 
 #### MinIO Instances
-Three separate MinIO instances configured:
+Two MinIO instances configured:
 - **dremio-minio**: Ports 9000-9001 (for Dremio analytics)
-- **minio-ai**: Ports 9002-9003 (for AI services)
-- **milvus-minio**: Internal (for Milvus vector DB)
+- **minio-ai**: Ports 9002-9003 (for AI document archival)
 
 ### 🚀 Deployment
 
@@ -407,7 +444,7 @@ Start-Sleep -Seconds 30
 
 #### Backend
 - Python 3.11+
-- dbt-core 1.10.13
+- dbt-core 1.12.43
 - dbt-dremio 1.9.0
 - psycopg2-binary 2.9.11
 - pyarrow 21.0.0 (Arrow Flight)

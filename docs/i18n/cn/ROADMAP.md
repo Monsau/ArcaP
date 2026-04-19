@@ -196,7 +196,7 @@ Build a modern, scalable, and enterprise-ready data platform integrating:
 - [ ] **Kubernetes Operators**
   - Dremio Operator
   - PostgreSQL Operator (Zalando)
-  - Milvus Operator
+  - Qdrant Operator
   
 - [ ] **Auto-scaling**
   - HPA (Horizontal Pod Autoscaler)
@@ -515,7 +515,7 @@ Build a modern, scalable, and enterprise-ready data platform integrating:
 - [ ] **Kubernetes Operators**
   - Dremio Operator
   - PostgreSQL Operator (Zalando)
-  - Milvus Operator
+  - Qdrant Operator
   
 - [ ] **Auto-scaling**
   - HPA (Horizontal Pod Autoscaler)
@@ -887,7 +887,7 @@ Thank you to all contributors and users of Talentys Data Platform!
 - Airbyte, Apache Airflow
 - PostgreSQL, MinIO, Elasticsearch
 - OpenMetadata (coming soon)
-- Ollama, Milvus (AI)
+- Ollama, Qdrant (AI)
 - Streamlit (Chat UI)
 - OpenTelemetry, Prometheus, Grafana (coming soon)
 

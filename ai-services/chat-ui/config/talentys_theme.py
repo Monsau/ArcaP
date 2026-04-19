@@ -14,14 +14,14 @@ TALENTYS_LIGHT = "#F8F9FA"        # Light Gray
 TALENTYS_DARK = "#212529"         # Dark Gray
 
 # Logo Configuration
-TALENTYS_LOGO_URL = "https://talentys.eu/logo.png"
-TALENTYS_LOGO_LOCAL = "static/img/talentys-logo.png"
+TALENTYS_LOGO_URL = "static/img/arcap-logo.svg"
+TALENTYS_LOGO_LOCAL = "static/img/arcap-logo.svg"
 
 # Company Information
-COMPANY_NAME = "Talentys"
-COMPANY_TAGLINE = "Data Engineering & Analytics Excellence"
-COMPANY_EMAIL = "support@talentys.eu"
-COMPANY_WEBSITE = "https://talentys.eu"
+COMPANY_NAME = "ArcaP"
+COMPANY_TAGLINE = "Open Data Platform"
+COMPANY_EMAIL = "contact@arcap.io"
+COMPANY_WEBSITE = "https://github.com/Monsau/ArcaP"
 
 # Custom CSS Theme
 TALENTYS_CSS = """

@@ -809,7 +809,7 @@ version: '3.8'
 
 services:
   dbt-scheduler:
-    image: ghcr.io/dbt-labs/dbt-core:1.10.0
+    image: ghcr.io/dbt-labs/dbt-core:1.12.4
     volumes:
       - ./dbt:/usr/app/dbt
     command: >

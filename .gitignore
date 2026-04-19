@@ -88,10 +88,8 @@ archive/
 # Ollama models (too large for GitHub - will be downloaded on first run)
 ai-services/ollama/models/models/
 
-# Milvus runtime data (vector database)
-ai-services/milvus/data/
-ai-services/milvus/etcd/
-ai-services/milvus/minio/
+# Qdrant runtime data (vector database)
+ai-services/qdrant/storage/
 
 # MinIO runtime data
 minio/data/

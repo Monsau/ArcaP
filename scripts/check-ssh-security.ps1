@@ -98,7 +98,7 @@ Write-Host "1. [ ] Verifier GitHub SSH Keys:" -ForegroundColor White
 Write-Host "   https://github.com/settings/keys" -ForegroundColor Gray
 Write-Host ""
 Write-Host "2. [ ] Verifier Deploy Keys des repos:" -ForegroundColor White
-Write-Host "   https://github.com/Monsau/Talentys-OSS-Data-Platform/settings/keys" -ForegroundColor Gray
+Write-Host "   https://github.com/Monsau/ArcaP/settings/keys" -ForegroundColor Gray
 Write-Host ""
 Write-Host "3. [ ] Si cle utilisee ailleurs:" -ForegroundColor White
 Write-Host "   - GitLab: https://gitlab.com/-/profile/keys" -ForegroundColor Gray
@@ -118,7 +118,7 @@ Write-Host "  INFORMATIONS CLE COMPROMISE" -ForegroundColor Cyan
 Write-Host "============================================" -ForegroundColor Cyan
 Write-Host "Type: ED25519" -ForegroundColor Gray
 Write-Host "Fingerprint: (calculer avec ssh-keygen -lf)" -ForegroundColor Gray
-Write-Host "Exposition: https://github.com/Monsau/Talentys-OSS-Data-Platform/blob/05bdc59/ai-services/ollama/models/id_ed25519" -ForegroundColor Gray
+Write-Host "Exposition: https://github.com/Monsau/ArcaP/blob/05bdc59/ai-services/ollama/models/id_ed25519" -ForegroundColor Gray
 Write-Host "Status: COMPROMISE - NE PLUS UTILISER" -ForegroundColor Red
 Write-Host ""
 

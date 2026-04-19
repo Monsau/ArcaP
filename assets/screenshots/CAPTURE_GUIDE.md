@@ -266,7 +266,7 @@ graph TB
         
         subgraph "AI Services"
             OLLAMA[Ollama LLM]
-            MILVUS[Milvus Vector DB]
+            QDRANT[Qdrant Vector DB]
             RAG[RAG API]
             CHATUI[Chat UI]
         end
@@ -288,7 +288,7 @@ graph TB
     DBT --> DREMIO
     DREMIO --> SUPERSET
     DREMIO --> RAG
-    RAG --> MILVUS
+    RAG --> QDRANT
     RAG --> OLLAMA
     RAG --> CHATUI
     AIRFLOW -.-> AIRBYTE

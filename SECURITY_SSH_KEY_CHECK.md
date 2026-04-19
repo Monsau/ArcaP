@@ -109,7 +109,7 @@ scp ~/.ssh/server_key.pub user@server:~/.ssh/authorized_keys
 - Date : 19 octobre 2025
 
 **Historique GitHub** :
-- URL historique : https://github.com/Monsau/Talentys-OSS-Data-Platform/blob/05bdc59/ai-services/ollama/models/id_ed25519
+- URL historique : https://github.com/Monsau/ArcaP/blob/05bdc59/ai-services/ollama/models/id_ed25519
 - ⚠️ Toute personne ayant accès à ce lien peut voir la clé privée
 
 ## 📞 Support

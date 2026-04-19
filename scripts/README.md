@@ -15,7 +15,7 @@ This directory contains PowerShell scripts for deploying and testing the AI serv
 
 **What it does:**
 - ✅ Checks Docker is running
-- ✅ Starts all AI services (MinIO, Ollama, Milvus, RAG API, Chat UI)
+- ✅ Starts all AI services (MinIO, Ollama, Qdrant, RAG API, Chat UI)
 - ✅ Waits for services to be ready
 - ✅ Checks health of each service
 - ✅ Downloads Llama 3.1 model if not present
@@ -242,8 +242,8 @@ docker stats
 # Check MinIO bucket size
 docker exec minio-ai du -sh /data
 
-# View Milvus collection info
-docker exec milvus curl localhost:9091/healthz
+# View Qdrant collection info
+curl http://localhost:6333/collections
 ```
 
 ---

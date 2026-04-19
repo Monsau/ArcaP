@@ -1,0 +1,108 @@
+# MinIO AI — object storage for AI document uploads
+# Ports: 9002 (API)  9003 (Console)
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-ai-data
+  namespace: arcap
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  # storageClassName: standard   # uncomment and set your storage class
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: minio-ai-credentials
+  namespace: arcap
+type: Opaque
+stringData:
+  MINIO_ROOT_USER: "minioadmin"        # change in production
+  MINIO_ROOT_PASSWORD: "minioadmin"    # change in production
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio-ai
+  namespace: arcap
+  labels:
+    app: minio-ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio-ai
+  template:
+    metadata:
+      labels:
+        app: minio-ai
+    spec:
+      containers:
+        - name: minio-ai
+          image: minio/minio:latest
+          imagePullPolicy: IfNotPresent
+          args:
+            - server
+            - /data
+            - --console-address
+            - ":9003"
+          ports:
+            - name: api
+              containerPort: 9002
+            - name: console
+              containerPort: 9003
+          envFrom:
+            - secretRef:
+                name: minio-ai-credentials
+          env:
+            - name: MINIO_VOLUMES
+              value: /data
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+          livenessProbe:
+            httpGet:
+              path: /minio/health/live
+              port: 9002
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /minio/health/ready
+              port: 9002
+            initialDelaySeconds: 10
+            periodSeconds: 10
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: minio-ai-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-ai
+  namespace: arcap
+  labels:
+    app: minio-ai
+spec:
+  selector:
+    app: minio-ai
+  ports:
+    - name: api
+      port: 9002
+      targetPort: 9002
+    - name: console
+      port: 9003
+      targetPort: 9003
+  type: ClusterIP

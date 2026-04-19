@@ -118,7 +118,7 @@ Panduan ini memberikan petunjuk langkah demi langkah untuk menginstal dan mengon
 **Paket kunci yang diinstal:**
 - `pyarrow>=21.0.0` - Pelanggan Penerbangan Panah
 - `pandas>=2.3.0` - Manipulasi data
-- `dbt-core>=1.10.0` - Transformasi data
+- `dbt-core>=1.12.4` - Transformasi data
 - `sqlalchemy>=2.0.0` - Konektivitas basis data
 - `pyyaml>=6.0.0` - Manajemen konfigurasi
 

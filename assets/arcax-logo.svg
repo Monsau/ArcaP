@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 218 56" fill="none">
+  <defs>
+    <linearGradient id="axGL" x1="0" y1="0" x2="218" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60a5fa"/>
+      <stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon -->
+  <path d="M8,50 L8,32 C8,6 52,6 52,32 L52,50"
+        stroke="url(#axGL)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="30" cy="13" r="4"   fill="url(#axGL)"/>
+  <circle cx="8"  cy="34" r="2.5" fill="url(#axGL)" opacity="0.55"/>
+  <circle cx="52" cy="34" r="2.5" fill="url(#axGL)" opacity="0.55"/>
+  <line x1="30" y1="17" x2="8"  y2="50" stroke="url(#axGL)" stroke-width="1.4" stroke-dasharray="2.5,3" opacity="0.7"/>
+  <line x1="30" y1="17" x2="52" y2="50" stroke="url(#axGL)" stroke-width="1.4" stroke-dasharray="2.5,3" opacity="0.7"/>
+
+  <!-- Text: Arcax (white, for dark background) -->
+  <g transform="translate(66,0)" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="5"
+     stroke="rgba(255,255,255,0.92)">
+    <path d="M0,48 L16,8 L32,48"/>
+    <line x1="7" y1="26" x2="25" y2="26"/>
+    <line x1="38" y1="48" x2="38" y2="18"/>
+    <path d="M38,26 C38,18 54,18 54,24"/>
+    <path d="M82,22 C82,14 60,14 60,33 C60,52 82,52 82,44"/>
+    <path d="M114,48 L114,31 C114,19 102,17 92,23 S84,37 96,37 L114,37"/>
+    <path d="M114,48 C108,56 90,56 86,47"/>
+    <!-- x – gradient accent -->
+    <line x1="120" y1="18" x2="148" y2="48" stroke="url(#axGL)"/>
+    <line x1="148" y1="18" x2="120" y2="48" stroke="url(#axGL)"/>
+  </g>
+</svg>

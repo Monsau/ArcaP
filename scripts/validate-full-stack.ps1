@@ -204,7 +204,7 @@ Write-Header "3. Conteneurs Docker - Services AI"
 
 $aiContainers = @(
     "ollama",
-    "milvus-standalone",
+    "qdrant",
     "minio-ai",
     "rag-api",
     "embedding-service",
@@ -245,7 +245,7 @@ $aiEndpoints = @{
     "RAG API Docs" = "http://localhost:8002/docs"
     "Embedding Service" = "http://localhost:8001/health"
     "Ollama API" = "http://localhost:11434/api/tags"
-    "Milvus" = "http://localhost:19530"
+    "Qdrant" = "http://localhost:6333"
     "MinIO AI Console" = "http://localhost:9003"
     "MinIO AI API" = "http://localhost:9002/minio/health/live"
 }

@@ -1,7 +1,7 @@
 # 🔌 Plan de Réorganisation des Ports - Data Platform v3.3.1
 
 **Date**: 19 octobre 2025  
-**Objectif**: Éviter les conflits de ports et faciliter l'intégration OpenMetadata 1.10.1
+**Objectif**: Éviter les conflits de ports et faciliter l'intégration OpenMetadata 1.12.4
 
 ---
 
@@ -155,7 +155,7 @@ curl http://localhost:9200      # Elasticsearch
 
 ## 📝 Notes de Migration
 
-### OpenMetadata 1.9.7 → 1.10.1
+### OpenMetadata 1.9.7 → 1.12.4
 
 **Nouveautés**:
 - ✅ Support Pipeline Service Client amélioré
