@@ -28,6 +28,20 @@ import re
 from minio import Minio
 from minio.error import S3Error
 
+# RAGAS evaluation framework (optional — service starts without it)
+try:
+    from ragas import evaluate as ragas_evaluate
+    from ragas.metrics import faithfulness, answer_relevancy, context_precision
+    from ragas.llms import LangchainLLMWrapper
+    from ragas.embeddings import LangchainEmbeddingsWrapper
+    from langchain_community.llms import Ollama as LangchainOllama
+    from langchain_community.embeddings import OllamaEmbeddings
+    from datasets import Dataset
+    RAGAS_AVAILABLE = True
+except ImportError:
+    RAGAS_AVAILABLE = False
+    print("⚠️  RAGAS/LangChain not installed — evaluation endpoints disabled (pip install ragas langchain-community datasets)")
+
 app = FastAPI(
     title="RAG API",
     description="Retrieval Augmented Generation API with document upload support",
@@ -96,8 +110,109 @@ MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY", "minioadmin")
 MINIO_BUCKET = os.getenv("MINIO_BUCKET", "ai-documents")
 MINIO_SECURE = os.getenv("MINIO_SECURE", "false").lower() == "true"
 
+# OLM-Guard (Ollama Llama Guard) — input/output safety validation
+OLM_GUARD_ENABLED = os.getenv("OLM_GUARD_ENABLED", "false").lower() == "true"
+OLM_GUARD_MODEL = os.getenv("OLM_GUARD_MODEL", "llama-guard3:8b")
+OLM_GUARD_INPUT = os.getenv("OLM_GUARD_INPUT", "true").lower() == "true"
+OLM_GUARD_OUTPUT = os.getenv("OLM_GUARD_OUTPUT", "true").lower() == "true"
+
+# RAGAS — evaluation framework configuration
+RAGAS_ENABLED = os.getenv("RAGAS_ENABLED", "true").lower() == "true"
+RAGAS_LLM_MODEL = os.getenv("RAGAS_LLM_MODEL", "llama3.1")
+
 # Initialize MinIO client
 minio_client = None
+
+# ============================================
+# OLM-GUARD (OLLAMA LLAMA GUARD)
+# ============================================
+
+def check_guard(text: str, role: str = "user") -> tuple:
+    """
+    Check content safety via Ollama Llama Guard (llama-guard3).
+    Uses /api/chat so Ollama applies the Guard prompt template automatically.
+    Returns (is_safe: bool, violation_category: str | None).
+    Guard errors are non-blocking — returns (True, None) on any failure.
+    """
+    if not OLM_GUARD_ENABLED:
+        return True, None
+    try:
+        response = httpx.post(
+            f"{OLLAMA_URL}/api/chat",
+            json={
+                "model": OLM_GUARD_MODEL,
+                "messages": [{"role": role, "content": text}],
+                "stream": False,
+                "options": {"temperature": 0},
+            },
+            timeout=30.0,
+        )
+        response.raise_for_status()
+        result = response.json()["message"]["content"].strip().lower()
+        if result.startswith("unsafe"):
+            lines = result.split("\n")
+            category = lines[1].strip() if len(lines) > 1 else "policy_violation"
+            return False, category
+        return True, None
+    except Exception as e:
+        print(f"⚠️  OLM-Guard check failed (non-blocking): {e}")
+        return True, None
+
+
+# ============================================
+# RAGAS EVALUATION
+# ============================================
+
+def run_ragas_evaluation(
+    question: str,
+    answer: str,
+    contexts: List[str],
+    ground_truth: Optional[str] = None,
+) -> Dict:
+    """
+    Evaluate RAG output quality with RAGAS metrics:
+      - faithfulness: answer grounded in retrieved contexts
+      - answer_relevancy: answer addresses the question
+      - context_precision: retrieved chunks are relevant
+      - context_recall: context covers the reference answer (requires ground_truth)
+    """
+    if not RAGAS_AVAILABLE:
+        return {"error": "RAGAS not installed — pip install ragas langchain-community datasets"}
+    try:
+        data: Dict[str, Any] = {
+            "question": [question],
+            "answer": [answer],
+            "contexts": [contexts],
+        }
+        if ground_truth:
+            data["ground_truth"] = [ground_truth]
+
+        dataset = Dataset.from_dict(data)
+
+        llm = LangchainLLMWrapper(
+            LangchainOllama(model=RAGAS_LLM_MODEL, base_url=OLLAMA_URL, temperature=0)
+        )
+        embeddings_wrapper = LangchainEmbeddingsWrapper(
+            OllamaEmbeddings(model=RAGAS_LLM_MODEL, base_url=OLLAMA_URL)
+        )
+
+        metrics = [faithfulness, answer_relevancy, context_precision]
+        if ground_truth:
+            from ragas.metrics import context_recall
+            metrics.append(context_recall)
+
+        result = ragas_evaluate(dataset, metrics=metrics, llm=llm, embeddings=embeddings_wrapper)
+        scores = result.to_pandas().iloc[0].to_dict()
+
+        metric_keys = {"faithfulness", "answer_relevancy", "context_precision", "context_recall"}
+        return {
+            k: (float(v) if v is not None and v == v else None)
+            for k, v in scores.items()
+            if k in metric_keys
+        }
+    except Exception as e:
+        return {"error": f"RAGAS evaluation failed: {str(e)}"}
+
 
 def init_minio():
     """Initialize MinIO client and create bucket if not exists"""
@@ -215,6 +330,23 @@ class DremioIngestRequest(BaseModel):
     sql_query: str
     text_column: str
     metadata_columns: Optional[List[str]] = None
+
+class GuardCheckRequest(BaseModel):
+    text: str
+    role: str = "user"
+
+class EvaluateRequest(BaseModel):
+    question: str
+    ground_truth: Optional[str] = None
+    top_k: int = 5
+    model: str = "llama3.1"
+    temperature: float = 0.1
+
+class EvaluateScoreRequest(BaseModel):
+    question: str
+    answer: str
+    contexts: List[str]
+    ground_truth: Optional[str] = None
 
 # ============================================
 # DOCUMENT PROCESSING FUNCTIONS (NEW)
@@ -438,8 +570,13 @@ def root():
     return {
         "service": "RAG API",
         "version": "1.0.0",
-        "features": ["query", "ingest", "document_upload", "postgres", "dremio"],
-        "status": "healthy"
+        "features": [
+            "query", "ingest", "document_upload", "postgres", "dremio",
+            "olm_guard", "ragas_evaluation",
+        ],
+        "status": "healthy",
+        "guard": {"enabled": OLM_GUARD_ENABLED, "model": OLM_GUARD_MODEL},
+        "ragas": {"available": RAGAS_AVAILABLE, "enabled": RAGAS_ENABLED},
     }
 
 @app.get("/health")
@@ -461,6 +598,15 @@ def list_models():
 def query_rag(request: QueryRequest):
     """Query the RAG system"""
     try:
+        # OLM-Guard: validate input before processing
+        if OLM_GUARD_INPUT:
+            is_safe, violation = check_guard(request.question, "user")
+            if not is_safe:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Query blocked by OLM-Guard: unsafe content detected ({violation})",
+                )
+
         # Get query embedding
         query_embeddings = get_embeddings([request.question])
         query_embedding = query_embeddings[0]
@@ -502,14 +648,25 @@ Answer:"""
         
         # Query LLM
         answer = query_ollama(prompt, model=request.model, temperature=request.temperature)
-        
-        return {
+
+        # OLM-Guard: validate output before returning
+        guard_warning = None
+        if OLM_GUARD_OUTPUT:
+            is_safe_out, violation_out = check_guard(answer, "assistant")
+            if not is_safe_out:
+                answer = "[Response filtered by OLM-Guard \u2014 unsafe content detected]"
+                guard_warning = violation_out
+
+        response_body: Dict[str, Any] = {
             "question": request.question,
             "answer": answer,
             "sources": sources,
             "model": request.model,
-            "top_k": request.top_k
+            "top_k": request.top_k,
         }
+        if guard_warning:
+            response_body["guard_warning"] = guard_warning
+        return response_body
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
@@ -797,6 +954,130 @@ def ingest_from_dremio(request: DremioIngestRequest):
         raise HTTPException(status_code=500, detail=f"Dremio error: {str(e)}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ingestion failed: {str(e)}")
+
+# ============================================
+# OLM-GUARD ENDPOINTS
+# ============================================
+
+@app.get("/guard/status")
+def guard_status():
+    """OLM-Guard configuration and availability"""
+    return {
+        "enabled": OLM_GUARD_ENABLED,
+        "model": OLM_GUARD_MODEL,
+        "input_guard": OLM_GUARD_INPUT,
+        "output_guard": OLM_GUARD_OUTPUT,
+    }
+
+
+@app.post("/guard/check")
+def guard_check(request: GuardCheckRequest):
+    """Test OLM-Guard safety check on arbitrary text"""
+    if not OLM_GUARD_ENABLED:
+        return {
+            "enabled": False,
+            "message": "OLM-Guard is disabled — set OLM_GUARD_ENABLED=true",
+        }
+    is_safe, violation = check_guard(request.text, request.role)
+    return {
+        "is_safe": is_safe,
+        "violation": violation,
+        "model": OLM_GUARD_MODEL,
+        "role": request.role,
+    }
+
+
+# ============================================
+# RAGAS EVALUATION ENDPOINTS
+# ============================================
+
+@app.get("/ragas/status")
+def ragas_status():
+    """RAGAS availability and configuration"""
+    return {
+        "available": RAGAS_AVAILABLE,
+        "enabled": RAGAS_ENABLED,
+        "llm_model": RAGAS_LLM_MODEL,
+        "metrics": [
+            "faithfulness",
+            "answer_relevancy",
+            "context_precision",
+            "context_recall (requires ground_truth)",
+        ],
+    }
+
+
+@app.post("/evaluate")
+def evaluate_rag(request: EvaluateRequest):
+    """
+    Run the full RAG pipeline then score output quality with RAGAS.
+    Returns faithfulness, answer_relevancy, context_precision.
+    Provide ground_truth to also compute context_recall.
+    """
+    if not RAGAS_AVAILABLE:
+        raise HTTPException(
+            status_code=501,
+            detail="RAGAS not installed — pip install ragas langchain-community datasets",
+        )
+    if not RAGAS_ENABLED:
+        raise HTTPException(status_code=503, detail="RAGAS disabled — set RAGAS_ENABLED=true")
+
+    rag_result = query_rag(
+        QueryRequest(
+            question=request.question,
+            top_k=request.top_k,
+            model=request.model,
+            temperature=request.temperature,
+        )
+    )
+
+    answer = rag_result["answer"]
+    contexts = [s["text"] for s in rag_result["sources"]]
+
+    scores = run_ragas_evaluation(
+        question=request.question,
+        answer=answer,
+        contexts=contexts,
+        ground_truth=request.ground_truth,
+    )
+
+    return {
+        "question": request.question,
+        "answer": answer,
+        "contexts_used": len(contexts),
+        "metrics": scores,
+        "model": request.model,
+        "ground_truth_provided": request.ground_truth is not None,
+    }
+
+
+@app.post("/evaluate/score")
+def evaluate_score(request: EvaluateScoreRequest):
+    """
+    Score a pre-computed answer with RAGAS — no RAG pipeline run.
+    Useful for offline evaluation or A/B testing RAG configurations.
+    """
+    if not RAGAS_AVAILABLE:
+        raise HTTPException(
+            status_code=501,
+            detail="RAGAS not installed — pip install ragas langchain-community datasets",
+        )
+    if not RAGAS_ENABLED:
+        raise HTTPException(status_code=503, detail="RAGAS disabled — set RAGAS_ENABLED=true")
+
+    scores = run_ragas_evaluation(
+        question=request.question,
+        answer=request.answer,
+        contexts=request.contexts,
+        ground_truth=request.ground_truth,
+    )
+
+    return {
+        "question": request.question,
+        "metrics": scores,
+        "ground_truth_provided": request.ground_truth is not None,
+    }
+
 
 if __name__ == "__main__":
     import uvicorn

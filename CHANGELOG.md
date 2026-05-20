@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.2.0] - 2026-05-20
+
+### Added — OLM-Guard + RAGAS evaluation engine
+
+- **OLM-Guard** (`ai-services/rag-api/`): safety validation layer using Ollama Llama Guard 3 (`llama-guard3:8b`).
+  - Input guard: blocks unsafe user queries before RAG processing (prompt injection, harmful content)
+  - Output guard: filters unsafe LLM responses before returning them to the client
+  - Configurable via env vars: `OLM_GUARD_ENABLED`, `OLM_GUARD_MODEL`, `OLM_GUARD_INPUT`, `OLM_GUARD_OUTPUT`
+  - Non-blocking on guard model errors — pipeline continues if Llama Guard is unavailable
+  - New endpoints: `GET /guard/status`, `POST /guard/check`
+- **RAGAS evaluation framework** (`ai-services/rag-api/`): RAG quality metrics engine.
+  - Metrics: `faithfulness`, `answer_relevancy`, `context_precision`, `context_recall` (requires ground truth)
+  - LLM judge: uses existing Ollama instance (`RAGAS_LLM_MODEL`, default `llama3.1`)
+  - New endpoints: `GET /ragas/status`, `POST /evaluate` (run RAG + score), `POST /evaluate/score` (score pre-computed answers)
+  - Graceful degradation: service starts normally if `ragas`/`langchain-community` are not installed (returns 501)
+- **`requirements.txt`**: added `ragas>=0.1.0,<0.2.0`, `langchain>=0.1.16,<0.2.0`, `langchain-community>=0.0.38,<0.2.0`, `datasets>=2.14.0`
+
+---
+
 ## [4.1.0] - 2026-05-20
 
 ### Added — GitHub Data Platform & AIEO enrichment
