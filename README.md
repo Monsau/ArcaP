@@ -2,7 +2,7 @@
 
 A self-hosted data lakehouse with integrated AI capabilities: local LLM inference, RAG-based data querying, and metadata governance via OpenMetadata.
 
-[![Version](https://img.shields.io/badge/version-4.1.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-4.3.0-blue.svg)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/Python-3.11+-green.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-18%20languages-success.svg)](docs/i18n/)
@@ -25,9 +25,9 @@ A self-hosted data lakehouse with integrated AI capabilities: local LLM inferenc
 
 ---
 
-## 🌍 Available Languages
+## Available Languages
 
-🇬🇧 **English** (You are here) | [🇫🇷 Français](docs/i18n/fr/README.md) | [🇪🇸 Español](docs/i18n/es/README.md) | [🇵🇹 Português](docs/i18n/pt/README.md) | [🇨🇳 中文](docs/i18n/cn/README.md) | [🇯🇵 日本語](docs/i18n/jp/README.md) | [🇷🇺 Русский](docs/i18n/ru/README.md) | [🇸🇦 العربية](docs/i18n/ar/README.md) | [🇩🇪 Deutsch](docs/i18n/de/README.md) | [🇰🇷 한국어](docs/i18n/ko/README.md) | [🇮🇳 हिन्दी](docs/i18n/hi/README.md) | [🇮🇩 Indonesia](docs/i18n/id/README.md) | [🇹🇷 Türkçe](docs/i18n/tr/README.md) | [🇻🇳 Tiếng Việt](docs/i18n/vi/README.md) | [🇮🇹 Italiano](docs/i18n/it/README.md) | [🇳🇱 Nederlands](docs/i18n/nl/README.md) | [🇵🇱 Polski](docs/i18n/pl/README.md) | [🇸🇪 Svenska](docs/i18n/se/README.md)
+**English** (You are here) | [Français](docs/i18n/fr/README.md) | [Español](docs/i18n/es/README.md) | [Português](docs/i18n/pt/README.md) | [中文](docs/i18n/cn/README.md) | [日本語](docs/i18n/jp/README.md) | [Русский](docs/i18n/ru/README.md) | [العربية](docs/i18n/ar/README.md) | [Deutsch](docs/i18n/de/README.md) | [한국어](docs/i18n/ko/README.md) | [हिन्दी](docs/i18n/hi/README.md) | [Indonesia](docs/i18n/id/README.md) | [Türkçe](docs/i18n/tr/README.md) | [Tiếng Việt](docs/i18n/vi/README.md) | [Italiano](docs/i18n/it/README.md) | [Nederlands](docs/i18n/nl/README.md) | [Polski](docs/i18n/pl/README.md) | [Svenska](docs/i18n/se/README.md)
 
 ---
 
@@ -36,29 +36,43 @@ A self-hosted data lakehouse with integrated AI capabilities: local LLM inferenc
 Self-hosted data lakehouse combining ingestion, transformation, BI, and a local AI stack under one Docker Compose setup. All computation stays on-premise — no cloud APIs, no usage costs.
 
 ```mermaid
-graph TB
-    A[Data Sources] --> B[Airbyte]
-    B --> C[Dremio Lakehouse]
-    C --> D[dbt Transformations]
-    D --> E[Superset BI]
-    E --> F[Business Insights]
+flowchart LR
+    subgraph INGEST["Ingestion"]
+        A[Data Sources] --> B[Airbyte]
+    end
 
-    C --> G[OpenMetadata]
-    G --> H[Qdrant Vector DB]
-    D --> H
-    H --> I[RAG System]
-    J[Ollama LLM] --> I
-    I --> K[AI Chat UI]
+    subgraph PLATFORM["Data Platform"]
+        B --> C[Dremio]
+        C --> D[dbt]
+        D --> E[Superset]
+    end
 
-    style B fill:#615EFF,color:#fff,stroke:#333,stroke-width:2px
-    style C fill:#f5f5f5,stroke:#333,stroke-width:2px
-    style D fill:#e8e8e8,stroke:#333,stroke-width:2px
-    style E fill:#d8d8d8,stroke:#333,stroke-width:2px
-    style G fill:#00C4CC,color:#fff,stroke:#333,stroke-width:2px
-    style H fill:#6C63FF,color:#fff,stroke:#333,stroke-width:2px
-    style J fill:#4ECDC4,color:#fff,stroke:#333,stroke-width:2px
-    style I fill:#95E1D3,stroke:#333,stroke-width:2px
-    style K fill:#AA96DA,color:#fff,stroke:#333,stroke-width:2px
+    subgraph GOVERN["Governance"]
+        C --> G[OpenMetadata]
+        D --> G
+    end
+
+    subgraph AI["AI Layer"]
+        G --> H[Qdrant]
+        J[Ollama LLM] --> I[RAG API]
+        H --> I
+        I --> K[Chat UI]
+        L[OOC-Guard] -. validates .-> G
+        I -. evaluated by .-> M[RAGAS]
+    end
+
+    style INGEST fill:#f0f4ff,stroke:#6C63FF,stroke-width:2px
+    style PLATFORM fill:#f0fff4,stroke:#38a169,stroke-width:2px
+    style GOVERN fill:#fffbf0,stroke:#d69e2e,stroke-width:2px
+    style AI fill:#fdf0ff,stroke:#805ad5,stroke-width:2px
+    style B fill:#615EFF,color:#fff,stroke:none
+    style C fill:#2d6a4f,color:#fff,stroke:none
+    style G fill:#00C4CC,color:#fff,stroke:none
+    style H fill:#6C63FF,color:#fff,stroke:none
+    style J fill:#2b7a78,color:#fff,stroke:none
+    style I fill:#805ad5,color:#fff,stroke:none
+    style L fill:#c05621,color:#fff,stroke:none
+    style M fill:#2c7a7b,color:#fff,stroke:none
 ```
 
 ### Key Features
@@ -79,7 +93,9 @@ graph TB
 - Governance-first RAG: metadata catalog queried before operational data
 - Document ingestion: PDF, Word, Excel, CSV, JSON, TXT, Markdown
 - Documents archived to MinIO before vector processing
-- Scheduled ingestion from PostgreSQL and Dremio
+- **OLM-Guard** (Llama Guard 3): input/output safety validation on every query
+- **RAGAS**: automated faithfulness, relevancy, and precision scoring of RAG answers
+- **OOC-Guard**: 3-layer ontology contract validator (Syntax → OWL 2 → SHACL)
 - Fully on-premise — no cloud API calls, no usage fees
 
 ---
@@ -95,7 +111,7 @@ graph TB
 | **LinkedIn (author)** | [linkedin.com/in/mustapha-fonsau](https://www.linkedin.com/in/mustapha-fonsau/) |
 | **GitHub** | [github.com/Monsau/ArcaP](https://github.com/Monsau/ArcaP) |
 | **License** | MIT |
-| **Current version** | 4.0.0 |
+| **Current version** | 4.3.0 |
 
 ### Why ArcaP?
 
@@ -191,11 +207,13 @@ make dbt-test
 | Service | URL | Description |
 |---------|-----|-------------|
 | **AI Chat UI** | http://localhost:8501 | Natural language interface for data queries |
-| RAG API | http://localhost:8002 | REST API for AI queries |
+| RAG API | http://localhost:8002 | REST API for AI queries + RAGAS evaluation |
 | RAG API Docs | http://localhost:8002/docs | Interactive API documentation |
 | Qdrant UI | http://localhost:6333/dashboard | Vector database UI |
 | Ollama LLM | http://localhost:11434 | Local LLM server (Llama 3.1) |
 | Embedding Service | http://localhost:8001 | Text-to-vector conversion |
+| **OOC-Guard API** | http://localhost:8003 | Ontology contract validator (OLM) |
+| OOC-Guard Docs | http://localhost:8003/docs | Interactive API documentation |
 | **OpenMetadata** | http://localhost:8585 | Metadata governance catalog |
 
 ---
@@ -228,6 +246,9 @@ make dbt-test
 | **RAG API** | — | 8002 | FastAPI RAG orchestration service |
 | **Embedding Service** | — | 8001 | all-MiniLM-L6-v2 text embeddings |
 | **AI Chat UI** | — | 8501 | Streamlit natural language query interface |
+| **OLM-Guard** | llama-guard3:8b | — | Input/output safety validation (Llama Guard 3) |
+| **RAGAS** | — | — | RAG quality evaluation (faithfulness, relevancy, precision) |
+| **OOC-Guard** | 0.1.0 | 8003 | Ontology contract validator (Syntax → OWL 2 → SHACL) |
 
 ### Architecture Diagrams
 
@@ -330,24 +351,24 @@ This project provides complete documentation in **18 languages**, covering **5.2
 
 | Language | Documentation | Data Generation | Native Speakers |
 |----------|---------------|-----------------|-----------------|
-| 🇬🇧 English | [README.md](README.md) | `--language en` | 1.5B |
-| 🇫🇷 Français | [docs/i18n/fr/](docs/i18n/fr/README.md) | `--language fr` | 280M |
-| 🇪🇸 Español | [docs/i18n/es/](docs/i18n/es/README.md) | `--language es` | 559M |
-| 🇵🇹 Português | [docs/i18n/pt/](docs/i18n/pt/README.md) | `--language pt` | 264M |
-| 🇸🇦 العربية | [docs/i18n/ar/](docs/i18n/ar/README.md) | `--language ar` | 422M |
-| 🇨🇳 中文 | [docs/i18n/cn/](docs/i18n/cn/README.md) | `--language cn` | 1.3B |
-| 🇯🇵 日本語 | [docs/i18n/jp/](docs/i18n/jp/README.md) | `--language jp` | 125M |
-| 🇷🇺 Русский | [docs/i18n/ru/](docs/i18n/ru/README.md) | `--language ru` | 258M |
-| 🇩🇪 Deutsch | [docs/i18n/de/](docs/i18n/de/README.md) | `--language de` | 134M |
-| 🇰🇷 한국어 | [docs/i18n/ko/](docs/i18n/ko/README.md) | `--language ko` | 81M |
-| 🇮🇳 हिन्दी | [docs/i18n/hi/](docs/i18n/hi/README.md) | `--language hi` | 602M |
-| 🇮🇩 Indonesia | [docs/i18n/id/](docs/i18n/id/README.md) | `--language id` | 199M |
-| 🇹🇷 Türkçe | [docs/i18n/tr/](docs/i18n/tr/README.md) | `--language tr` | 88M |
-| 🇻🇳 Tiếng Việt | [docs/i18n/vi/](docs/i18n/vi/README.md) | `--language vi` | 85M |
-| 🇮🇹 Italiano | [docs/i18n/it/](docs/i18n/it/README.md) | `--language it` | 85M |
-| 🇳🇱 Nederlands | [docs/i18n/nl/](docs/i18n/nl/README.md) | `--language nl` | 25M |
-| 🇵🇱 Polski | [docs/i18n/pl/](docs/i18n/pl/README.md) | `--language pl` | 45M |
-| 🇸🇪 Svenska | [docs/i18n/se/](docs/i18n/se/README.md) | `--language se` | 13M |
+| English | [README.md](README.md) | `--language en` | 1.5B |
+| Français | [docs/i18n/fr/](docs/i18n/fr/README.md) | `--language fr` | 280M |
+| Español | [docs/i18n/es/](docs/i18n/es/README.md) | `--language es` | 559M |
+| Português | [docs/i18n/pt/](docs/i18n/pt/README.md) | `--language pt` | 264M |
+| العربية | [docs/i18n/ar/](docs/i18n/ar/README.md) | `--language ar` | 422M |
+| 中文 | [docs/i18n/cn/](docs/i18n/cn/README.md) | `--language cn` | 1.3B |
+| 日本語 | [docs/i18n/jp/](docs/i18n/jp/README.md) | `--language jp` | 125M |
+| Русский | [docs/i18n/ru/](docs/i18n/ru/README.md) | `--language ru` | 258M |
+| Deutsch | [docs/i18n/de/](docs/i18n/de/README.md) | `--language de` | 134M |
+| 한국어 | [docs/i18n/ko/](docs/i18n/ko/README.md) | `--language ko` | 81M |
+| हिन्दी | [docs/i18n/hi/](docs/i18n/hi/README.md) | `--language hi` | 602M |
+| Indonesia | [docs/i18n/id/](docs/i18n/id/README.md) | `--language id` | 199M |
+| Türkçe | [docs/i18n/tr/](docs/i18n/tr/README.md) | `--language tr` | 88M |
+| Tiếng Việt | [docs/i18n/vi/](docs/i18n/vi/README.md) | `--language vi` | 85M |
+| Italiano | [docs/i18n/it/](docs/i18n/it/README.md) | `--language it` | 85M |
+| Nederlands | [docs/i18n/nl/](docs/i18n/nl/README.md) | `--language nl` | 25M |
+| Polski | [docs/i18n/pl/](docs/i18n/pl/README.md) | `--language pl` | 45M |
+| Svenska | [docs/i18n/se/](docs/i18n/se/README.md) | `--language se` | 13M |
 
 ### Generate Multilingual Test Data
 
@@ -366,7 +387,7 @@ Configuration: [config/i18n/config.json](config/i18n/config.json)
 
 ---
 
-## 🤖 AI-Powered Data Insights
+## AI-Powered Data Insights
 
 The platform includes a complete **AI/LLM stack** for natural language data querying and insights.
 
@@ -387,7 +408,7 @@ The platform includes a complete **AI/LLM stack** for natural language data quer
    - Click "Choose files to upload"
    - Select PDF, Word, Excel, CSV, or other files
    - Add optional tags/source
-   - Click "🚀 Upload & Ingest Documents"
+   - Click "Upload & Ingest Documents"
    
    Option 2: From Database
    Table: customers
@@ -566,7 +587,7 @@ dbt Tests: 21/21 passing
 Dashboards: 3 active
 Languages: 18 supported (5.2B+ people coverage)
 Documentation: Complete in 18 languages
-Status: Production Ready — v4.0.0
+Status: Production Ready — v4.3.0
 ```
 
 ---
@@ -609,9 +630,11 @@ ArcaP/
 │   └── dbt_project.yml
 │
 ├── ai-services/                    # AI stack
-│   ├── rag-api/                    # FastAPI RAG orchestration
+│   ├── rag-api/                    # FastAPI RAG orchestration + OLM-Guard + RAGAS
 │   ├── embedding/                  # Text embedding service
-│   └── chat-ui/                    # Streamlit AI chat interface
+│   ├── chat-ui/                    # Streamlit AI chat interface
+│   ├── ollama/                     # Local LLM server models
+│   └── ooc-guard/                  # Ontology contract validator (OLM, 3-layer)
 │
 ├── openmetadata/                   # Governance integration
 ├── k8s/                            # Kubernetes / Helm deployment
@@ -671,23 +694,23 @@ Built with enterprise-grade open-source technologies:
 
 ---
 
-## 📧 Contact
+## Contact
 
 **Author:** Mustapha Fonsau
-- 🏢 **Organization:** [Talentys](https://talentys.eu) | [LinkedIn](https://www.linkedin.com/company/talentysdata)
-- 💼 **LinkedIn:** [linkedin.com/in/mustapha-fonsau](https://www.linkedin.com/in/mustapha-fonsau/)
-- 🐙 **GitHub:** [github.com/Monsau](https://github.com/Monsau)
-- 📧 **Email:** mfonsau@talentys.eu
+- **Organization:** [Talentys](https://talentys.eu) | [LinkedIn](https://www.linkedin.com/company/talentysdata)
+- **LinkedIn:** [linkedin.com/in/mustapha-fonsau](https://www.linkedin.com/in/mustapha-fonsau/)
+- **GitHub:** [github.com/Monsau](https://github.com/Monsau)
+- **Email:** mfonsau@talentys.eu
 
 ## Support
 
 For technical assistance:
-- 📚 **Documentation:** [docs/i18n/](docs/i18n/)
-- 🐛 **Issue Tracker:** [GitHub Issues](https://github.com/Monsau/ArcaP/issues)
-- 💬 **Discussions:** [GitHub Discussions](https://github.com/Monsau/ArcaP/discussions)
+- **Documentation:** [docs/i18n/](docs/i18n/)
+- **Issue Tracker:** [GitHub Issues](https://github.com/Monsau/ArcaP/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/Monsau/ArcaP/discussions)
 
 ---
 
-**Version 4.1.0** | **2026-05-20** | **Production Ready**
+**Version 4.3.0** | **2026-05-20** | **Production Ready**
 
-Made with ❤️ by [Mustapha Fonsau](https://www.linkedin.com/in/mustapha-fonsau/) at [Talentys](https://talentys.eu) — [LinkedIn Talentys](https://www.linkedin.com/company/talentysdata) · [LinkedIn Mustapha](https://www.linkedin.com/in/mustapha-fonsau/)
+Made by [Mustapha Fonsau](https://www.linkedin.com/in/mustapha-fonsau/) at [Talentys](https://talentys.eu) — [LinkedIn Talentys](https://www.linkedin.com/company/talentysdata) · [LinkedIn Mustapha](https://www.linkedin.com/in/mustapha-fonsau/)
