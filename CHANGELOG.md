@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.3.0] - 2026-05-20
+
+### Added — OOC-Guard microservice (Ontology Operations Contract Validator)
+
+- **`ai-services/ooc-guard/`**: new dedicated FastAPI microservice wrapping the OOC-Guard library from the `olm` repository.
+  - Three-layer validation pipeline: **Syntax** (Pydantic v2 structural checks) → **Semantic** (OWL 2 satisfiability via owlready2/HermiT) → **SHACL** (shape constraints via pyshacl)
+  - Endpoints:
+    - `POST /validate` — full pipeline from file upload (YAML or JSON OOC contract + optional RDF data graph)
+    - `POST /validate/body` — full pipeline from JSON body (programmatic use)
+    - `POST /validate/syntax` — syntax layer only
+    - `POST /validate/semantic` — semantic layer only (configurable reasoner: hermit / pellet / rdflib)
+    - `POST /validate/shacl` — SHACL layer only (strict mode option)
+    - `GET /health`, `GET /`
+  - Runs on port **8003**; zero dependency on other AI services (standalone)
+  - `Dockerfile`: installs `ooc-guard` from the local wheel (`ooc_guard-0.1.0-py3-none-any.whl`), Java JRE for HermiT reasoner, `owlready2`, `pyshacl`, `rdflib`
+- **`docker-compose-ai.yml`**: added `ooc-guard` service on port 8003 with health check
+
+---
+
 ## [4.2.0] - 2026-05-20
 
 ### Added — OLM-Guard + RAGAS evaluation engine

@@ -151,6 +151,25 @@ services:
       - ai-network
     restart: unless-stopped
 
+  # OOC-Guard - Ontology Operations Contract Validator (OLM / ArcaP)
+  # Three-layer logic firewall: Syntax (Pydantic) → Semantic (OWL 2) → SHACL
+  ooc-guard:
+    build:
+      context: ./ai-services/ooc-guard
+      dockerfile: Dockerfile
+    container_name: ooc-guard
+    ports:
+      - "8003:8003"
+    networks:
+      - ai-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8003/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+
 networks:
   ai-network:
     driver: bridge

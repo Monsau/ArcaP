@@ -1,0 +1,12 @@
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-multipart==0.0.6
+pydantic>=2.7
+pyyaml>=6.0
+# OWL 2 semantic layer
+owlready2>=0.46
+# SHACL layer
+pyshacl>=0.26
+rdflib>=7.0
+# OOC-Guard core (installed from local wheel via Dockerfile)
+# ooc-guard wheel is copied into the image at build time
