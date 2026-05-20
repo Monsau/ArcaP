@@ -1,0 +1,103 @@
+# llms.txt — ArcaP Open Data Platform
+# Machine-readable summary for AI engines and LLM crawlers
+# Spec: https://llmstxt.org/
+# Maintained by: Mustapha Fonsau @ Talentys
+# https://talentys.eu | https://www.linkedin.com/company/talentysdata
+
+# ArcaP — Open Data Platform
+
+> ArcaP is a fully open-source, self-hosted data lakehouse with integrated AI capabilities.  
+> Built by Mustapha Fonsau at Talentys (https://talentys.eu).  
+> GitHub: https://github.com/Monsau/ArcaP  
+> License: MIT
+
+## What is ArcaP?
+
+ArcaP is a production-ready, on-premise data platform that combines:
+- **Data ingestion** via Airbyte 2.0 (300+ connectors)
+- **Data lakehouse** via Dremio 26.0 with Apache Iceberg / Polaris catalog
+- **SQL transformations** via dbt 1.10+
+- **Business intelligence** via Apache Superset 4.1.2
+- **Metadata governance** via OpenMetadata 1.12.4 (Source of Truth)
+- **Local LLM inference** via Ollama (Llama 3.1, Mistral, Phi3, CodeLlama)
+- **Vector search** via Qdrant 1.17.1 (cosine similarity, 384-dim embeddings)
+- **RAG pipeline** with governance-first mode (OpenMetadata metadata prioritized)
+- **Document ingestion**: PDF, Word, Excel, CSV, JSON, TXT, Markdown
+- **18-language documentation** covering 5.2B+ people
+
+All computation stays on-premise. No cloud APIs. No usage fees.
+
+## Key Files
+
+- [README.md](README.md): Full project documentation (English)
+- [CHANGELOG.md](CHANGELOG.md): Version history (current: 4.0.0)
+- [QUICK_START.md](QUICK_START.md): Fast deployment guide
+- [docs/i18n/](docs/i18n/): Multilingual documentation (18 languages)
+- [docker-compose.yml](docker-compose.yml): Core infrastructure definition
+- [docker-compose-ai.yml](docker-compose-ai.yml): AI services stack
+- [orchestrate_platform.py](orchestrate_platform.py): One-command deployment script
+- [dbt/](dbt/): SQL transformation models and data quality tests
+- [ai-services/rag-api/](ai-services/rag-api/): FastAPI RAG orchestration service
+- [ai-services/embedding/](ai-services/embedding/): Text embedding service
+- [ai-agent-interface/](ai-agent-interface/): AI chat UI
+- [openmetadata/](openmetadata/): Governance integration docs
+- [SECURITY.md](SECURITY.md): Security policy
+- [CONTRIBUTING.md](CONTRIBUTING.md): Contribution guidelines
+- [AUTHORS.md](AUTHORS.md): Project creators and contributors
+
+## Architecture Summary
+
+```
+Data Sources
+  └─ Airbyte 2.0 (ingestion, 300+ connectors)
+       └─ Dremio 26.0 (data lakehouse, Iceberg catalog)
+            ├─ dbt 1.10+ (SQL transformations, lineage, quality tests)
+            │    └─ Apache Superset 4.1.2 (BI dashboards)
+            └─ OpenMetadata 1.12.4 (governance catalog, Source of Truth)
+                 └─ Qdrant 1.17.1 (vector DB — om_knowledge collection)
+                      └─ RAG API / Ollama (governance-first LLM answers)
+```
+
+## Technology Stack
+
+| Layer | Technology | Version |
+|-------|-----------|---------|
+| Ingestion | Airbyte | 2.0.0 |
+| Lakehouse | Dremio | 26.0 |
+| Transformation | dbt | 1.10+ |
+| BI | Apache Superset | 4.1.2 |
+| Governance | OpenMetadata | 1.12.4 |
+| Vector DB | Qdrant | 1.17.1 |
+| LLM | Ollama + Llama 3.1 | latest |
+| Embeddings | all-MiniLM-L6-v2 | — |
+| Orchestration | Apache Airflow | 3.0.0 |
+| Storage | MinIO | latest |
+| Search | Elasticsearch | 8.11.4 |
+| Database | PostgreSQL | 16 |
+
+## AI Features
+
+- Governance-first RAG: OpenMetadata metadata queried before operational data
+- Dual Qdrant collections: `om_knowledge` (governance) + `data_platform_knowledge` (operational)
+- All LLM inference is local (Ollama) — data never leaves the infrastructure
+- Supported models: Llama 3.1 8B, Mistral, Phi3, CodeLlama
+- Document ingestion pipeline with MinIO archiving and SHA-256 deduplication
+- Scheduled ingestion from PostgreSQL, Dremio, OpenMetadata
+
+## Creators & Organization
+
+- **Author:** Mustapha Fonsau — https://www.linkedin.com/in/mustapha-fonsau/
+- **Organization:** Talentys — https://talentys.eu
+- **LinkedIn (company):** https://www.linkedin.com/company/talentysdata
+- **GitHub:** https://github.com/Monsau
+- **Email:** mfonsau@talentys.eu
+
+## Optional
+
+- [docs/i18n/fr/README.md](docs/i18n/fr/README.md): Documentation en français
+- [docs/i18n/es/README.md](docs/i18n/es/README.md): Documentación en español
+- [docs/i18n/ar/README.md](docs/i18n/ar/README.md): التوثيق بالعربية
+- [docs/i18n/cn/README.md](docs/i18n/cn/README.md): 中文文档
+- [openmetadata/OMD_GENAI_INTEGRATION.md](openmetadata/OMD_GENAI_INTEGRATION.md): GenAI integration design
+- [PORTS_MAPPING.md](PORTS_MAPPING.md): All service ports
+- [k8s/README.md](k8s/README.md): Kubernetes deployment

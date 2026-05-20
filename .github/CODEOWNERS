@@ -1,0 +1,28 @@
+# ArcaP — CODEOWNERS
+# Mustapha Fonsau @ Talentys
+# https://www.linkedin.com/in/mustapha-fonsau/
+# https://www.linkedin.com/company/talentysdata
+
+# Global owner — all files
+* @Monsau
+
+# Data Platform core
+docker-compose*.yml @Monsau
+Makefile @Monsau
+orchestrate_platform.py @Monsau
+
+# dbt
+dbt/ @Monsau
+
+# AI stack
+ai-services/ @Monsau
+ai-agent-interface/ @Monsau
+
+# Documentation
+docs/ @Monsau
+README.md @Monsau
+CHANGELOG.md @Monsau
+
+# Security & governance
+SECURITY.md @Monsau
+CREDENTIALS_STANDARDS.md @Monsau

@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [4.1.0] - 2026-05-20
+
+### Added — GitHub Data Platform & AIEO enrichment
+
+- **`.github/` structure**: issue templates (bug report, feature request), PR template with full checklist, `CODEOWNERS`, `FUNDING.yml` with Talentys / LinkedIn links
+- **CI workflow** (`.github/workflows/ci.yml`): Python lint (ruff), Docker Compose YAML validation, dbt parse, pip-audit dependency security scan
+- **`llms.txt`** at repository root — machine-readable summary for AI engines and LLM crawlers (llmstxt.org spec); covers architecture, tech stack, creator links
+- **`SECURITY.md`** — vulnerability reporting policy, supported versions table, response timeline, default credential warnings
+- **README enrichment**: LinkedIn Talentys badge + GitHub Stars badge; AI-readable abstract with GitHub Topics list; prominent Talentys org links throughout; "About this Project" section with maintainer table; updated Project Structure tree; version and date corrected (v4.0.0 / 2026-04-19 → v4.1.0 / 2026-05-20); Issue Tracker and Discussions URLs corrected to `Monsau/ArcaP`
+- **`CONTRIBUTING.md`**: fixed stale clone URLs (`data-plateforme-iso-opensource` / `openmetadata-dremio-connector` → `Monsau/ArcaP`)
+- **LinkedIn integration**: Talentys LinkedIn (`linkedin.com/company/talentysdata`) and author LinkedIn (`linkedin.com/in/mustapha-fonsau/`) linked consistently across README, AUTHORS, SECURITY, issue templates, PR template, CODEOWNERS, FUNDING, and llms.txt
+
+---
+
 ## [4.0.0] - 2026-04-19
 
 ### Migrated — Milvus → Qdrant

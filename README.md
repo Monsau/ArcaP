@@ -2,18 +2,24 @@
 
 A self-hosted data lakehouse with integrated AI capabilities: local LLM inference, RAG-based data querying, and metadata governance via OpenMetadata.
 
-[![Version](https://img.shields.io/badge/version-4.0.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-4.1.0-blue.svg)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/Python-3.11+-green.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Documentation](https://img.shields.io/badge/docs-18%20languages-success.svg)](docs/i18n/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Talentys-0A66C2?logo=linkedin)](https://www.linkedin.com/company/talentysdata)
+[![GitHub Stars](https://img.shields.io/github/stars/Monsau/ArcaP?style=social)](https://github.com/Monsau/ArcaP)
 
-**Created by:** [Mustapha Fonsau](https://www.linkedin.com/in/mustapha-fonsau/) | [GitHub](https://github.com/Monsau)
+**Created by:** [Mustapha Fonsau](https://www.linkedin.com/in/mustapha-fonsau/) at [Talentys](https://talentys.eu) | [GitHub](https://github.com/Monsau) | [LinkedIn Talentys](https://www.linkedin.com/company/talentysdata)
 
 <p align="center">
   <img src="assets/arcap-logo-dark.svg" alt="ArcaP — Open Data Platform" width="220"/>
   <br/>
-  <em>Open Data Platform · <a href="https://github.com/Monsau/ArcaP">github.com/Monsau/ArcaP</a> · <a href="https://www.linkedin.com/in/mustapha-fonsau/">LinkedIn</a></em>
+  <em>Open Data Platform · <a href="https://github.com/Monsau/ArcaP">github.com/Monsau/ArcaP</a> · <a href="https://www.linkedin.com/in/mustapha-fonsau/">LinkedIn Mustapha</a> · <a href="https://www.linkedin.com/company/talentysdata">LinkedIn Talentys</a></em>
 </p>
+
+> ArcaP is a **self-hosted, open-source Data Lakehouse** combining Airbyte, Dremio, dbt, Apache Superset, OpenMetadata and a fully local AI stack (Ollama + Qdrant + RAG API). All computation stays on-premise — no cloud APIs, no usage costs.
+>
+> **GitHub Topics:** `data-platform` `data-lakehouse` `airbyte` `dremio` `dbt` `superset` `openmetadata` `rag` `ollama` `qdrant` `local-llm` `mlops` `data-engineering` `self-hosted` `open-source`
 
 > 📖 **Main documentation in English.** Translations available in 17 additional languages below.
 
@@ -75,6 +81,32 @@ graph TB
 - Documents archived to MinIO before vector processing
 - Scheduled ingestion from PostgreSQL and Dremio
 - Fully on-premise — no cloud API calls, no usage fees
+
+---
+
+## About this Project
+
+**ArcaP** (Arc Data Platform) is built and maintained by [Mustapha Fonsau](https://www.linkedin.com/in/mustapha-fonsau/) at [**Talentys**](https://talentys.eu) — a Data Engineering & Analytics consultancy.
+
+| | |
+|---|---|
+| **Organization** | [Talentys](https://talentys.eu) |
+| **LinkedIn (company)** | [linkedin.com/company/talentysdata](https://www.linkedin.com/company/talentysdata) |
+| **LinkedIn (author)** | [linkedin.com/in/mustapha-fonsau](https://www.linkedin.com/in/mustapha-fonsau/) |
+| **GitHub** | [github.com/Monsau/ArcaP](https://github.com/Monsau/ArcaP) |
+| **License** | MIT |
+| **Current version** | 4.0.0 |
+
+### Why ArcaP?
+
+Most open data stacks require stitching together 10+ separate tools with no unified entry point. ArcaP delivers a **single Docker Compose setup** that wires all layers together — ingestion, storage, transformation, BI, governance, and AI — with sane defaults and one-command deployment.
+
+### Machine-readable discovery
+
+- [`llms.txt`](llms.txt) — structured summary for AI engines (LLM crawlers, RAG indexers)
+- [`SECURITY.md`](SECURITY.md) — vulnerability reporting policy
+- [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/) — standardized issue templates
+- [`.github/workflows/ci.yml`](.github/workflows/ci.yml) — automated CI (lint, YAML validation, security scan)
 
 ---
 
@@ -534,7 +566,7 @@ dbt Tests: 21/21 passing
 Dashboards: 3 active
 Languages: 18 supported (5.2B+ people coverage)
 Documentation: Complete in 18 languages
-Status: Production Ready - v1.0
+Status: Production Ready — v4.0.0
 ```
 
 ---
@@ -542,14 +574,22 @@ Status: Production Ready - v1.0
 ## Project Structure
 
 ```
-data-platform-iso-opensource/
+ArcaP/
 ├── README.md                       # This file
+├── llms.txt                        # AI/LLM engine discovery (AIEO)
 ├── AUTHORS.md                      # Project creators and contributors
 ├── CHANGELOG.md                    # Version history
 ├── CONTRIBUTING.md                 # Contribution guidelines
 ├── CODE_OF_CONDUCT.md              # Community guidelines
-├── SECURITY.md                     # Security policies
+├── SECURITY.md                     # Security policy and vulnerability reporting
 ├── LICENSE                         # MIT License
+│
+├── .github/                        # GitHub-specific files
+│   ├── ISSUE_TEMPLATE/             # Bug report & feature request templates
+│   ├── PULL_REQUEST_TEMPLATE.md    # PR checklist
+│   ├── CODEOWNERS                  # Code ownership
+│   ├── FUNDING.yml                 # Sponsorship links
+│   └── workflows/ci.yml            # CI: lint, YAML validate, security scan
 │
 ├── docs/                           # Documentation
 │   ├── i18n/                       # Multilingual docs (18 languages)
@@ -568,19 +608,16 @@ data-platform-iso-opensource/
 │   ├── tests/                      # Quality tests
 │   └── dbt_project.yml
 │
-├── reports/                        # Documentation reports
-│   ├── phase1/                     # Integration reports
-│   ├── phase2/                     # Data cleaning reports
-│   ├── phase3/                     # Quality testing reports
-│   ├── superset/                   # Dashboard guides
-│   └── integration/                # Integration guides
+├── ai-services/                    # AI stack
+│   ├── rag-api/                    # FastAPI RAG orchestration
+│   ├── embedding/                  # Text embedding service
+│   └── chat-ui/                    # Streamlit AI chat interface
 │
+├── openmetadata/                   # Governance integration
+├── k8s/                            # Kubernetes / Helm deployment
+├── airflow/                        # Workflow orchestration DAGs
 ├── scripts/                        # Automation scripts
-│   ├── orchestrate_platform.py
-│   ├── sync_dremio_realtime.py
-│   └── populate_superset.py
-│
-└── docker-compose.yml              # Infrastructure definition
+└── docker-compose*.yml             # Infrastructure definitions
 ```
 
 ---
@@ -646,10 +683,11 @@ Built with enterprise-grade open-source technologies:
 
 For technical assistance:
 - 📚 **Documentation:** [docs/i18n/](docs/i18n/)
-- 🐛 **Issue Tracker:** [GitHub Issues](https://github.com/Monsau/data-platform-iso-opensource/issues)
-- 💬 **Discussions:** [GitHub Discussions](https://github.com/Monsau/data-platform-iso-opensource/discussions)
+- 🐛 **Issue Tracker:** [GitHub Issues](https://github.com/Monsau/ArcaP/issues)
+- 💬 **Discussions:** [GitHub Discussions](https://github.com/Monsau/ArcaP/discussions)
 
 ---
 
+**Version 4.1.0** | **2026-05-20** | **Production Ready**
 
-Made by [Mustapha Fonsau](https://www.linkedin.com/in/mustapha-fonsau/) | Supported by [Talentys](https://talentys.eu) | [LinkedIn](https://www.linkedin.com/company/talentysdata)
+Made with ❤️ by [Mustapha Fonsau](https://www.linkedin.com/in/mustapha-fonsau/) at [Talentys](https://talentys.eu) — [LinkedIn Talentys](https://www.linkedin.com/company/talentysdata) · [LinkedIn Mustapha](https://www.linkedin.com/in/mustapha-fonsau/)

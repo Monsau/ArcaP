@@ -103,6 +103,8 @@ openmetadata/
 # Exclude temporary reports and status files
 *_REPORT.json
 *_REPORT.md
+# Keep GitHub issue templates even if they match *_REPORT.md
+!.github/**/*_REPORT.md
 *_COMPLETE.md
 *_FIX.md
 *_STATUS.md

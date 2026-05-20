@@ -27,8 +27,8 @@ We welcome contributions from the community! Here's how you can help:
 
 1. **Fork the repository**
    ```bash
-   git clone https://github.com/Monsau/data-plateforme-iso-opensource.git
-   cd data-plateforme-iso-opensource
+   git clone https://github.com/Monsau/ArcaP.git
+   cd ArcaP
    ```
 
 2. **Create a feature branch**
@@ -96,9 +96,8 @@ Use conventional commits:
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/openmetadata-dremio-connector.git
-cd openmetadata-dremio-connector
-
+   git clone https://github.com/Monsau/ArcaP.git
+   cd ArcaP
 # Create virtual environment
 python -m venv venv
 source venv/bin/activate
@@ -150,8 +149,8 @@ Nous accueillons les contributions de la communauté ! Voici comment vous pouvez
 
 1. **Forker le dépôt**
    ```bash
-   git clone https://github.com/yourusername/openmetadata-dremio-connector.git
-   cd openmetadata-dremio-connector
+   git clone https://github.com/Monsau/ArcaP.git
+   cd ArcaP
    ```
 
 2. **Créer une branche feature**

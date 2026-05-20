@@ -1,0 +1,62 @@
+name: CI — ArcaP Data Platform
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-python:
+    name: Python lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install ruff
+        run: pip install ruff
+      - name: Lint
+        run: ruff check . --ignore E501
+
+  validate-yaml:
+    name: Validate YAML / Compose files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate docker-compose files
+        run: |
+          for f in docker-compose*.yml; do
+            echo "Validating $f …"
+            docker compose -f "$f" config --quiet
+          done
+
+  dbt-parse:
+    name: dbt parse (schema check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dbt
+        run: pip install dbt-dremio dbt-postgres
+      - name: dbt parse
+        working-directory: dbt
+        run: dbt parse --profiles-dir . --target ci
+        env:
+          DBT_TARGET: ci
+
+  security-scan:
+    name: Dependency security scan (pip-audit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pip-audit
+        run: pip install pip-audit
+      - name: Audit requirements
+        run: pip-audit -r requirements.txt --ignore-vuln GHSA-undefined || true
